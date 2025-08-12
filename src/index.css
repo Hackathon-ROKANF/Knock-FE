@@ -11,4 +11,18 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Knock 앱 커스텀 컬러 */
+  --color-primary: #165ee0;
+}
+
+/* 커스텀 컬러 유틸리티 클래스 */
+@layer utilities {
+  /* Primary Colors */
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .text-primary {
+    color: var(--color-primary);
+  }
 }
