@@ -1,33 +1,29 @@
-
+import SuspiciousScannerHeroLite from './SuspiciousScanner'
 
 export default function DesktopContent() {
+  const lines = ['갑구: 가압류 및 가처분 기록 존재', '을구: 근저당권 설정(某은행) 채권최고액 2.5억', '전세가율 92% — 깡통전세 의심']
+  const suspects = ['가압류', '가처분', '근저당', '근저당권', '깡통전세', '전세가율']
+
   return (
-    <div className='p-8 bg-gray-50'>
-      <div className='space-y-6'>
-        <div className='p-6 bg-primary-light/20 rounded-lg border border-primary-light'>
-          <h3 className='text-lg font-semibold text-primary-dark mb-2'>데스크톱 전용 영역</h3>
-          <p className='text-primary'>PC에서만 보이는 추가 기능들을 여기에 배치할 수 있습니다.</p>
+    <div className='p-8 bg-gray-50 min-h-screen'>
+      <div className='max-w-6xl mx-auto space-y-8'>
+        {/* Hero Section with Scanner */}
+        <div className='bg-white p-8 rounded-xl shadow-lg border border-gray-200'>
+          <h1 className='text-3xl font-bold text-center mb-8 text-gray-900'></h1>
         </div>
 
-        <nav className='space-y-2'>
-          <h4 className='font-semibold text-neutral-dark'>메뉴</h4>
-          <button className='block w-full text-left p-3 bg-neutral-light rounded hover:bg-primary-light/20 transition-colors'>대시보드</button>
-          <button className='block w-full text-left p-3 bg-neutral-light rounded hover:bg-primary-light/20 transition-colors'>분석</button>
-          <button className='block w-full text-left p-3 bg-neutral-light rounded hover:bg-primary-light/20 transition-colors'>설정</button>
-        </nav>
-
-        <div className='p-4 bg-secondary-light/20 rounded-lg border border-secondary-light'>
-          <h4 className='font-semibold text-secondary-dark mb-2'>통계</h4>
-          <div className='grid grid-cols-2 gap-4'>
-            <div className='text-center'>
-              <p className='text-2xl font-bold text-secondary'>42</p>
-              <p className='text-sm text-neutral'>총 사용자</p>
-            </div>
-            <div className='text-center'>
-              <p className='text-2xl font-bold text-success'>98%</p>
-              <p className='text-sm text-neutral'>성공률</p>
-            </div>
-          </div>
+        <div className='flex justify-center'>
+          <SuspiciousScannerHeroLite
+            lines={lines}
+            suspects={suspects}
+            typeSpeedMs={60}
+            scanMs={2000}
+            highlightEachMs={600}
+            highlightGapMs={600}
+            pauseMs={300}
+            loop={true}
+            nowrap={true}
+          />
         </div>
       </div>
     </div>
