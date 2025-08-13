@@ -17,7 +17,6 @@
   --color-primary: #165ee0;
 }
 
-/* 커스텀 컬러 유틸리티 클래스 */
 @layer utilities {
   /* Primary Colors */
   .bg-primary {
@@ -26,4 +25,14 @@
   .text-primary {
     color: var(--color-primary);
   }
+
+  /* 스크롤바를 숨기는 새로운 유틸리티 클래스 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  /* 스캔 애니메이션 */
 }

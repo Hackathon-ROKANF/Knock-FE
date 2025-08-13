@@ -1,9 +1,9 @@
-import AppContent from '../components/AppContent'
+import MobileContent from '../components/MobileContent'
 
 export default function MobileLayout() {
   return (
     <div className='min-h-screen bg-white p-4'>
-      <AppContent />
+      <MobileContent />
     </div>
   )
 }
