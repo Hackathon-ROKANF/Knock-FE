@@ -1,9 +1,9 @@
-interface StepDotsProps {
+interface StepbarsProps {
   totalSteps: number
   currentStep: number
 }
 
-export default function PageStepbar({ totalSteps, currentStep }: StepDotsProps) {
+export default function PageStepbar({ totalSteps, currentStep }: StepbarsProps) {
   return (
     <div className='flex items-center justify-center gap-2'>
       {Array.from({ length: totalSteps }, (_, index) => (

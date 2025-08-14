@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
+import { usePageStepStore } from '../store/usePageStepStore'
 import { useUploadDeed } from '../hooks/useUploadDeed'
 import PdfDropbox from '../components/PdfDropbox'
 import PageStepbar from '../components/PageStepbar'
@@ -7,6 +8,7 @@ import PageStepbar from '../components/PageStepbar'
 export default function UploadPage() {
   const navigate = useNavigate()
   const { file, error } = useDeedUploadStore()
+  const { currentStep, totalSteps, nextStep } = usePageStepStore()
   const uploadMutation = useUploadDeed()
 
   const isValid = file && !error
@@ -22,6 +24,12 @@ export default function UploadPage() {
     } catch {
       // Error is handled by the mutation hook
     }
+  }
+
+  // 테스트용 핸들러
+  const handleTestProceed = () => {
+    nextStep() // 스텝 증가
+    navigate('/addInfo') // AddInfoPage로 이동
   }
 
   return (
@@ -56,17 +64,26 @@ export default function UploadPage() {
         {/* CTA Button */}
         <div>
           <PageStepbar
-            totalSteps={4}
-            currentStep={1}
+            totalSteps={totalSteps}
+            currentStep={currentStep}
           />
         </div>
         <div className='space-y-3'>
+          {/* 원래 버튼 */}
           <button
             onClick={handleProceed}
             disabled={!isValid || isUploading}
             className='w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
           >
             {isUploading ? '업로드 중...' : '위험도 체크하러 가기'}
+          </button>
+
+          {/* 테스트용 버튼 */}
+          <button
+            onClick={handleTestProceed}
+            className='w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+          >
+            테스트 버튼
           </button>
         </div>
 
