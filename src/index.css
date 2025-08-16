@@ -14,10 +14,19 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Knock 앱 커스텀 컬러 */
+
+  --color-mainfont: #212329;
+
   --color-primary: #165ee0;
 }
 
 @layer utilities {
+
+  /* Font Colors */
+  .text-mainfont {
+    color: var(--color-mainfont);
+  }
+
   /* Primary Colors */
   .bg-primary {
     background-color: var(--color-primary);

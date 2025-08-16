@@ -91,12 +91,12 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
 
   const getDropzoneClasses = () => {
     let classes =
-      'border-2 border-dashed rounded-xl bg-white shadow-sm transition-all duration-200 min-h-[180px] flex flex-col items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+      'flex flex-col justify-center items-center border-2 border-dashed rounded-xl transition-all duration-200 min-h-55 min-w-9/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 
     if (isUploading) {
       classes += ' cursor-not-allowed opacity-75'
     } else if (isDragOver) {
-      classes += ' ring-2 ring-cyan-400/60 bg-cyan-50 border-cyan-300'
+      classes += ' ring-2 ring-cyan-400/20 bg-cyan-50 border-cyan-300'
     } else if (error) {
       classes += ' border-red-300 hover:bg-red-50'
     } else {
@@ -107,7 +107,7 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
   }
 
   return (
-    <div className='relative'>
+    <div className='flex relative justify-center items-center '>
       <div
         className={getDropzoneClasses()}
         onClick={handleClick}
@@ -147,7 +147,7 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
                 d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
               />
             </svg>
-            <p className='font-medium text-gray-900 mb-1'>{file.name}</p>
+            <p className='font-medium text-mainfont mb-1'>{file.name}</p>
             <p className='text-sm text-gray-500 mb-3'>{formatBytes(file.size)}</p>
             <button
               onClick={handleReplaceFile}
@@ -172,9 +172,9 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
                 d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'
               />
             </svg>
-            <p className='text-lg font-medium text-gray-900 mb-2'>파일을 여기에 드래그하거나</p>
-            <p className='text-sm text-gray-500 mb-4'>클릭해서 선택하세요</p>
-            <p className='text-xs text-gray-400'>PDF 파일만 업로드 가능 (최대 {maxSizeMb}MB)</p>
+            <p className='text-lg font-medium text-mainfont mb-2'>파일을 업로드 해주세요</p>
+            <p className='text-sm text-gray-500 mb-4'>드래그하거나 클릭해주세요</p>
+            <p className='text-xs text-gray-400'>PDF 파일만 업로드 가능</p>
           </div>
         )}
 
@@ -189,14 +189,16 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
       </div>
 
       {error && (
-        <p
-          id='upload-error'
-          role='alert'
-          aria-live='polite'
-          className='mt-2 text-sm text-red-600'
-        >
-          {error}
-        </p>
+        <div className='absolute -top-10 left-0 right-0 flex justify-center'>
+          <p
+            id='upload-error'
+            role='alert'
+            aria-live='polite'
+            className='text-sm text-red-600 text-center bg-red-50 px-3 py-1 rounded-md'
+          >
+            {error}
+          </p>
+        </div>
       )}
     </div>
   )

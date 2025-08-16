@@ -32,7 +32,7 @@ export default function AddInfoPage() {
   const handleNext = () => {
     // 폼 유효성 검사 (선택적)
     const isValid = formData.deposit && formData.rent && formData.ownerName
-    
+
     if (isValid) {
       nextStep()
       // 다음 페이지로 이동 (임시로 result 페이지로)
@@ -40,25 +40,23 @@ export default function AddInfoPage() {
     }
   }
 
-  // 테스트용 핸들러
-  const handleTestNext = () => {
-    nextStep()
-    navigate('/result')
-  }
-
   const isFormValid = formData.deposit && formData.rent && formData.ownerName
 
   return (
-    <div className='container max-w mx-auto h-screen flex flex-col'>
-      {/* 상단 콘텐츠 영역 (80%) */}
-      <div className='flex-[8] flex flex-col px-4'>
+    <div className='container h-screen flex flex-col p-5'>
+
+      {/* 상단 콘텐츠 영역 (90%) */}
+      <div className='flex-[9]'>
         {/* 뒤로가기 버튼 */}
         <div className='pt-4 pb-2'>
           <BackButton to='/' />
         </div>
 
         {/* Title */}
-        <h1 className='text-2xl md:text-3xl font-bold text-center mb-8'>추가적인 정보를 입력해주세요</h1>
+        <h1 className='text-2xl md:text-3xl font-semibold text-mainfont text-left mb-15'>
+          추가적인 정보를 <br />
+          입력해주세요
+        </h1>
 
         {/* Form */}
         <div className='space-y-6'>
@@ -112,10 +110,10 @@ export default function AddInfoPage() {
         </div>
       </div>
 
-      {/* 하단 버튼 영역 (20%) */}
-      <div className='flex-[2] flex flex-col px-4'>
+      {/* 하단 버튼 영역 (10%) */}
+      <div className='flex-[1] flex flex-col mb-11'>
         {/* Step Indicator */}
-        <div className='mb-4'>
+        <div>
           <PageStepbar
             totalSteps={totalSteps}
             currentStep={currentStep}
@@ -123,7 +121,7 @@ export default function AddInfoPage() {
         </div>
 
         {/* CTA Button */}
-        <div className='space-y-3'>
+        <div className='mt-12.5'>
           {/* 원래 버튼 */}
           <button
             onClick={handleNext}
@@ -132,14 +130,7 @@ export default function AddInfoPage() {
           >
             다음
           </button>
-
-          {/* 테스트용 버튼 */}
-          <button
-            onClick={handleTestNext}
-            className='w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
-          >
-            🧪 테스트: 바로 다음 단계로
-          </button>
+   
         </div>
       </div>
     </div>
