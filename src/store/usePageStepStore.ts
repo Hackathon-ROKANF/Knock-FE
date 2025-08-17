@@ -11,7 +11,7 @@ interface PageStepState {
 
 export const usePageStepStore = create<PageStepState>((set, get) => ({
   currentStep: 1,
-  totalSteps: 4,
+  totalSteps: 3,
   setCurrentStep: (step: number) => set({ currentStep: step }),
   nextStep: () => {
     const { currentStep, totalSteps } = get()

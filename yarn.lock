@@ -142,6 +142,18 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lottiefiles/dotlottie-react@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.npmjs.org/@lottiefiles/dotlottie-react/-/dotlottie-react-0.15.0.tgz"
+  integrity sha512-2/yH3jR+CFTQgW40yZ1DvyEsBkb5MUVHfcNrobZifU86DmpOjOOurXfFbRotV3Y+C2KWZbujNLtzmlBqdbXKTg==
+  dependencies:
+    "@lottiefiles/dotlottie-web" "0.50.0"
+
+"@lottiefiles/dotlottie-web@0.50.0":
+  version "0.50.0"
+  resolved "https://registry.npmjs.org/@lottiefiles/dotlottie-web/-/dotlottie-web-0.50.0.tgz"
+  integrity sha512-l8mEWe+SZ76RKj2R8BiqU5Pc/q4aj6YTunXuXW/JLMjKVJEpefRE+E7d6CnZxSnpf36bvd1zGdopATzjJEHlgA==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -1260,7 +1272,7 @@ react-router@7.8.0:
     cookie "^1.0.1"
     set-cookie-parser "^2.6.0"
 
-"react@^18 || ^19", "react@^18.0.0 || ^19.0.0", react@^19.1.0, react@>=18, react@>=18.0.0:
+"react@^17 || ^18 || ^19", "react@^18 || ^19", "react@^18.0.0 || ^19.0.0", react@^19.1.0, react@>=18, react@>=18.0.0:
   version "19.1.0"
   resolved "https://registry.npmjs.org/react/-/react-19.1.0.tgz"
   integrity sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==

@@ -53,7 +53,7 @@ export default function AddInfoPage() {
         </div>
 
         {/* Title */}
-        <h1 className='text-2xl md:text-3xl font-semibold text-mainfont text-left mb-15'>
+        <h1 className='text-2xl leading-10 md:text-3xl font-semibold text-mainfont text-left mb-15'>
           추가적인 정보를 <br />
           입력해주세요
         </h1>
