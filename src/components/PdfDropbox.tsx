@@ -2,6 +2,9 @@ import { useRef, useState } from 'react'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
 import { formatBytes, validatePdfFile } from '../utils/format'
 
+import uploadIcon from '../assets/uploadIcon.svg'
+import checkIcon from '../assets/checkIcon.svg'
+
 interface DropzoneCardProps {
   maxSizeMb?: number
   isUploading?: boolean
@@ -96,7 +99,9 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
     if (isUploading) {
       classes += ' cursor-not-allowed opacity-75'
     } else if (isDragOver) {
-      classes += ' ring-2 ring-cyan-400/20 bg-cyan-50 border-cyan-300'
+      classes += ' ring-2 border-2'
+      // #165ee0 primary color
+      classes += ' bg-blue-50 border-blue-600 ring-blue-600/20'
     } else if (error) {
       classes += ' border-red-300 hover:bg-red-50'
     } else {
@@ -134,19 +139,12 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
 
         {file ? (
           <div className='text-center p-6'>
-            <svg
-              className='w-12 h-12 text-green-500 mx-auto mb-3'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
-              />
-            </svg>
+            <img
+              src={checkIcon}
+              alt='File Uploaded'
+              className='w-12 h-12 mx-auto mb-4'
+              style={{ filter: 'invert(19%) sepia(77%) saturate(4505%) hue-rotate(218deg) brightness(97%) contrast(83%)' }}
+            />
             <p className='font-medium text-mainfont mb-1'>{file.name}</p>
             <p className='text-sm text-gray-500 mb-3'>{formatBytes(file.size)}</p>
             <button
@@ -159,19 +157,12 @@ export default function DropzoneCard({ maxSizeMb = 20, isUploading = false }: Dr
           </div>
         ) : (
           <div className='text-center p-6'>
-            <svg
-              className='w-12 h-12 text-gray-400 mx-auto mb-4'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'
-              />
-            </svg>
+            <img
+              src={uploadIcon}
+              alt='Upload'
+              className='w-12 h-12 mx-auto mb-4'
+              style={{ filter: 'invert(73%) sepia(6%) saturate(10%) hue-rotate(316deg) brightness(87%) contrast(83%)' }}
+            />
             <p className='text-lg font-medium text-mainfont mb-2'>파일을 업로드 해주세요</p>
             <p className='text-sm text-gray-500 mb-4'>드래그하거나 클릭해주세요</p>
             <p className='text-xs text-gray-400'>PDF 파일만 업로드 가능</p>

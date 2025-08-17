@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { usePageStepStore } from '../store/usePageStepStore'
 
-import backIcon from '../assets/back.svg'
+import backIcon from '../assets/backIcon.svg'
 
 interface BackButtonProps {
   to?: string
