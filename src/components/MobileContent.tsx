@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import FirstPage from '../pages/FirstPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
-import AddInfoPage from '../pages/AddInfoPage'
 import ResultPage from '../pages/ResultPage'
 
 export default function MobileContent() {
@@ -20,10 +19,6 @@ export default function MobileContent() {
       <Route
         path='/loading'
         element={<LoadingPage />}
-      />
-      <Route
-        path='/addInfo'
-        element={<AddInfoPage />}
       />
       <Route
         path='/result'

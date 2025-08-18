@@ -131,7 +131,7 @@ export default function TypographyText({
                   token.suspicious ? (
                     <motion.span
                       key={i}
-                      initial={{ backgroundColor: 'rgba(255, 235, 59, 0)', color: 'inherit', y: 0 }}
+                      initial={{ backgroundColor: 'rgba(255, 235, 59, 0)', color: '#374151', y: 0 }}
                       animate={
                         phase === 'highlight' || phase === 'done'
                           ? {
@@ -139,7 +139,7 @@ export default function TypographyText({
                               backgroundColor: 'rgba(255, 235, 59, 0.4)',
                               color: '#b71c1c',
                             }
-                          : { y: 0, backgroundColor: 'rgba(255, 235, 59, 0)', color: 'inherit' }
+                          : { y: 0, backgroundColor: 'rgba(255, 235, 59, 0)', color: '#374151' }
                       }
                       transition={{
                         delay: phase === 'highlight' ? highlightDelay(i) : 0,

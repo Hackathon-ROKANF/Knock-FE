@@ -1,0 +1,4 @@
+export { default as UploadIcon } from './UploadIcon'
+export { default as CheckIcon } from './CheckIcon'
+export { default as BackIcon } from './BackIcon'
+export { default as DownIcon } from './DownIcon'

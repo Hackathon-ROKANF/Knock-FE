@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { usePageStepStore } from '../store/usePageStepStore'
-
-import backIcon from '../assets/backIcon.svg'
+import { BackIcon } from './icons'
 
 interface BackButtonProps {
   to?: string
@@ -11,15 +9,11 @@ interface BackButtonProps {
 
 export default function BackButton({ to, onClick, className = '' }: BackButtonProps) {
   const navigate = useNavigate()
-  const { prevStep } = usePageStepStore()
 
   const handleBack = () => {
     if (onClick) {
       onClick()
     }
-
-    // 이전 스텝으로 변경
-    prevStep()
 
     // 페이지 네비게이션
     if (to) {
@@ -33,10 +27,11 @@ export default function BackButton({ to, onClick, className = '' }: BackButtonPr
     <button
       onClick={handleBack}
       className={`flex items-center justify-center transition-colors ${className}`}
+      aria-label='뒤로가기'
     >
-      <img
-        src={backIcon}
-        alt='뒤로가기'
+      <BackIcon
+        size={24}
+        color='currentColor'
       />
     </button>
   )

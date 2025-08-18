@@ -1,21 +1,29 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import ScoreProgress from '../components/ScoreProgress'
 import ResultContent from '../components/ResultContent'
-
-import downIcon from '../assets/downIcon.svg'
+import { DownIcon } from '../components/icons'
+import { useDeedUploadStore } from '../store/useDeedUploadStore'
 
 export default function ResultPage() {
   const navigate = useNavigate()
+  const { analysisResult, clear } = useDeedUploadStore()
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollIconRef = useRef<HTMLDivElement>(null)
   const detailSectionRef = useRef<HTMLDivElement>(null)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [showContent, setShowContent] = useState(false)
 
-  // 임시 점수 - 실제로는 props나 상태에서 받아올 예정
-  const analysisScore = 75
+  // 분석 결과가 없으면 업로드 페이지로 리다이렉트
+  useEffect(() => {
+    if (!analysisResult) {
+      navigate('/upload')
+    }
+  }, [analysisResult, navigate])
+
+  // 분석 결과에서 점수 계산 (위험도를 점수로 변환)
+  const analysisScore = analysisResult ? Math.round(100 - parseFloat(analysisResult.risk_probability.replace('%', ''))) : 0
 
   const handleShowContent = () => {
     // 컨텐츠 표시
@@ -64,11 +72,10 @@ export default function ResultPage() {
           onClick={handleShowContent}
         >
           <div>클릭하여 자세한 분석 결과를 확인하세요</div>
-          <img
-            src={downIcon}
-            alt='Show content icon'
-            className=' hover:opacity-80 transition-opacity duration-200 hover:color-mainfont'
-            style={{ filter: 'invert(73%) sepia(6%) saturate(10%) hue-rotate(316deg) brightness(87%) contrast(83%)' }}
+          <DownIcon
+            size={35}
+            color='#9ca3af'
+            className='hover:opacity-80 transition-opacity duration-200'
           />
         </div>
 
@@ -92,7 +99,7 @@ export default function ResultPage() {
         {/* 액션 버튼 - 처음에는 완전히 숨김 */}
         {showContent && (
           <motion.div
-            className='mt-6'
+            className='mt-6 space-y-3'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
@@ -102,6 +109,16 @@ export default function ResultPage() {
               className='w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 text-lg'
             >
               전문가 매칭 받기
+            </button>
+
+            <button
+              onClick={() => {
+                clear()
+                navigate('/upload')
+              }}
+              className='w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-xl transition-all duration-200'
+            >
+              다른 등기부등본 분석하기
             </button>
           </motion.div>
         )}

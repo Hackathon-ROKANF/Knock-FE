@@ -8,7 +8,7 @@ export const formatBytes = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i]
 }
 
-export const validatePdfFile = (file: File, maxSizeMb: number = 20): string | null => {
+export const validatePdfFile = (file: File, maxSizeMb: number = 10): string | null => {
   // Check file type
   if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
     return 'PDF 파일만 업로드 가능합니다.'

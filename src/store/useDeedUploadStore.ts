@@ -1,10 +1,35 @@
 import { create } from 'zustand'
 
+interface AnalysisResult {
+  all_features: {
+    건축물_유형: string
+    과거_매매가: string
+    과거_전세가: string
+    과거_전세가율: string
+    근저당권_개수: string
+    근저당권_설정일_최근: string
+    매매가: string
+    선순위_채권_존재여부: string
+    신탁_등기여부: string
+    압류_가압류_개수: string
+    우선변제권_여부: string
+    전세가: string
+    전세가율: string
+    전입_가능여부: string
+    주소: string
+    채권최고액: string
+  }
+  analysis_summary: string
+  prediction: '위험' | '안전'
+  risk_probability: string
+}
+
 interface DeedUploadState {
   file: File | null
   error: string | null
   progress: number
-  uploadId: string | null
+  analysisResult: AnalysisResult | null
+  isAnalyzing: boolean
 }
 
 interface DeedUploadActions {
@@ -12,7 +37,8 @@ interface DeedUploadActions {
   clear: () => void
   setError: (msg: string | null) => void
   setProgress: (progress: number) => void
-  setUploadId: (id: string | null) => void
+  setAnalysisResult: (result: AnalysisResult | null) => void
+  setIsAnalyzing: (isAnalyzing: boolean) => void
 }
 
 type DeedUploadStore = DeedUploadState & DeedUploadActions
@@ -22,12 +48,21 @@ export const useDeedUploadStore = create<DeedUploadStore>((set) => ({
   file: null,
   error: null,
   progress: 0,
-  uploadId: null,
+  analysisResult: null,
+  isAnalyzing: false,
 
   // Actions
   setFile: (file) => set({ file, error: null }),
-  clear: () => set({ file: null, error: null, progress: 0, uploadId: null }),
+  clear: () =>
+    set({
+      file: null,
+      error: null,
+      progress: 0,
+      analysisResult: null,
+      isAnalyzing: false,
+    }),
   setError: (error) => set({ error }),
   setProgress: (progress) => set({ progress }),
-  setUploadId: (uploadId) => set({ uploadId }),
+  setAnalysisResult: (analysisResult) => set({ analysisResult }),
+  setIsAnalyzing: (isAnalyzing) => set({ isAnalyzing }),
 }))

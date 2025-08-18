@@ -9,7 +9,7 @@ interface ScoreProgressProps {
   className: string
 }
 
-export default function ScoreProgress({ score,  size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: ScoreProgressProps) {
+export default function ScoreProgress({ score, size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: ScoreProgressProps) {
   const [currentDisplayScore, setCurrentDisplayScore] = useState(0)
 
   // 원의 중심과 반지름 계산
@@ -63,10 +63,7 @@ export default function ScoreProgress({ score,  size = 200, strokeWidth = 12, an
 
   return (
     <div className={`flex flex-col items-center justify-center ${className}`}>
-      <div
-        className='relative'
-        style={{ width: size, height: size }}
-      >
+      <div className={`relative w-[${size}px] h-[${size}px]`}>
         {/* 배경 원 */}
         <svg
           width={size}

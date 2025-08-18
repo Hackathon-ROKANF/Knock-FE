@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import LogoDoubleBlue from '../assets/LogoDouble_blue.png'
+import LogoDouble from '../assets/LogoDouble.png'
 
 export default function FirstPage() {
   const [showSplash, setShowSplash] = useState(true)
@@ -45,7 +45,7 @@ export default function FirstPage() {
               }}
             >
               <motion.img
-                src={LogoDoubleBlue}
+                src={LogoDouble}
                 alt="Knock Logo"
                 className="max-w-xs md:max-w-md lg:max-w-lg h-auto"
                 initial={{ y: 20, opacity: 0 }}
