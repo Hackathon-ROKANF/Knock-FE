@@ -3,14 +3,13 @@ import { motion, useMotionValue, useTransform, animate, useMotionValueEvent } fr
 
 interface ScoreProgressProps {
   score: number // 0-100 점수
-  maxScore?: number // 기본값 100
-  size?: number // 원의 크기 (px)
-  strokeWidth?: number // 선의 두께
-  animationDuration?: number // 애니메이션 지속시간 (초)
-  className?: string
+  size: number // 원의 크기 (px)
+  strokeWidth: number // 선의 두께
+  animationDuration: number // 애니메이션 지속시간 (초)
+  className: string
 }
 
-export default function ScoreProgress({ score, maxScore = 100, size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: ScoreProgressProps) {
+export default function ScoreProgress({ score,  size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: ScoreProgressProps) {
   const [currentDisplayScore, setCurrentDisplayScore] = useState(0)
 
   // 원의 중심과 반지름 계산
@@ -20,8 +19,8 @@ export default function ScoreProgress({ score, maxScore = 100, size = 200, strok
   // 원의 둘레 계산
   const circumference = 2 * Math.PI * radius
 
-  // 점수 비율 계산
-  const scorePercentage = Math.min(Math.max(score, 0), maxScore) / maxScore
+  // 점수 비율 계산 100 점 기준
+  const scorePercentage = Math.min(Math.max(score, 0), 100) / 100
 
   // Motion values for animations
   const pathLength = useMotionValue(0)

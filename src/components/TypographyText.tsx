@@ -13,7 +13,6 @@ interface Props {
   highlightGapMs?: number
   pauseMs?: number
   loop?: boolean
-  nowrap?: boolean
 }
 
 const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -52,7 +51,6 @@ export default function TypographyText({
   highlightGapMs = 400,
   pauseMs = 2500,
   loop = true,
-  nowrap = true,
 }: Props) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('typing')
@@ -115,7 +113,7 @@ export default function TypographyText({
       role='status'
       aria-live='polite'
       className={`relative text-gray-800 font-semibold tracking-wide leading-relaxed
-                  text-3xl md:text-4xl ${nowrap ? 'whitespace-nowrap' : ''}`}
+                  text-3xl `}
     >
       <AnimatePresence mode='wait'>
         <motion.div

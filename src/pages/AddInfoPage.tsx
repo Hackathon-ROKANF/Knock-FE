@@ -43,20 +43,16 @@ export default function AddInfoPage() {
   const isFormValid = formData.deposit && formData.rent && formData.ownerName
 
   return (
-    <div className='container h-screen flex flex-col p-5'>
-
-      {/* 상단 콘텐츠 영역 (90%) */}
-      <div className='flex-[9]'>
+    <div className='container max-w mx-auto h-screen flex flex-col'>
+      {/* 상단 콘텐츠 영역 (80%) */}
+      <div className='flex-[8] flex flex-col px-4'>
         {/* 뒤로가기 버튼 */}
         <div className='pt-4 pb-2'>
           <BackButton to='/' />
         </div>
 
         {/* Title */}
-        <h1 className='text-2xl leading-10 md:text-3xl font-semibold text-mainfont text-left mb-15'>
-          추가적인 정보를 <br />
-          입력해주세요
-        </h1>
+        <h1 className='text-2xl md:text-3xl font-bold text-center mb-8'>추가적인 정보를 입력해주세요</h1>
 
         {/* Form */}
         <div className='space-y-6'>
@@ -110,10 +106,10 @@ export default function AddInfoPage() {
         </div>
       </div>
 
-      {/* 하단 버튼 영역 (10%) */}
-      <div className='flex-[1] flex flex-col mb-11'>
+      {/* 하단 버튼 영역 (20%) */}
+      <div className='flex-[2] flex flex-col px-4'>
         {/* Step Indicator */}
-        <div>
+        <div className='mb-4'>
           <PageStepbar
             totalSteps={totalSteps}
             currentStep={currentStep}
@@ -121,16 +117,13 @@ export default function AddInfoPage() {
         </div>
 
         {/* CTA Button */}
-        <div className='mt-12.5'>
-          {/* 원래 버튼 */}
+        <div className='space-y-3'>
           <button
             onClick={handleNext}
             disabled={!isFormValid}
-            className='w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
           >
             다음
           </button>
-   
         </div>
       </div>
     </div>
