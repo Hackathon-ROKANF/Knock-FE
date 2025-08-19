@@ -126,7 +126,7 @@ export default function DropzoneCard({ maxSizeMb = 20 }: DropzoneCardProps) {
         <input
           ref={fileInputRef}
           type='file'
-          accept='.pdf,application/pdf'
+          accept='application/pdf,.pdf,*/*'
           onChange={handleFileSelect}
           className='hidden'
           disabled={isAnalyzing}
