@@ -1,6 +1,6 @@
 import LogoMain from '../assets/LogoMain.png'
 
-import TypographyText from './TypographyText'
+import TypographyText from '../components/TypographyText'
 
 export default function DesktopContent() {
   return (

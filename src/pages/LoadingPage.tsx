@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
+import PageHeader from '../components/PageHeader'
 
 const LOADING_MESSAGES = [
   'PDF 파일을 분석하는 중이에요',
@@ -67,16 +68,12 @@ export default function LoadingPage() {
   return (
     <div className='container h-screen flex flex-col p-6'>
       {/* 로딩 메시지 */}
-      <motion.div
-        className='text-center'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h1 className='text-2xl md:text-3xl font-semibold text-mainfont text-left mt-20 mb-[35%]'>
-          분석중이에요 <br /> 잠시만 기다려주세요
-        </h1>
-      </motion.div>
+      <PageHeader
+        title={'분석중이에요\n잠시만 기다려주세요'}
+        textAlign='left'
+        className='text-2xl md:text-3xl font-semibold text-mainfont text-left mt-20 mb-[35%]'
+        titleClassName='whitespace-pre-line'
+      />
 
       {/* Lottie 애니메이션 - 반응형 및 가운데 정렬 */}
       <motion.div

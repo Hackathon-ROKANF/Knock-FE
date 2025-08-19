@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import ScoreProgress from '../components/ScoreProgress'
-import ResultContent from '../components/ResultContent'
-import { DownIcon } from '../components/icons'
+import ResultContent from '../contents/ResultContent'
+import { DownIcon } from '../assets/icons'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
+import PageHeader from '../components/PageHeader'
+import Button from '../components/Button'
 
 export default function ResultPage() {
   const navigate = useNavigate()
@@ -68,11 +70,11 @@ export default function ResultPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        {/* 헤더 */}
-        <div className='text-2xl md:text-3xl font-semibold text-mainfont text-center mt-20 mb-[35%]'>
-          <h1 className=''>부동산 검토 결과입니다</h1>
-          <p className='text-lg text-gray-600'>분석이 완료되었어요</p>
-        </div>
+        {/* Page Header */}
+        <PageHeader
+          title='부동산 검토 결과입니다'
+          subtitle='분석이 완료되었어요'
+        />
 
         {/* 점수 섹션 */}
         <ScoreProgress
@@ -85,7 +87,7 @@ export default function ResultPage() {
 
         <div
           ref={scrollIconRef}
-          className={`flex flex-col text-center items-center cursor-pointer mb-[10%] transition-all duration-300 ${showContent ? 'opacity-50 pointer-events-none' : 'hover:scale-105'}`}
+          className={`flex flex-col text-center items-center cursor-pointer transition-all duration-300 ${showContent ? 'opacity-50 pointer-events-none' : 'hover:scale-105'}`}
           onClick={handleShowContent}
         >
           <div className='mb-2'>클릭하여 자세한 분석 결과를 확인하세요</div>
@@ -121,22 +123,22 @@ export default function ResultPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
           >
-            <button
+            <Button
               onClick={() => navigate('/')}
-              className='w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 text-lg'
+              variant='primary'
             >
               전문가 매칭 받기
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => {
                 clear()
                 navigate('/upload')
               }}
-              className='w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-xl transition-all duration-200'
+              variant='secondary'
             >
               다른 등기부등본 분석하기
-            </button>
+            </Button>
           </motion.div>
         )}
       </motion.div>

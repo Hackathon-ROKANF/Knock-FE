@@ -1,5 +1,5 @@
 import MobileLayout from './MobileLayout'
-import DesktopContent from '../components/DesktopContent'
+import DesktopContent from '../contents/DesktopContent'
 
 export default function DesktopLayout() {
   return (

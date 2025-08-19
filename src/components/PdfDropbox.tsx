@@ -1,13 +1,13 @@
 import { useRef, useState } from 'react'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
 import { formatBytes, validatePdfFile } from '../utils/format'
-import { UploadIcon, CheckIcon } from './icons'
+import { UploadIcon, CheckIcon } from '../assets/icons'
 
-interface DropzoneCardProps {
+interface PdfDropboxProps {
   maxSizeMb?: number
 }
 
-export default function DropzoneCard({ maxSizeMb = 20 }: DropzoneCardProps) {
+export default function PdfDropbox({ maxSizeMb = 20 }: PdfDropboxProps) {
   const { file, error, isAnalyzing, setFile, setError } = useDeedUploadStore()
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)

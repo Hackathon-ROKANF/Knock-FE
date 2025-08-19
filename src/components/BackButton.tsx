@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { BackIcon } from './icons'
+import { BackIcon } from '../assets/icons'
 
 interface BackButtonProps {
   to?: string

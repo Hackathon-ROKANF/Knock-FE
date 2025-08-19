@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-
+import ErrorPage from '../pages/ErrorPage'
 import FirstPage from '../pages/FirstPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
@@ -23,6 +23,10 @@ export default function MobileContent() {
       <Route
         path='/result'
         element={<ResultPage />}
+      />
+      <Route
+        path='/*'
+        element={<ErrorPage />}
       />
     </Routes>
   )

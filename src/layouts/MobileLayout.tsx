@@ -1,4 +1,4 @@
-import MobileContent from '../components/MobileContent'
+import MobileContent from '../contents/MobileContent'
 
 export default function MobileLayout() {
   return (
