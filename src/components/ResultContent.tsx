@@ -1,40 +1,58 @@
-interface ResultContentProps {
-  scrollProgress: number
-}
+import { useDeedUploadStore } from '../store/useDeedUploadStore'
 
-export default function ResultContent({ scrollProgress }: ResultContentProps) {
+export default function ResultContent() {
+  const { analysisResult } = useDeedUploadStore()
+
+  // 실제 분석 결과가 있을 때만 내용을 표시
+  if (!analysisResult) {
+    return <div className='text-center text-gray-500'>분석 결과를 불러오는 중...</div>
+  }
+
   return (
-    <div className='space-y-4'>
-      <div className='bg-blue-50 rounded-lg p-4'>
-        <h3 className='font-semibold text-primary mb-2'>표제부의 [가]는</h3>
-        <p className='text-mainfont'>
-          {scrollProgress > 0.3 ? '건축물의 구조와 용도, 면적 등의 기본 정보가 정확히 기재되어 있습니다. 현재 등기된 내용과 실제 사용 용도가 일치하는지 확인이 필요합니다.' : '분석 중...'}
+    <div className='space-y-4 w-full'>
+      <div className='bg-blue-50 rounded-lg p-4 min-h-[120px] flex flex-col'>
+        <h3 className='font-semibold text-primary mb-2'>분석 요약</h3>
+        <p className='text-mainfont flex-1'>{analysisResult.analysis_summary}</p>
+      </div>
+
+      <div className='bg-green-50 rounded-lg p-4 min-h-[100px] flex flex-col'>
+        <h3 className='font-semibold text-green-600 mb-2'>부동산 정보</h3>
+        <p className='text-mainfont flex-1'>
+          <span className='font-medium'>주소:</span> {analysisResult.all_features.주소}
+          <br />
+          <span className='font-medium'>건축물 유형:</span> {analysisResult.all_features.건축물_유형}
+          <br />
+          <span className='font-medium'>매매가:</span> {analysisResult.all_features.매매가}
         </p>
       </div>
 
-      <div className='bg-blue-50 rounded-lg p-4'>
-        <h3 className='font-semibold text-primary mb-2'>표제부의 [나]는</h3>
-        <p className='text-mainfont'>{scrollProgress > 0.4 ? '대지권의 목적인 토지의 표시 부분으로, 토지의 소유권 비율과 권리관계가 명확하게 설정되어 있습니다.' : '분석 중...'}</p>
-      </div>
-
-      <div className='bg-green-50 rounded-lg p-4'>
-        <h3 className='font-semibold text-green-600 mb-2'>소유권 현황</h3>
-        <p className='text-mainfont'>
-          {scrollProgress > 0.5 ? '현재 소유자의 권리관계가 명확하며, 가압류나 근저당 등의 제한사항은 발견되지 않았습니다. 안전한 거래가 가능한 상태로 판단됩니다.' : '분석 중...'}
+      <div className='bg-yellow-50 rounded-lg p-4 min-h-[100px] flex flex-col'>
+        <h3 className='font-semibold text-yellow-600 mb-2'>전세 정보</h3>
+        <p className='text-mainfont flex-1'>
+          <span className='font-medium'>전세가:</span> {analysisResult.all_features.전세가}
+          <br />
+          <span className='font-medium'>전세가율:</span> {analysisResult.all_features.전세가율}
+          <br />
+          <span className='font-medium'>전입 가능여부:</span> {analysisResult.all_features.전입_가능여부}
         </p>
       </div>
 
-      <div className='bg-yellow-50 rounded-lg p-4'>
-        <h3 className='font-semibold text-yellow-600 mb-2'>주의사항</h3>
-        <p className='text-mainfont'>
-          {scrollProgress > 0.6 ? '해당 부동산은 개발제한구역에 인접해 있어 향후 개발 시 일부 제약이 있을 수 있습니다. 자세한 사항은 해당 지자체 담당 부서에 문의하시기 바랍니다.' : '분석 중...'}
+      <div className='bg-red-50 rounded-lg p-4 min-h-[100px] flex flex-col'>
+        <h3 className='font-semibold text-red-600 mb-2'>위험 요소 확인</h3>
+        <p className='text-mainfont flex-1'>
+          <span className='font-medium'>근저당권 개수:</span> {analysisResult.all_features.근저당권_개수}
+          <br />
+          <span className='font-medium'>압류/가압류 개수:</span> {analysisResult.all_features.압류_가압류_개수}
+          <br />
+          <span className='font-medium'>신탁등기 여부:</span> {analysisResult.all_features.신탁_등기여부}
         </p>
       </div>
 
-      <div className='bg-red-50 rounded-lg p-4'>
-        <h3 className='font-semibold text-red-600 mb-2'>추가 확인 필요사항</h3>
-        <p className='text-mainfont'>
-          {scrollProgress > 0.7 ? '건축물 관련 인허가 사항과 실제 사용승인 내용의 일치 여부를 재확인해야 합니다. 또한 주변 개발계획에 따른 환경 변화도 고려하시기 바랍니다.' : '분석 중...'}
+      <div className='bg-purple-50 rounded-lg p-4 min-h-[80px] flex flex-col'>
+        <h3 className='font-semibold text-purple-600 mb-2'>최종 분석 결과</h3>
+        <p className='text-mainfont flex-1'>
+          <span className={`font-bold ${analysisResult.prediction === '안전' ? 'text-green-600' : 'text-red-600'}`}>{analysisResult.prediction}</span>
+          <span className='ml-2'>위험도: {analysisResult.risk_probability}</span>
         </p>
       </div>
     </div>

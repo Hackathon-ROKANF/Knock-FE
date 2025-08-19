@@ -12,14 +12,18 @@ export default function ResultPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollIconRef = useRef<HTMLDivElement>(null)
   const detailSectionRef = useRef<HTMLDivElement>(null)
-  const [scrollProgress, setScrollProgress] = useState(0)
   const [showContent, setShowContent] = useState(false)
 
-  // 분석 결과가 없으면 업로드 페이지로 리다이렉트
+  // 분석 결과가 없으면 업로드 페이지로 리다이렉트 (localStorage 확인 후)
   useEffect(() => {
-    if (!analysisResult) {
-      navigate('/upload')
-    }
+    // localStorage에서 분석 결과를 확인하고 약간의 지연을 둠
+    const timer = setTimeout(() => {
+      if (!analysisResult?.risk_probability) {
+        navigate('/upload')
+      }
+    }, 100) // 100ms 지연으로 localStorage 복원 대기
+
+    return () => clearTimeout(timer)
   }, [analysisResult, navigate])
 
   // 분석 결과에서 점수 계산 (위험도를 점수로 변환)
@@ -28,23 +32,36 @@ export default function ResultPage() {
   const handleShowContent = () => {
     // 컨텐츠 표시
     setShowContent(true)
-    setScrollProgress(1) // 모든 컨텐츠 즉시 표시
 
-    // 0.5초 후 상세 정보 섹션으로 스크롤
+    // 컨텐츠가 DOM에 렌더링된 후 스크롤 실행
     setTimeout(() => {
       if (detailSectionRef.current) {
-        detailSectionRef.current.scrollIntoView({
+        const elementTop = detailSectionRef.current.offsetTop
+        const offset = 20
+        const targetScrollTop = elementTop - offset
+
+        // 부드러운 스크롤로 ResultContent 영역으로 이동
+        window.scrollTo({
+          top: targetScrollTop,
           behavior: 'smooth',
-          block: 'start',
         })
+
+        // 대안으로 scrollIntoView도 함께 사용하여 안정성 확보
+        setTimeout(() => {
+          detailSectionRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          })
+        }, 100)
       }
-    }, 200)
+    }, 150)
   }
 
   return (
     <div
       ref={containerRef}
-      className='min-h-screen bg-white overflow-y-auto container p-6'
+      className='min-h-screen w-full bg-white overflow-x-hidden container p-6 mx-auto'
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -68,14 +85,14 @@ export default function ResultPage() {
 
         <div
           ref={scrollIconRef}
-          className='flex flex-col text-center items-center cursor-pointer mb-[10%]'
+          className={`flex flex-col text-center items-center cursor-pointer mb-[10%] transition-all duration-300 ${showContent ? 'opacity-50 pointer-events-none' : 'hover:scale-105'}`}
           onClick={handleShowContent}
         >
-          <div>클릭하여 자세한 분석 결과를 확인하세요</div>
+          <div className='mb-2'>클릭하여 자세한 분석 결과를 확인하세요</div>
           <DownIcon
             size={35}
             color='#9ca3af'
-            className='hover:opacity-80 transition-opacity duration-200'
+            className={`transition-all duration-300 ${showContent ? '' : 'animate-bounce'}`}
           />
         </div>
 
@@ -83,12 +100,12 @@ export default function ResultPage() {
         {showContent && (
           <motion.div
             ref={detailSectionRef}
-            className='mt-12'
-            initial={{ opacity: 0, y: 50 }}
+            className='mt-8'
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
           >
-            <ResultContent scrollProgress={scrollProgress} />
+            <ResultContent />
 
             <div className='mt-8 pt-6 border-t border-gray-200'>
               <p className='text-center text-gray-600 mb-6'>관심있는 부동산의 추가적인 정보가 필요하다면</p>
@@ -100,9 +117,9 @@ export default function ResultPage() {
         {showContent && (
           <motion.div
             className='mt-6 space-y-3'
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
           >
             <button
               onClick={() => navigate('/')}
