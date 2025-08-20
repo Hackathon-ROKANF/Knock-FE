@@ -21,15 +21,12 @@ export default function ResultPage() {
     // localStorage에서 분석 결과를 확인하고 약간의 지연을 둠
     const timer = setTimeout(() => {
       if (!analysisResult?.risk_probability) {
-        navigate('/upload')
+        navigate('/')
       }
     }, 100) // 100ms 지연으로 localStorage 복원 대기
 
     return () => clearTimeout(timer)
   }, [analysisResult, navigate])
-
-  // 분석 결과에서 점수 계산 (위험도를 점수로 변환)
-  const analysisScore = analysisResult ? Math.round(100 - parseFloat(analysisResult.risk_probability.replace('%', ''))) : 0
 
   const handleShowContent = () => {
     // 컨텐츠 표시
@@ -63,13 +60,11 @@ export default function ResultPage() {
   return (
     <div
       ref={containerRef}
-      className='min-h-screen w-full bg-white overflow-x-hidden container p-6 mx-auto'
-    >
+      className='min-h-screen w-full bg-white overflow-x-hidden container p-6 mx-auto'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+        transition={{ duration: 0.8 }}>
         {/* Page Header */}
         <PageHeader
           title='부동산 검토 결과입니다'
@@ -78,18 +73,18 @@ export default function ResultPage() {
 
         {/* 점수 섹션 */}
         <ScoreProgress
-          score={analysisScore}
+          prediction={analysisResult?.prediction || '주의'}
+          riskProbability={analysisResult?.risk_probability || '0%'}
           size={240}
           strokeWidth={14}
           animationDuration={2.5}
-          className='mb-[45%]'
+          className='mb-[40%]'
         />
 
         <div
           ref={scrollIconRef}
           className={`flex flex-col text-center items-center cursor-pointer transition-all duration-300 ${showContent ? 'opacity-50 pointer-events-none' : 'hover:scale-105'}`}
-          onClick={handleShowContent}
-        >
+          onClick={handleShowContent}>
           <div className='mb-2'>클릭하여 자세한 분석 결과를 확인하세요</div>
           <DownIcon
             size={35}
@@ -105,12 +100,12 @@ export default function ResultPage() {
             className='mt-8'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-          >
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}>
             <ResultContent />
 
             <div className='mt-8 pt-6 border-t border-gray-200'>
-              <p className='text-center text-gray-600 mb-6'>관심있는 부동산의 추가적인 정보가 필요하다면</p>
+              <p className='text-center text-gray-600 mb-2'>등기부등본 이외에도 고려할 사항이 많아요!</p>
+              <p className='text-center text-gray-600 mb-6'>자세한 사항은 전문가와 상담하는걸 추천해요</p>
             </div>
           </motion.div>
         )}
@@ -118,15 +113,13 @@ export default function ResultPage() {
         {/* 액션 버튼 - 처음에는 완전히 숨김 */}
         {showContent && (
           <motion.div
-            className='mt-6 space-y-3'
+            className='space-y-3'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          >
+            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}>
             <Button
-              onClick={() => navigate('/')}
-              variant='primary'
-            >
+              onClick={() => navigate('/expert')}
+              variant='primary'>
               전문가 매칭 받기
             </Button>
 
@@ -135,8 +128,7 @@ export default function ResultPage() {
                 clear()
                 navigate('/upload')
               }}
-              variant='secondary'
-            >
+              variant='secondary'>
               다른 등기부등본 분석하기
             </Button>
           </motion.div>

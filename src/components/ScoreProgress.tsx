@@ -1,16 +1,29 @@
-import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useTransform, animate, useMotionValueEvent } from 'framer-motion'
+import { useEffect } from 'react'
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 
 interface ScoreProgressProps {
-  score: number // 0-100 점수
+  prediction: '안전' | '관심' | '주의' | '위험' // 예측 결과
+  riskProbability: string // 위험도 확률 (예: "63.65%")
   size: number // 원의 크기 (px)
   strokeWidth: number // 선의 두께
   animationDuration: number // 애니메이션 지속시간 (초)
   className: string
 }
 
-export default function ScoreProgress({ score, size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: ScoreProgressProps) {
-  const [currentDisplayScore, setCurrentDisplayScore] = useState(0)
+export default function ScoreProgress({ riskProbability, size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: Omit<ScoreProgressProps, 'prediction'>) {
+  // 위험도 확률을 점수로 변환 (위험도가 낮을수록 높은 점수)
+  const riskPercentage = parseFloat(riskProbability.replace('%', ''))
+  const score = Math.round(100 - riskPercentage)
+
+  // 점수에 따른 예측 결과 계산
+  const getScorePrediction = (scoreValue: number) => {
+    if (scoreValue === 100) return '안전'
+    if (scoreValue >= 66) return '관심'
+    if (scoreValue >= 33) return '주의'
+    return '위험'
+  }
+
+  const calculatedPrediction = getScorePrediction(score)
 
   // 원의 중심과 반지름 계산
   const center = size / 2
@@ -24,42 +37,39 @@ export default function ScoreProgress({ score, size = 200, strokeWidth = 12, ani
 
   // Motion values for animations
   const pathLength = useMotionValue(0)
-  const animatedScore = useMotionValue(0)
 
   // Transform motion values
   const pathLengthSpring = useTransform(pathLength, [0, 1], [circumference, circumference - scorePercentage * circumference])
 
-  // Update display score when animation value changes
-  useMotionValueEvent(animatedScore, 'change', (latest) => {
-    setCurrentDisplayScore(Math.round(latest))
-  })
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Animate both progress bar and score simultaneously
+      // Animate progress bar
       animate(pathLength, 1, {
-        duration: animationDuration,
-        ease: 'easeOut',
-      })
-
-      animate(animatedScore, score, {
         duration: animationDuration,
         ease: 'easeOut',
       })
     }, 500) // 0.5초 후 시작
 
     return () => clearTimeout(timer)
-  }, [pathLength, animatedScore, score, animationDuration])
+  }, [pathLength, score, animationDuration])
 
-  // 점수에 따른 색상 결정
-  const getScoreColor = (currentScore: number) => {
-    if (currentScore >= 80) return '#10B981' // green-500
-    if (currentScore >= 60) return '#3B82F6' // blue-500
-    if (currentScore >= 40) return '#F59E0B' // amber-500
-    return '#EF4444' // red-500
+  // 점수에 따른 색상 결정 (예측 결과 기반)
+  const getPredictionColor = (pred: string) => {
+    switch (pred) {
+      case '안전':
+        return '#10B981' // green-500
+      case '관심':
+        return '#3B82F6' // blue-500
+      case '주의':
+        return '#F59E0B' // amber-500
+      case '위험':
+        return '#EF4444' // red-500
+      default:
+        return '#6B7280' // gray-500
+    }
   }
 
-  const currentColor = getScoreColor(score)
+  const currentColor = getPredictionColor(calculatedPrediction)
 
   return (
     <div className={`flex flex-col items-center justify-center ${className}`}>
@@ -68,8 +78,7 @@ export default function ScoreProgress({ score, size = 200, strokeWidth = 12, ani
         <svg
           width={size}
           height={size}
-          className='transform rotate-90 scale-x-[-1]'
-        >
+          className='transform rotate-90 scale-x-[-1]'>
           <circle
             cx={center}
             cy={center}
@@ -103,15 +112,13 @@ export default function ScoreProgress({ score, size = 200, strokeWidth = 12, ani
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className='text-center'
-          >
+            className='text-center'>
             <motion.div
-              className='text-4xl font-bold mb-1'
-              style={{ color: currentColor }}
-            >
-              <motion.span style={{ display: 'inline-block' }}>{currentDisplayScore}점</motion.span>
+              className='text-4xl font-bold mt-1 mb-1'
+              style={{ color: currentColor }}>
+              <motion.span style={{ display: 'inline-block' }}>{score}점</motion.span>
             </motion.div>
-            {/* <div className='text-sm text-gray-500'>{maxScore}점 만점</div> */}
+            {/* <div className='text-sm text-gray-500'>{calculatedPrediction}</div> */}
           </motion.div>
         </div>
       </div>
@@ -121,20 +128,18 @@ export default function ScoreProgress({ score, size = 200, strokeWidth = 12, ani
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.5 }}
-        className='mt-4 text-center'
-      >
+        className='mt-4 text-center'>
         <motion.div
           className='text-lg font-semibold text-gray-800 mb-1'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
-        >
-          {score >= 80 && '매우 우수'}
-          {score >= 60 && score < 80 && '우수'}
-          {score >= 40 && score < 60 && '보통'}
-          {score < 40 && '주의 필요'}
+          transition={{ delay: 1.5, duration: 0.5 }}>
+          {calculatedPrediction === '안전' && '매우 안전'}
+          {calculatedPrediction === '관심' && '관심 필요'}
+          {calculatedPrediction === '주의' && '주의 필요'}
+          {calculatedPrediction === '위험' && '위험'}
         </motion.div>
-        <div className='text-sm text-gray-600'>등기부등본 분석 결과</div>
+        {/* <div className='text-sm text-gray-600'>등기부등본 분석 결과</div> */}
       </motion.div>
     </div>
   )

@@ -54,7 +54,7 @@ export default function UploadPage() {
       </div>
 
       <motion.div
-        className='flex-[1] flex flex-col mb-11'
+        className='flex-[1] flex flex-col'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
