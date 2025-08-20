@@ -8,7 +8,8 @@ export default function DesktopContent() {
       <img
         src={LogoMain}
         alt='Knock Logo'
-        className='mb-4 max-w-[150px]'
+        onClick={() => window.location.href = '/'}
+        className='cursor-pointer mb-4 max-w-[150px]'
       />
       <div className='max-w-6xl mx-auto space-y-8'>
         <div className='flex'>

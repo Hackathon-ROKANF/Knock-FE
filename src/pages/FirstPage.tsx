@@ -15,17 +15,17 @@ export default function FirstPage() {
       setTimeout(() => {
         navigate('/upload')
       }, 800)
-    }, 3000)
+    }, 2500)
 
     return () => clearTimeout(timer)
   }, [navigate])
 
   return (
-    <div className="h-screen relative overflow-hidden">
+    <div className="min-h-screen w-full overflow-hidden ">
       <AnimatePresence>
         {showSplash && (
           <motion.div
-            className="absolute inset-0 bg-white flex items-center justify-center z-50"
+            className="flex items-center justify-center z-50"
             initial={{ x: 0 }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
@@ -35,7 +35,7 @@ export default function FirstPage() {
             }}
           >
             <motion.div
-              className="flex items-center justify-center"
+              className="flex items-center justify-center h-screen "
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{

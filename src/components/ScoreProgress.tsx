@@ -134,10 +134,10 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}>
-          {calculatedPrediction === '안전' && '매우 안전'}
-          {calculatedPrediction === '관심' && '관심 필요'}
-          {calculatedPrediction === '주의' && '주의 필요'}
-          {calculatedPrediction === '위험' && '위험'}
+          {calculatedPrediction === '안전' && '특별한 문제가 발견되지 않았어요'}
+          {calculatedPrediction === '관심' && '조금 더 살펴보시는 것을 권해요'}
+          {calculatedPrediction === '주의' && '전문가 상담을 받아보세요'}
+          {calculatedPrediction === '위험' && '신중한 검토가 필요해요'}
         </motion.div>
         {/* <div className='text-sm text-gray-600'>등기부등본 분석 결과</div> */}
       </motion.div>
