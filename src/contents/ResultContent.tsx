@@ -1,3 +1,4 @@
+
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
 
 export default function ResultContent() {
@@ -33,6 +34,7 @@ export default function ResultContent() {
     return parsedItems
   }
 
+
   const analysisItems = analysisResult ? parseAnalysisSummary(analysisResult.analysis_summary) : []
 
   // 실제 분석 결과가 있을 때만 내용을 표시
@@ -44,10 +46,10 @@ export default function ResultContent() {
     <div className='space-y-6 w-full p-3'>
       {/* 최종 분석 결과 - 맨 위로 이동 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>분석 결과</h3>
-        <div className='text-mainfont'>
-          <div className='mb-2'>
-            <span className={`font-bold text-xl ${analysisResult.prediction === '안전' ? 'text-green-600' : analysisResult.prediction === '관심' ? 'text-blue-600' : analysisResult.prediction === '주의' ? 'text-yellow-600' : 'text-red-600'}`}>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>분석 결과</h3>
+        <div className='text-mainfont '>
+          <div className='mb-2 ml-1'>
+            <span className={`text-lg font-bold ${analysisResult.prediction === '안전' ? 'text-green-600' : analysisResult.prediction === '관심' ? 'text-blue-600' : analysisResult.prediction === '주의' ? 'text-yellow-600' : 'text-red-600'}`}>
               {analysisResult.prediction}
             </span>
             <span className='ml-3 text-gray-600'>위험도: {analysisResult.risk_probability}</span>
@@ -57,7 +59,7 @@ export default function ResultContent() {
 
       {/* 분석 요약 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>분석 요약</h3>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>분석 요약</h3>
         <div className='text-mainfont space-y-3'>
           {analysisItems.length > 0 ? (
             analysisItems.map((item, index) => (
@@ -80,67 +82,72 @@ export default function ResultContent() {
 
       {/* 위험 요소 확인 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>위험 요소</h3>
-        <div className='text-mainfont space-y-2'>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>위험 요소</h3>
+        <div className='text-mainfont space-y-2 ml-1'>
           <div>
-            <span className='font-medium text-gray-700'>근저당권 개수:</span> <span className='ml-2'>{analysisResult.all_features.근저당권_개수}</span>
+            <span className='font-medium text-gray-700'>근저당권 개수:</span> <span className='ml-1'>{analysisResult.all_features.근저당권_개수}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>압류/가압류 개수:</span> <span className='ml-2'>{analysisResult.all_features.압류_가압류_개수}</span>
+            <span className='font-medium text-gray-700'>압류/가압류 개수:</span> <span className='ml-1'>{analysisResult.all_features.압류_가압류_개수}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>신탁등기 여부:</span> <span className='ml-2'>{analysisResult.all_features.신탁_등기여부}</span>
+            <span className='font-medium text-gray-700'>신탁등기 여부:</span> <span className='ml-1'>{analysisResult.all_features.신탁_등기여부}</span>
           </div>
         </div>
       </div>
 
       {/* 부동산 정보 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>부동산 정보</h3>
-        <div className='text-mainfont space-y-2'>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>부동산 정보</h3>
+        <div className='text-mainfont space-y-2 ml-1'>
           <div>
-            <span className='font-medium text-gray-700'>주소:</span> <span className='ml-2'>{analysisResult.all_features.주소}</span>
+            <span className='font-medium text-gray-700'>주소:</span> <span className='ml-1'>{analysisResult.all_features.주소}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>건축물 유형:</span> <span className='ml-2'>{analysisResult.all_features.건축물_유형}</span>
+            <span className='font-medium text-gray-700'>건축물 유형:</span> <span className='ml-1'>{analysisResult.all_features.건축물_유형}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>매매가:</span> <span className='ml-2'>{analysisResult.all_features.매매가}</span>
+            <span className='font-medium text-gray-700'>매매가:</span> <span className='ml-1'>{analysisResult.all_features.매매가}</span>
           </div>
         </div>
       </div>
 
       {/* 전세 정보 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>전세 정보</h3>
-        <div className='text-mainfont space-y-2'>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>전세 정보</h3>
+        <div className='text-mainfont space-y-2 ml-1'>
           <div>
-            <span className='font-medium text-gray-700'>전세가:</span> <span className='ml-2'>{analysisResult.all_features.전세가}</span>
+            <span className='font-medium text-gray-700'>전세가:</span> <span className='ml-1'>{analysisResult.all_features.전세가 === 'None' ? '-' : analysisResult.all_features.전세가}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>전세가율:</span> <span className='ml-2'>{analysisResult.all_features.전세가율}</span>
+            <span className='font-medium text-gray-700'>전세가율:</span> <span className='ml-1'>{analysisResult.all_features.전세가율 === 'None' ? '-' : analysisResult.all_features.전세가율}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>전입 가능여부:</span> <span className='ml-2'>{analysisResult.all_features.전입_가능여부}</span>
+            <span className='font-medium text-gray-700'>전입 가능여부:</span> <span className='ml-1'>{analysisResult.all_features.전입_가능여부 ? '가능' : '불가능'}</span>
           </div>
         </div>
       </div>
 
       {/* 채권 및 담보 정보 */}
       <div>
-        <h3 className='font-bold text-blue-600 mb-3 text-lg'>채권 및 담보 정보</h3>
-        <div className='text-mainfont space-y-2'>
+        <h3 className='font-bold text-blue-600 mb-3 text-xl'>채권 및 담보 정보</h3>
+        <div className='text-mainfont space-y-2 ml-1'>
           <div>
-            <span className='font-medium text-gray-700'>선순위 채권 존재여부:</span> <span className='ml-2'>{analysisResult.all_features.선순위_채권_존재여부}</span>
+            <span className='font-medium text-gray-700'>선순위 채권 존재여부:</span> <span className='ml-1'>{analysisResult.all_features.선순위_채권_존재여부 ? '있음' : '없음'}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>우선변제권 여부:</span> <span className='ml-2'>{analysisResult.all_features.우선변제권_여부}</span>
+            <span className='font-medium text-gray-700'>우선변제권 여부:</span> <span className='ml-1'>{analysisResult.all_features.우선변제권_여부 ? '있음' : '없음'}</span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>채권 최고액:</span> <span className='ml-2'>{analysisResult.all_features.채권최고액}</span>
+            <span className='font-medium text-gray-700'>채권 최고액:</span>
+            <span className='ml-1'>
+              {Number(analysisResult.all_features.채권최고액) === 0
+                ? '채권없음'
+                : Number(analysisResult.all_features.채권최고액).toLocaleString('ko-KR') + '원'}
+            </span>
           </div>
           <div>
-            <span className='font-medium text-gray-700'>근저당권 설정일 (최근):</span> <span className='ml-2'>{analysisResult.all_features.근저당권_설정일_최근}</span>
+            <span className='font-medium text-gray-700'>최근 근저당권 설정일:</span> <span className='ml-1'>{analysisResult.all_features.근저당권_설정일_최근}</span>
           </div>
         </div>
       </div>
