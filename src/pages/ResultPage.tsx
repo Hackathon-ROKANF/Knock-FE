@@ -73,7 +73,6 @@ export default function ResultPage() {
 
         {/* 점수 섹션 */}
         <ScoreProgress
-          prediction={analysisResult?.prediction || '주의'}
           riskProbability={analysisResult?.risk_probability || '0%'}
           size={240}
           strokeWidth={14}
