@@ -21,8 +21,9 @@ interface AnalysisResult {
     채권최고액: string
   }
   analysis_summary: string
-  prediction: '위험' | '안전'
+  prediction: '안전' | '관심' | '주의' | '위험'
   risk_probability: string
+  risk_score: string
 }
 
 interface DeedUploadState {

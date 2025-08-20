@@ -71,7 +71,6 @@ export default function LoadingPage() {
       <PageHeader
         title={'분석중이에요\n잠시만 기다려주세요'}
         textAlign='left'
-        className='text-2xl md:text-3xl font-semibold text-mainfont text-left mt-20 mb-[35%]'
         titleClassName='whitespace-pre-line'
       />
 
@@ -80,8 +79,7 @@ export default function LoadingPage() {
         className='w-[full] flex flex-col items-center justify-center'
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-      >
+        transition={{ duration: 0.5, delay: 0.0 }}>
         <div className='flex items-center justify-center'>
           <iframe
             className='min-w-full min-h-[250px]'
@@ -94,8 +92,7 @@ export default function LoadingPage() {
           className='text-center flex flex-col items-center p-4'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
-        >
+          transition={{ delay: 0.3, duration: 0.6 }}>
           <div className='max-w-sm w-full'>
             {/* 동적 분석 단계 메시지 */}
             <AnimatePresence mode='wait'>
@@ -105,8 +102,7 @@ export default function LoadingPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
+                transition={{ duration: 0.3 }}>
                 {LOADING_MESSAGES[currentMessageIndex]}
               </motion.p>
             </AnimatePresence>
@@ -117,8 +113,7 @@ export default function LoadingPage() {
                 className='text-xs text-blue-600 mt-4'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
+                transition={{ delay: 0.5 }}>
                 분석 완료! 분석 결과를 보기좋게 정리 중이에요
               </motion.p>
             )}

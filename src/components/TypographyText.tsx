@@ -32,16 +32,29 @@ const splitBySuspects = (line: string, suspects: string[]): Token[] => {
 }
 
 const defaultLines = [
-  '갑구에 소유권 이전을 위한 가등기가 설정되었어요.',
-  '을구의 채권최고액과 보증금의 합이 시세의 80%를 초과해요.',
-  '특약: 임대인의 사정으로 계약 해지 시 위약금은 발생하지 않아요.',
-  '전입 세입자의 임차권등기명령 기록이 존재해요.',
-  '부동산이 신탁등기 상태이므로, 신탁회사의 동의가 필요해요.',
-  '집주인의 세금 체납으로 인한 압류 기록이 있어요.',
-]
+  // danger.pdf (동작구 상도동 다인캐슬2차 301호)
+  '소유권이전청구권 가등기가 설정되어 있어요.',
+  '국민건강보험공단의 압류가 등기되어 있어요.',
+  '강제경매개시결정(2025타경10----)이 있어요.',
+  '신용보증기금의 가압류가 기재되어 있어요.',
+  '근저당권의 채권최고액이 36억원으로 등록되어 있어요.',
+  '임차권등기명령으로 임차보증금 3억원이 설정되어 있어요.',
+  '임차권은 전유부분 전부에 대한 것으로 표시되어 있어요.',
 
-const defaultSuspects = ['가등기', '채권최고액', '위약금', '임차권등기명령', '신탁등기', '압류', '가압류', '경매', '대항력 포기']
+  '근저당권 변경으로 채권최고액이 4억원으로 변경되었어요.',
+  '소유권이전(2018년 11월) 이후 등기의 변동 이력이 있어요.',
+];
 
+const defaultSuspects = [
+  // 소유권/처분제한·집행
+  '가등기', '소유권이전청구권', '압류', '강제경매개시결정', '가압류',
+  // 점유·임차 관련
+   '임차권등기명령', '임차권', '전세권', '확정일자', '주민등록일자', '점유개시일자',
+  // 담보권
+  '근저당권', '근저당권설정', '채권최고액', '공동담보',
+  // 그 밖의 빈출 위험어
+  '경매', '대항력 포기', '매매예약', '부기', '말소'
+];
 export default function TypographyText({
   lines = defaultLines,
   suspects = defaultSuspects,
@@ -168,8 +181,7 @@ export default function TypographyText({
               className='absolute top-0 bottom-0 left-0 h-full bg-blue-500/20 rounded-lg'
               initial={{ width: 0 }}
               animate={{ width: '100%' }}
-              transition={{ duration: scanMs / 1000, ease: 'easeOut' }}
-            />
+              transition={{ duration: scanMs / 1000, ease: 'easeOut' }}/>
           )}
         </motion.div>
       </AnimatePresence>

@@ -4,6 +4,7 @@ import FirstPage from '../pages/FirstPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
 import ResultPage from '../pages/ResultPage'
+import ExpertPage from '../pages/ExpertPage'
 
 export default function MobileContent() {
   return (
@@ -23,6 +24,10 @@ export default function MobileContent() {
       <Route
         path='/result'
         element={<ResultPage />}
+      />
+      <Route
+        path='/expert'
+        element={<ExpertPage />}
       />
       <Route
         path='/*'

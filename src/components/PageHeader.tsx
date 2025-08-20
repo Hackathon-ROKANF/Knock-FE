@@ -11,7 +11,7 @@ interface PageHeaderProps {
 }
 
 export default function PageHeader({ title, subtitle, className, titleClassName = '', subtitleClassName = 'text-lg text-gray-600', animationDelay = 0, textAlign = 'center' }: PageHeaderProps) {
-  const baseClassName = `text-2xl md:text-3xl font-semibold text-mainfont text-${textAlign} mt-20 mb-[35%]`
+  const baseClassName = `text-2xl md:text-3xl font-semibold text-mainfont text-${textAlign} mt-10 md:mt-20 mb-[35%]`
   const finalClassName = className || baseClassName
 
   return (
