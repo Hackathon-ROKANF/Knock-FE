@@ -3,32 +3,28 @@ import { BackIcon } from '../assets/icons'
 
 interface BackButtonProps {
   to?: string
-  onClick?: () => void
-  className?: string
+  disabled?: boolean
 }
 
-export default function BackButton({ to, onClick, className = '' }: BackButtonProps) {
+export default function BackButton({ to, disabled=false }: BackButtonProps) {
   const navigate = useNavigate()
 
   const handleBack = () => {
-    if (onClick) {
-      onClick()
-    }
 
-    // 페이지 네비게이션
+    if (disabled) return
+
     if (to) {
       navigate(to)
     } else {
-      navigate(-1) // 브라우저 히스토리 뒤로가기
+      navigate(-1)
     }
   }
 
   return (
     <button
       onClick={handleBack}
-      className={`flex items-center justify-center transition-colors ${className}`}
-      aria-label='뒤로가기'
-    >
+      className={'flex items-center justify-center transition-colors cursor-pointer'}
+      aria-label='뒤로가기'>
       <BackIcon
         size={24}
         color='currentColor'

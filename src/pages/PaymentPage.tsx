@@ -1,26 +1,21 @@
-import ExpertContent from '../contents/ExpertContent'
 import PageHeader from '../components/PageHeader'
 
 import BackButton from '../components/BackButton'
 
-export default function ExpertPage() {
-
+export default function PaymentPage() {
   return (
     <div className='container h-screen overflow-auto no-scrollbar flex flex-col p-6 relative'>
       {/* 백 버튼 - 왼쪽 위 absolute 위치 */}
       <div className='absolute top-4 left-4 z-10'>
-        <BackButton to='/result' />
+        <BackButton to='/expert' />
       </div>
 
       <div>
         <PageHeader
-          title='전문가와 검토하기'
-          subtitle='등기부등본 이외에도 다양한 요소를 고려해야 해요'
+          title='결제가 필요해요'
+          subtitle='전문가와 검토할 수 있어요'
         />
-
-        <ExpertContent />
       </div>
-
     </div>
   )
 }

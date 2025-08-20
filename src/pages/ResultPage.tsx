@@ -7,6 +7,8 @@ import { DownIcon } from '../assets/icons'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
 import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
+import BackButton from '../components/BackButton'
+import ConfirmModal from '../components/ConfirmModal'
 
 export default function ResultPage() {
   const navigate = useNavigate()
@@ -15,6 +17,9 @@ export default function ResultPage() {
   const scrollIconRef = useRef<HTMLDivElement>(null)
   const detailSectionRef = useRef<HTMLDivElement>(null)
   const [showContent, setShowContent] = useState(false)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const [text, setText] = useState('')
 
   // 분석 결과가 없으면 업로드 페이지로 리다이렉트 (localStorage 확인 후)
   useEffect(() => {
@@ -35,39 +40,36 @@ export default function ResultPage() {
     // 컨텐츠가 DOM에 렌더링된 후 스크롤 실행
     setTimeout(() => {
       if (detailSectionRef.current) {
-        const elementTop = detailSectionRef.current.offsetTop
-        const offset = 20
-        const targetScrollTop = elementTop - offset
-
-        // 부드러운 스크롤로 ResultContent 영역으로 이동
-        window.scrollTo({
-          top: targetScrollTop,
+        // scrollIntoView 하나만 사용하여 부드러운 스크롤 구현
+        detailSectionRef.current.scrollIntoView({
           behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
         })
-
-        // 대안으로 scrollIntoView도 함께 사용하여 안정성 확보
-        setTimeout(() => {
-          detailSectionRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'nearest',
-          })
-        }, 100)
       }
-    }, 150)
+    }, 200) // 약간 더 긴 지연으로 DOM 렌더링 완료 대기
   }
 
   return (
     <div
       ref={containerRef}
-      className='min-h-screen w-full bg-white overflow-x-hidden container p-6 mx-auto'>
+      className='container h-screen no-scrollbar bg-white overflow-x-hidden p-6 overflow-auto relative'>
+      <div
+        className='absolute top-4 left-4 z-10'
+        onClick={() => {
+          setText('초기화면으로 돌아갈까요?')
+          setShowConfirmModal(true)
+        }}>
+        <BackButton disabled={true} />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}>
         {/* Page Header */}
+
         <PageHeader
-          title='부동산 검토 결과입니다'
+          title='등기부등본 검토 결과입니다'
           subtitle='분석이 완료되었어요'
         />
 
@@ -103,7 +105,7 @@ export default function ResultPage() {
             <ResultContent />
 
             <div className='mt-8 pt-6 border-t border-gray-200'>
-              <p className='text-center text-gray-600 mb-2'>등기부등본 이외에도 고려할 사항이 많아요!</p>
+              <p className='text-center text-gray-600 mb-2'>부동산은 등기부등본 이외에도 고려할 사항이 많아요</p>
               <p className='text-center text-gray-600 mb-6'>자세한 사항은 전문가와 상담하는걸 추천해요</p>
             </div>
           </motion.div>
@@ -124,8 +126,8 @@ export default function ResultPage() {
 
             <Button
               onClick={() => {
-                clear()
-                navigate('/upload')
+                setText('다른 등기부등본을 분석할까요?')
+                setShowConfirmModal(true)
               }}
               variant='secondary'>
               다른 등기부등본 분석하기
@@ -133,6 +135,18 @@ export default function ResultPage() {
           </motion.div>
         )}
       </motion.div>
+
+      {/* 확인 모달 */}
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={() => {
+          clear()
+          navigate('/upload')
+        }}
+        title={text}
+        message='등기부등본을 분석한 결과가 사라져요'
+      />
     </div>
   )
 }
