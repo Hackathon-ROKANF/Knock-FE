@@ -43,28 +43,35 @@ const defaultLines = [
 
   '근저당권 변경으로 채권최고액이 4억원으로 변경되었어요.',
   '소유권이전(2018년 11월) 이후 등기의 변동 이력이 있어요.',
-];
+]
 
 const defaultSuspects = [
   // 소유권/처분제한·집행
-  '가등기', '소유권이전청구권', '압류', '강제경매개시결정', '가압류',
+  '가등기',
+  '소유권이전청구권',
+  '압류',
+  '강제경매개시결정',
+  '가압류',
   // 점유·임차 관련
-   '임차권등기명령', '임차권', '전세권', '확정일자', '주민등록일자', '점유개시일자',
+  '임차권등기명령',
+  '임차권',
+  '전세권',
+  '확정일자',
+  '주민등록일자',
+  '점유개시일자',
   // 담보권
-  '근저당권', '근저당권설정', '채권최고액', '공동담보',
+  '근저당권',
+  '근저당권설정',
+  '채권최고액',
+  '공동담보',
   // 그 밖의 빈출 위험어
-  '경매', '대항력 포기', '매매예약', '부기', '말소'
-];
-export default function TypographyText({
-  lines = defaultLines,
-  suspects = defaultSuspects,
-  typeSpeedMs = 80,
-  scanMs = 1700,
-  highlightEachMs = 600,
-  highlightGapMs = 400,
-  pauseMs = 2500,
-  loop = true,
-}: Props) {
+  '경매',
+  '대항력 포기',
+  '매매예약',
+  '부기',
+  '말소',
+]
+export default function TypographyText({ lines = defaultLines, suspects = defaultSuspects, typeSpeedMs = 80, scanMs = 1700, highlightEachMs = 600, highlightGapMs = 400, pauseMs = 2500, loop = true }: Props) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('typing')
   const [charIdx, setCharIdx] = useState(0)
@@ -126,8 +133,7 @@ export default function TypographyText({
       role='status'
       aria-live='polite'
       className={`relative text-gray-800 font-semibold tracking-wide leading-relaxed
-                  text-3xl `}
-    >
+                  text-2xl inline-block`}>
       <AnimatePresence mode='wait'>
         <motion.div
           key={idx}
@@ -135,9 +141,8 @@ export default function TypographyText({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className='relative'
-        >
-          <span>
+          className='relative inline-block'>
+          <span className='relative z-10'>
             {isHighlightPhase ? (
               <span>
                 {tokens.map((token, i) =>
@@ -159,8 +164,7 @@ export default function TypographyText({
                         duration: phase === 'highlight' ? highlightEachMs / 1000 : 0.3,
                         ease: 'easeInOut',
                       }}
-                      className='rounded-sm'
-                    >
+                      className='rounded-sm'>
                       {token.text}
                     </motion.span>
                   ) : (
@@ -178,10 +182,22 @@ export default function TypographyText({
 
           {shouldShowScan && (
             <motion.div
-              className='absolute top-0 bottom-0 left-0 h-full bg-blue-500/20 rounded-lg'
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: scanMs / 1000, ease: 'easeOut' }}/>
+              className='absolute top-0 bottom-0 left-0 h-full bg-blue-500/20 rounded-lg z-0'
+              initial={{ width: 0, opacity: 0 }}
+              animate={{
+                width: '100%',
+                opacity: phase === 'scan' ? 1 : 0,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{
+                width: { duration: scanMs / 1000, ease: 'easeOut' },
+                opacity: {
+                  duration: phase === 'scan' ? 0.3 : 0.8,
+                  ease: 'easeInOut',
+                  delay: phase === 'scanComplete' ? 0 : 0,
+                },
+              }}
+            />
           )}
         </motion.div>
       </AnimatePresence>

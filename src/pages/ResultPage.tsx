@@ -69,8 +69,8 @@ export default function ResultPage() {
         {/* Page Header */}
 
         <PageHeader
-          title='등기부등본 검토 결과입니다'
-          subtitle='분석이 완료되었어요'
+          title='분석이 완료되었어요'
+          subtitle=''
         />
 
         {/* 점수 섹션 */}
