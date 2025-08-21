@@ -1,5 +1,4 @@
 import LogoMain from '../assets/LogoMain.png'
-import certifiedCopy from '../assets/certifiedCopy.png'
 
 import CountText from '../components/CountText'
 
