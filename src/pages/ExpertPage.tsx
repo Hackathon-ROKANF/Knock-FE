@@ -15,7 +15,7 @@ export default function ExpertPage() {
       <div>
         <PageHeader
           title='전문가와 검토하기'
-          subtitle='등기부등본 이외에도 다양한 요소를 고려해야 해요'
+          subtitle='등기부등본 이외에도 고려할 사항이 많아요'
         />
 
         <ExpertContent />

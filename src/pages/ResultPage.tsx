@@ -104,7 +104,6 @@ export default function ResultPage() {
             <ResultContent />
 
             <div className='mt-8 pt-6 border-t border-gray-200'>
-              <p className='text-center text-gray-600 mb-2'>부동산은 등기부등본 이외에도 고려할 사항이 많아요</p>
               <p className='text-center text-gray-600 mb-6'>자세한 사항은 전문가와 상담하는걸 추천해요</p>
             </div>
           </motion.div>

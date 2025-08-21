@@ -89,11 +89,6 @@ const TERM_DEFINITIONS: TermDefinition[] = [
     example: '전세권을 설정하면 대항력과 우선변제권 확보에 유리해요',
   },
   {
-    term: '인터넷등기소',
-    definition: '대법원 등기정보 사이트예요. 등기부를 열람·발급할 수 있어요.',
-    example: '열람은 700원, 발급은 1,000원으로 이용해요',
-  },
-  {
     term: '안전지표(70% 룰)',
     definition: '대출금과 모든 세입자 보증금 합계가 시세의 70% 미만이면 비교적 안전하다고 봐요.',
     example: '합계가 70%를 넘으면 보증금 회수 위험이 커져요',
@@ -148,7 +143,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className='absolute top-full right-0 mt-2 w-90 max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+            className='absolute top-full right-0 w-85 max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
             {/* Header */}
 
             {/* Scrollable Content */}
@@ -172,7 +167,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
 
             {/* Footer */}
             <div className='bg-gray-50 p-3 text-center'>
-              <p className='text-xs text-gray-500'>부동산 용어를 쉽게 이해하세요</p>
+              <p className='text-xs text-gray-500'>어려운 부동산 용어를 쉽게 이해해요</p>
             </div>
           </motion.div>
         )}

@@ -113,7 +113,7 @@ export default function LoadingPage() {
             {/* 분석 완료 후 대기 중일 때 */}
             {showCompletionMessage && (
               <motion.p
-                className='text-lg text-blue-600 mt-4 font-semibold'
+                className='text-sm text-blue-600 mt-4 font-semibold'
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}>
