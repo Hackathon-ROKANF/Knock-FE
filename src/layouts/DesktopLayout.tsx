@@ -3,7 +3,7 @@ import DesktopContent from '../contents/DesktopContent'
 
 export default function DesktopLayout() {
   return (
-    <div className='hidden md:flex h-screen bg-gray-50 px-[10%] '>
+    <div className='hidden md:flex h-screen bg-gray-50 px-[6%] '>
       <div className='flex w-full h-full no-scrollbar'>
         <div className='flex-1 min-w-[60%] overflow-y-auto no-scrollbar '>
           <DesktopContent />

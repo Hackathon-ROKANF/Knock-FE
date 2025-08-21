@@ -9,7 +9,7 @@ import { motion } from 'framer-motion'
 
 export default function DesktopContent() {
   return (
-    <div className='p-8 min-h-screen'>
+    <div className='p-8 min-h-screen overflow-hidden'>
       <img
         src={LogoMain}
         alt='Knock Logo'
@@ -18,9 +18,23 @@ export default function DesktopContent() {
       />
       <div className='max-w-6xl mx-auto space-y-8'>
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}>
+          <h2 className='text-4xl font-bold text-gray-800 mb-2'>
+            전국 전세사기 피해 현황{' '}
+            <CountText
+              from={30000}
+              to={30400}
+              duration={10000}
+            />
+          </h2>
+          <div className='text-sm  text-gray-500 mt-2 ml-2'>25.05.31 기준, 전세사기 피해 실태조사(국토교통부)</div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}>
           <h1 className='text-4xl font-bold text-gray-900 leading-tight mb-4'>
             <span className='text-blue-600'>등기부등본</span>이<br />
             어려우신가요?
@@ -31,22 +45,23 @@ export default function DesktopContent() {
             <span className='font-semibold text-blue-600'>3분 만에</span> 부동산 위험요소를 파악할 수 있어요
           </p>
         </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}>
+          <TypographyText />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}>
-          <h2 className='text-4xl font-bold text-gray-800 mb-2'>
-            전국 전세사기 피해 현황{' '}
-            <CountText
-              from={30000}
-              to={30400}
-              duration={10000}
-            />
-          </h2>
-          <p className='text-sm text-gray-500 mt-2 ml-2'>25.05.31 기준, 전세사기 피해 실태조사(국토교통부)</p>
+          transition={{ duration: 0.8, delay: 0.8 }}>
+          <img
+            src={certifiedCopy}
+            alt='certifiedCopy'
+            className='max-w-[80%]'
+          />
         </motion.div>
-
         {/* <TrueFocus
           sentence='MINJI HANNI DANIELLE HAERIN HYEIN'
           manualMode={false}
@@ -55,14 +70,6 @@ export default function DesktopContent() {
           animationDuration={2}
           pauseBetweenAnimations={1}
         /> */}
-      </div>
-      <TypographyText/>
-      <div className='flex justify-center'>
-        <img
-          src={certifiedCopy}
-          alt='certifiedCopy'
-          className='max-w-[80%] '
-        />
       </div>
     </div>
   )

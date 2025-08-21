@@ -54,7 +54,7 @@ export default function ConfirmModal({ isOpen, onClose, onConfirm, title = '확�
                 </button>
                 <button
                   onClick={onConfirm}
-                  className='flex-1 px-4 py-3 bg-primary cursor-pointer text-white rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200'>
+                  className='flex-1 px-4 py-3 bg-blue-600 cursor-pointer text-white rounded-xl font-medium hover:bg-blue-700 transition-colors duration-200'>
                   확인
                 </button>
               </div>

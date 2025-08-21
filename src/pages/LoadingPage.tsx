@@ -31,7 +31,6 @@ export default function LoadingPage() {
     }
   }, [isAnalyzing])
 
-  // 메시지 순환 효과 - 1초 지연 후 시작
   useEffect(() => {
     const startDelay = setTimeout(() => {
       const messageInterval = setInterval(() => {
@@ -39,12 +38,11 @@ export default function LoadingPage() {
       }, 1500) // 1.5초마다 메시지 변경
 
       return () => clearInterval(messageInterval)
-    }, 1000) // 1초 후 시작
+    }, 500) // 500ms 후 시작
 
     return () => clearTimeout(startDelay)
   }, [])
 
-  // 최소 로딩 시간 체크
   useEffect(() => {
     const timer = setTimeout(() => {
       setCanNavigate(true)
@@ -54,7 +52,7 @@ export default function LoadingPage() {
   }, [])
 
   useEffect(() => {
-    // 분석이 시작되었고, 완료되었으며, 결과가 있고, 최소 로딩 시간이 경과한 경우에만 결과 페이지로 이동
+    // 분석이 시작되었고, 완료되었으며, 결과가 있고, 최소 로딩 시간이 경과한 경우 -> 이동
     if (hasStartedAnalysis && !isAnalyzing && analysisResult && canNavigate) {
       navigate('/result')
     }

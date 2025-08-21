@@ -21,33 +21,30 @@ export default function ResultPage() {
 
   const [text, setText] = useState('')
 
-  // 분석 결과가 없으면 업로드 페이지로 리다이렉트 (localStorage 확인 후)
+  // localStorage 확인 후 분석 결과가 없으면 업로드 페이지로 리다이렉트
   useEffect(() => {
-    // localStorage에서 분석 결과를 확인하고 약간의 지연을 둠
     const timer = setTimeout(() => {
       if (!analysisResult?.risk_probability) {
         navigate('/')
       }
-    }, 100) // 100ms 지연으로 localStorage 복원 대기
+    }, 100)
 
     return () => clearTimeout(timer)
   }, [analysisResult, navigate])
 
+  // 버튼 클릭 시 컨텐츠 표시 & 스크롤
   const handleShowContent = () => {
-    // 컨텐츠 표시
     setShowContent(true)
 
-    // 컨텐츠가 DOM에 렌더링된 후 스크롤 실행
     setTimeout(() => {
       if (detailSectionRef.current) {
-        // scrollIntoView 하나만 사용하여 부드러운 스크롤 구현
         detailSectionRef.current.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
           inline: 'nearest',
         })
       }
-    }, 200) // 약간 더 긴 지연으로 DOM 렌더링 완료 대기
+    }, 200)
   }
 
   return (
@@ -66,14 +63,11 @@ export default function ResultPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}>
-        {/* Page Header */}
-
         <PageHeader
           title='분석이 완료되었어요'
           subtitle=''
         />
 
-        {/* 점수 섹션 */}
         <ScoreProgress
           riskProbability={analysisResult?.risk_probability || '0%'}
           size={240}
@@ -94,7 +88,6 @@ export default function ResultPage() {
           />
         </div>
 
-        {/* 상세 정보 섹션 - 처음에는 완전히 숨김 */}
         {showContent && (
           <motion.div
             ref={detailSectionRef}
@@ -111,7 +104,6 @@ export default function ResultPage() {
           </motion.div>
         )}
 
-        {/* 액션 버튼 - 처음에는 완전히 숨김 */}
         {showContent && (
           <motion.div
             className='space-y-3'
@@ -136,7 +128,6 @@ export default function ResultPage() {
         )}
       </motion.div>
 
-      {/* 확인 모달 */}
       <ConfirmModal
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
