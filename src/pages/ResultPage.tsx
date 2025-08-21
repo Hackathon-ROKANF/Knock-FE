@@ -9,6 +9,7 @@ import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
+import QuestionButton from '../components/QuestionButton'
 
 export default function ResultPage() {
   const navigate = useNavigate()
@@ -59,6 +60,11 @@ export default function ResultPage() {
         }}>
         <BackButton disabled={true} />
       </div>
+
+      <div className='absolute top-4 right-4 z-10'>
+        <QuestionButton />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -128,6 +134,7 @@ export default function ResultPage() {
         )}
       </motion.div>
 
+      {/* 확인 모달 */}
       <ConfirmModal
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
