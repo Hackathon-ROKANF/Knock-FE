@@ -15,7 +15,7 @@ export default function ConfirmModal({ isOpen, onClose, onConfirm, title = '확�
         <>
           {/* 오버레이 */}
           <motion.div
-            className='fixed z-1 inset-0 bg-[rgba(0,0,0,0.4)]'
+            className='fixed z-40 inset-0 bg-[rgba(0,0,0,0.4)]'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -24,7 +24,7 @@ export default function ConfirmModal({ isOpen, onClose, onConfirm, title = '확�
 
           {/* 모달 - 위치를 모바일 영역에 맞춤 */}
           <motion.div
-            className='fixed z-2 flex items-center justify-center px-4 inset-0'
+            className='fixed z-50 flex items-center justify-center px-4 inset-0'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}>

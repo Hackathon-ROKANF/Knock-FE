@@ -15,14 +15,13 @@ const LOADING_MESSAGES = [
   '위험도를 종합 평가하고 있어요',
 ]
 
-const MINIMUM_LOADING_TIME = 10000 // 10초
-
 export default function LoadingPage() {
   const navigate = useNavigate()
   const { isAnalyzing, analysisResult, error } = useDeedUploadStore()
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [canNavigate, setCanNavigate] = useState(false)
   const [hasStartedAnalysis, setHasStartedAnalysis] = useState(false)
+  const [showCompletionMessage, setShowCompletionMessage] = useState(false)
 
   // 분석 시작 감지
   useEffect(() => {
@@ -43,17 +42,23 @@ export default function LoadingPage() {
     return () => clearTimeout(startDelay)
   }, [])
 
+  // 분석 완료 감지 및 완료 메시지 표시
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCanNavigate(true)
-    }, MINIMUM_LOADING_TIME)
+    if (hasStartedAnalysis && !isAnalyzing && analysisResult) {
+      setShowCompletionMessage(true)
 
-    return () => clearTimeout(timer)
-  }, [])
+      // 5초 후 페이지 이동
+      const completionTimer = setTimeout(() => {
+        setCanNavigate(true)
+      }, 5000)
+
+      return () => clearTimeout(completionTimer)
+    }
+  }, [hasStartedAnalysis, isAnalyzing, analysisResult])
 
   useEffect(() => {
-    // 분석이 시작되었고, 완료되었으며, 결과가 있고, 최소 로딩 시간이 경과한 경우 -> 이동
-    if (hasStartedAnalysis && !isAnalyzing && analysisResult && canNavigate) {
+    // 분석이 완료되고 3초가 지난 후 이동
+    if (canNavigate) {
       navigate('/result')
     }
 
@@ -61,7 +66,7 @@ export default function LoadingPage() {
     if (error) {
       navigate('/upload')
     }
-  }, [hasStartedAnalysis, isAnalyzing, analysisResult, error, canNavigate, navigate])
+  }, [canNavigate, error, navigate])
 
   return (
     <div className='container h-screen flex flex-col p-6'>
@@ -106,13 +111,13 @@ export default function LoadingPage() {
             </AnimatePresence>
 
             {/* 분석 완료 후 대기 중일 때 */}
-            {hasStartedAnalysis && !isAnalyzing && analysisResult && !canNavigate && (
+            {showCompletionMessage && (
               <motion.p
-                className='text-xs text-blue-600 mt-4'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}>
-                분석 완료! 분석 결과를 보기좋게 정리 중이에요
+                className='text-lg text-blue-600 mt-4 font-semibold'
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}>
+                분석완료! 분석 결과를 보기좋게 정리 중이에요
               </motion.p>
             )}
           </div>
