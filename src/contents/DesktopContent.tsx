@@ -12,7 +12,7 @@ import mock_3 from '../assets/mock_3.png'
 
 export default function DesktopContent() {
   return (
-    <div className='p-8 max-h-screen overflow-hidden'>
+    <div className='p-8 max-h-screen overflow-auto no-scrollbar'>
       <img
         src={LogoMain}
         alt='Knock Logo'
@@ -23,8 +23,8 @@ export default function DesktopContent() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}>
-        <h2 className='text-4xl font-bold text-gray-800 mb-30'>
+        transition={{ duration: 1, delay: 0.2 }}>
+        <h2 className='text-[40px] font-bold text-gray-800'>
           전국 전세사기 피해 현황
           <CountText
             from={30000}
@@ -38,15 +38,15 @@ export default function DesktopContent() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className='mb-30'>
+        transition={{ duration: 1, delay: 0.5 }}
+        className='mb-5'>
         <TextSwiper />
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
+        transition={{ duration: 1, delay: 0.7 }}
         className='mb-5'>
         <h1 className='text-4xl font-bold text-gray-900 leading-tight mb-2'>
           <span className='text-blue-600'>등기부등본</span>이 어려우신가요?
@@ -59,7 +59,7 @@ export default function DesktopContent() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+        transition={{ duration: 1, delay: 1.0 }}
         className='flex justify-center items-center gap-4 mt-8'>
         <img
           src={mock_1}
