@@ -39,12 +39,12 @@ export default function TextSwiper() {
           delay: 10000,
           disableOnInteraction: false,
         }}
-        className='text-swiper h-full'>
+        className='text-swiper'>
         {textSlideData.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className='h-full'>
-            <div className='p-8 h-full'>
+            className='max-w-full'>
+            <div className='p-8 '>
               <TextSlide
                 title={slide.title}
                 content={slide.content}
