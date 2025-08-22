@@ -41,7 +41,7 @@ export default function CountText({ from = 10000, to = 30400, duration = 3000, c
 
   return (
     <span className={`font-bold relative ${className}`}>
-      <span className='inline-block w-[180px] text-right text-red-500 tabular-nums'>{count.toLocaleString('ko-KR')}</span>
+      <span className='inline-block w-[20%] text-right text-red-500 tabular-nums'>{count.toLocaleString('ko-KR')}</span>
       <span className='ml-1'>건</span>
     </span>
   )

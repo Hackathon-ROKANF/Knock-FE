@@ -91,7 +91,7 @@ const TERM_DEFINITIONS: TermDefinition[] = [
   {
     term: '안전지표(70% 룰)',
     definition: '대출금과 모든 세입자 보증금 합계가 시세의 70% 미만이면 비교적 안전하다고 봐요.',
-    example: '합계가 70%를 넘으면 보증금 회수 위험이 커져요',
+    example: '집주인 대출 + 세입자 보증금 합계 < 시세의 70%',
   },
 ]
 
