@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import ConsultationModal from './ConsultationModal'
+import ConfirmModal from './ConfirmModal'
 
 interface ExpertCardProps {
   name: string
@@ -14,7 +14,7 @@ interface ExpertCardProps {
 
 export default function ExpertCard({ name, specialty, experience, description, rating = 5.0, reviewCount = 50, profileImage }: ExpertCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const navigate = useNavigate()
+  const [isNotImplementedModalOpen, setIsNotImplementedModalOpen] = useState(false)
 
   const handleConsultationStart = () => {
     setIsModalOpen(true)
@@ -22,9 +22,12 @@ export default function ExpertCard({ name, specialty, experience, description, r
 
   const handleConfirm = () => {
     setIsModalOpen(false)
-    // 결제 페이지로 이동 (나중에 구현)
-    navigate('/payment')
-    console.log(`${name}님과 상담 시작`)
+    // 미구현 모달 표시
+    setIsNotImplementedModalOpen(true)
+  }
+
+  const handleNotImplementedClose = () => {
+    setIsNotImplementedModalOpen(false)
   }
 
   const handleModalClose = () => {
@@ -83,6 +86,15 @@ export default function ExpertCard({ name, specialty, experience, description, r
         onClose={handleModalClose}
         onConfirm={handleConfirm}
         expertName={name}
+      />
+
+      {/* 미구현 알림 모달 */}
+      <ConfirmModal
+        isOpen={isNotImplementedModalOpen}
+        onClose={handleNotImplementedClose}
+        onConfirm={handleNotImplementedClose}
+        title='알림'
+        message='아직 결제 기능이 구현되지 않았습니다'
       />
     </div>
   )

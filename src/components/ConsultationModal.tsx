@@ -42,7 +42,6 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm, expertNa
               <div className='text-center mb-8'>
                 <p className='text-gray-700 leading-relaxed'>
                   <span className='font-semibold text-blue-600'>{expertName}</span>님과
-                  <br />
                   검토를 시작할까요?
                 </p>
               </div>

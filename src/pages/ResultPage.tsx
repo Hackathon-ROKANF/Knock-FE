@@ -119,7 +119,7 @@ export default function ResultPage() {
             <Button
               onClick={() => navigate('/expert')}
               variant='primary'>
-              전문가 매칭 받기
+              전문가 상담 받기
             </Button>
 
             <Button
