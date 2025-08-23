@@ -90,7 +90,7 @@ export default function ResultContent() {
             <span className=' text-gray-700'>압류/가압류 개수:</span> <span className='ml-1'>{analysisResult.all_features.압류_가압류_개수} 개</span>
           </div>
           <div>
-            <span className=' text-gray-700'>신탁등기 여부:</span> <span className='ml-1'>{analysisResult.all_features.신탁_등기여부 === 'True' ? '있음' : '없음'}</span>
+            <span className=' text-gray-700'>신탁등기:</span> <span className='ml-1'>{analysisResult.all_features.신탁_등기여부 === 'True' ? '있음' : '없음'}</span>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default function ResultContent() {
             <span className='text-gray-700'>전세가율:</span> <span className='ml-1'>{analysisResult.all_features.전세가율 === 'None' ? '-' : analysisResult.all_features.전세가율}</span>
           </div>
           <div>
-            <span className='text-gray-700'>전입 가능여부:</span> <span className='ml-1'>{analysisResult.all_features.전입_가능여부 === 'True' ? '가능' : '불가능'}</span>
+            <span className='text-gray-700'>전입 가능 여부:</span> <span className='ml-1'>{analysisResult.all_features.전입_가능여부 === 'True' ? '가능' : '불가능'}</span>
           </div>
         </div>
       </div>
@@ -132,10 +132,10 @@ export default function ResultContent() {
         <h3 className='font-bold text-blue-600 mb-3 text-xl'>채권 및 담보 정보</h3>
         <div className='text-mainfont space-y-2 ml-1 font-medium'>
           <div>
-            <span className='text-gray-700'>선순위 채권 존재여부:</span> <span className='ml-1'>{analysisResult.all_features.선순위_채권_존재여부 === 'True' ? '존재' : '없음'}</span>
+            <span className='text-gray-700'>선순위 채권:</span> <span className='ml-1'>{analysisResult.all_features.선순위_채권_존재여부 === 'True' ? '존재' : '없음'}</span>
           </div>
           <div>
-            <span className='text-gray-700'>우선변제권 여부:</span> <span className='ml-1'>{analysisResult.all_features.우선변제권_여부 === 'True' ? '있음' : '없음'}</span>
+            <span className='text-gray-700'>우선변제권:</span> <span className='ml-1'>{analysisResult.all_features.우선변제권_여부 === 'True' ? '있음' : '없음'}</span>
           </div>
           <div>
             <span className='text-gray-700'>채권 최고액:</span>

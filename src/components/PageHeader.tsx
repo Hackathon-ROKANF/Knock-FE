@@ -20,7 +20,7 @@ export default function PageHeader({ title, subtitle, className, titleClassName 
       transition={{ duration: 0.6, delay: animationDelay }}
     >
       <h1 className={titleClassName}>{title}</h1>
-      {subtitle && <p className='text-lg text-gray-600'>{subtitle}</p>}
+      {subtitle && <p className='text-lg text-gray-600 mt-1'>{subtitle}</p>}
     </motion.div>
   )
 }

@@ -136,8 +136,8 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
           transition={{ delay: 1.5, duration: 0.5 }}>
           {calculatedPrediction === '안전' && '특별한 문제가 발견되지 않았어요'}
           {calculatedPrediction === '관심' && '조금 더 살펴보시는 것을 권해요'}
-          {calculatedPrediction === '주의' && '전문가 상담을 받아보세요'}
-          {calculatedPrediction === '위험' && '신중한 검토가 필요해요'}
+          {calculatedPrediction === '주의' && '이 집은 주의가 필요해요'}
+          {calculatedPrediction === '위험' && '각별한 주의가 필요해요'}
         </motion.div>
         {/* <div className='text-sm text-gray-600'>등기부등본 분석 결과</div> */}
       </motion.div>

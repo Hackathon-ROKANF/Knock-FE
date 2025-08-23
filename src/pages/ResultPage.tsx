@@ -104,8 +104,9 @@ export default function ResultPage() {
             <ResultContent />
 
             <div className='mt-8 pt-6 border-t border-gray-200'>
-              <p className='text-center text-gray-600 mb-6'>자세한 사항은 전문가와 상담하는걸 추천해요</p>
+              <p className='text-center text-gray-600 mb-6'>전문가와 상담하면 더 정확한 분석이 가능해요</p>
             </div>
+
           </motion.div>
         )}
 
@@ -142,7 +143,7 @@ export default function ResultPage() {
           navigate('/upload')
         }}
         title={text}
-        message='등기부등본을 분석한 결과가 사라져요'
+        message='현재 분석한 결과가 사라져요'
       />
     </div>
   )
