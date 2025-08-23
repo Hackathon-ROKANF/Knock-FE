@@ -17,9 +17,9 @@ export default function ResultContent() {
       if (number && content && /^\d+\.$/.test(number)) {
         // 내용에 따라 타입 결정
         let type: '위험' | '안전' | '주의' = '주의'
-        if (content.includes('위험 요인')) {
+        if (content.includes('위험 요인') || content.startsWith('위험')) {
           type = '위험'
-        } else if (content.includes('안전 요인')) {
+        } else if (content.includes('안전 요인') || content.startsWith('안전')) {
           type = '안전'
         }
 

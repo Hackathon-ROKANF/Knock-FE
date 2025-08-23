@@ -25,7 +25,7 @@ export default function DesktopContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.2 }}
         className='text-left mb-15'>
-        <h2 className='text-[40px] font-bold text-gray-800'>
+        <h2 className='text-[40px] font-bold text-gray-800 '>
           전국 전세사기 피해 현황
           <CountText
             from={30000}
@@ -33,7 +33,7 @@ export default function DesktopContent() {
             duration={10000}
           />
           
-          <div className='text-sm text-gray-500 font-semibold mt-2 ml-1'>25.05.31 기준, 전세사기 피해 실태조사(국토교통부)</div>
+          <div className='text-sm text-gray-500 font-semibold ml-1'>25.05.31 기준, 전세사기 피해 실태조사(국토교통부)</div>
         </h2>
       </motion.div>
 
@@ -50,7 +50,7 @@ export default function DesktopContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.7 }}
         className='mb-5'>
-        <h1 className='text-4xl text-left font-bold text-gray-800 leading-tight mb-2'>
+        <h1 className='text-4xl text-left font-bold text-gray-800 leading-tight mb-1'>
           <span className='text-blue-600 '>등기부등본</span>이 어려우신가요?
         </h1>
         <p className='text-lg font-medium text-gray-500 leading-relaxed ml-1 text-left '>
