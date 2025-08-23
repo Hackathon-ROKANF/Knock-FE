@@ -3,38 +3,19 @@ import { useDeedUploadStore } from '../store/useDeedUploadStore'
 export default function ResultContent() {
   const { analysisResult } = useDeedUploadStore()
 
-  // 분석 요약을 숫자별로 파싱하는 함수
-  const parseAnalysisSummary = (summary: string) => {
-    // 숫자로 시작하는 항목들을 찾기 위한 정규식
-    console.log(analysisResult)
-    const items = summary.split(/(\d+\.\s)/).filter((item) => item.trim() !== '')
-    const parsedItems: Array<{ number: string; content: string; type: '위험' | '안전' | '주의' }> = []
-
-    for (let i = 0; i < items.length - 1; i += 2) {
-      const number = items[i]?.trim()
-      const content = items[i + 1]?.trim()
-
-      if (number && content && /^\d+\.$/.test(number)) {
-        // 내용에 따라 타입 결정
-        let type: '위험' | '안전' | '주의' = '주의'
-        if (content.includes('위험 요인') || content.startsWith('위험')) {
-          type = '위험'
-        } else if (content.includes('안전 요인') || content.startsWith('안전')) {
-          type = '안전'
-        }
-
-        parsedItems.push({
-          number: number.replace('.', ''),
-          content: content,
-          type: type,
-        })
-      }
-    }
-
-    return parsedItems
+  // analysis_summary가 객체인지 확인하는 헬퍼 함수
+  const isAnalysisSummaryObject = (
+    summary: unknown
+  ): summary is {
+    관심?: string
+    주의?: string
+    안전?: string
+    위험?: string
+    '안전 요인'?: string[]
+    '위험 요인'?: string[]
+  } => {
+    return typeof summary === 'object' && summary !== null
   }
-
-  const analysisItems = analysisResult ? parseAnalysisSummary(analysisResult.analysis_summary) : []
 
   // 실제 분석 결과가 있을 때만 내용을 표시
   if (!analysisResult) {
@@ -47,7 +28,13 @@ export default function ResultContent() {
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>분석 결과</h3>
         <div className='text-mainfont'>
-          <div className='mb-2 ml-1'>
+          <div className='mb-2 ml-1 flex items-center'>
+            <span
+              className={`inline-flex items-center justify-center w-3 h-3 rounded-full text-xs font-bold text-white mr-2 ${
+                analysisResult.prediction === '안전' ? 'bg-green-600' : analysisResult.prediction === '관심' ? 'bg-blue-500' : analysisResult.prediction === '주의' ? 'bg-yellow-500' : 'bg-red-500'
+              }`}>
+              {/* {analysisResult.prediction.charAt(0)} */}
+            </span>
             <span className={`text-lg font-bold ${analysisResult.prediction === '안전' ? 'text-green-600' : analysisResult.prediction === '관심' ? 'text-blue-600' : analysisResult.prediction === '주의' ? 'text-yellow-600' : 'text-red-600'}`}>
               {analysisResult.prediction}
             </span>
@@ -59,22 +46,94 @@ export default function ResultContent() {
       {/* 분석 요약 */}
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>분석 요약</h3>
-        <div className='text-mainfont space-y-3'>
-          {analysisItems.length > 0 ? (
-            analysisItems.map((item, index) => (
-              <div
-                key={index}
-                className='flex gap-3'>
-                <div className='flex-shrink-0 font-medium'>
-                  <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-sm font-medium text-white ${item.type === '위험' ? 'bg-red-500' : item.type === '안전' ? 'bg-green-500' : 'bg-yellow-500'}`}>{item.number}</span>
+        <div className='text-mainfont space-y-4'>
+          {/* 새로운 객체 형태의 analysis_summary 처리 */}
+          {isAnalysisSummaryObject(analysisResult.analysis_summary) ? (
+            <>
+              {/* 안전 등급 */}
+              {analysisResult.analysis_summary.안전 && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-2'>
+                    <h4 className='font-semibold text-green-600'>안전</h4>
+                  </div>
+                  <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary.안전}</p>
                 </div>
-                <div className='flex-1'>
-                  <p className='leading-relaxed'>{item.content}</p>
+              )}
+
+              {/* 관심 등급 */}
+              {analysisResult.analysis_summary.관심 && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-2'>
+                    <h4 className='font-semibold text-blue-600'>관심</h4>
+                  </div>
+                  <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary.관심}</p>
                 </div>
-              </div>
-            ))
+              )}
+
+              {/* 주의 등급 */}
+              {analysisResult.analysis_summary.주의 && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-2'>
+                    <h4 className='font-semibold text-yellow-600'>주의</h4>
+                  </div>
+                  <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary.주의}</p>
+                </div>
+              )}
+
+              {/* 위험 등급 */}
+              {analysisResult.analysis_summary.위험 && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-2'>
+                    <span className='inline-flex items-center justify-center w-6 h-6 rounded-full text-sm font-medium text-white bg-red-500 mr-2'></span>
+                    <h4 className='font-semibold text-red-600'>위험</h4>
+                  </div>
+                  <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary.위험}</p>
+                </div>
+              )}
+
+              {/* 위험 요인 */}
+              {analysisResult.analysis_summary['위험 요인'] && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-3'>
+                    <h4 className='font-semibold text-red-600'>위험 요인</h4>
+                  </div>
+                  <ul className='space-y-2'>
+                    {analysisResult.analysis_summary['위험 요인'].map((item: string, index: number) => (
+                      <li
+                        key={index}
+                        className='text-gray-700 leading-relaxed flex items-start'>
+                        <span className='w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0'></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* 안전 요인 */}
+              {analysisResult.analysis_summary['안전 요인'] && (
+                <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+                  <div className='flex items-center mb-3'>
+                    <h4 className='font-semibold text-green-600'>안전 요인</h4>
+                  </div>
+                  <ul className='space-y-2'>
+                    {analysisResult.analysis_summary['안전 요인'].map((item: string, index: number) => (
+                      <li
+                        key={index}
+                        className='text-gray-700 leading-relaxed flex items-start'>
+                        <span className='w-2 h-2 bg-green-600 rounded-full mt-2 mr-3 flex-shrink-0'></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
           ) : (
-            <p className='leading-relaxed'>{analysisResult?.analysis_summary}</p>
+            /* 기존 문자열 형태의 analysis_summary를 위한 fallback */
+            <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
+              <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary}</p>
+            </div>
           )}
         </div>
       </div>
@@ -92,6 +151,9 @@ export default function ResultContent() {
           <div>
             <span className=' text-gray-700'>신탁등기:</span> <span className='ml-1'>{analysisResult.all_features.신탁_등기여부 === 'True' ? '있음' : '없음'}</span>
           </div>
+          <div>
+            <span className='text-gray-700'>전입 가능 여부:</span> <span className='ml-1'>{analysisResult.all_features.전입_가능여부 === 'True' ? '가능' : '불가능'}</span>
+          </div>
         </div>
       </div>
 
@@ -105,27 +167,26 @@ export default function ResultContent() {
           <div>
             <span className='text-gray-700'>건축물 유형:</span> <span className='ml-1'>{analysisResult.all_features.건축물_유형}</span>
           </div>
+
           <div>
-            <span className='text-gray-700'>매매가:</span> <span className='ml-1'>{analysisResult.all_features.매매가 === 'None' ? '-' : analysisResult.all_features.매매가}</span>
+            <span className='text-gray-700'>최근 매매가:</span> <span className='ml-1'>{analysisResult.all_features.과거_매매가 === 'None' ? '-' : Number(analysisResult.all_features.과거_매매가).toLocaleString('ko-KR') + ' 원'}</span>
+          </div>
+          <div>
+            <span className='text-gray-700'>최근 전세가:</span> <span className='ml-1'>{analysisResult.all_features.과거_전세가 === 'None' ? '-' : Number(analysisResult.all_features.과거_전세가).toLocaleString('ko-KR') + ' 원'}</span>
+          </div>
+          <div>
+            <span className='text-gray-700'>전세가율:</span> <span className='ml-1'>{analysisResult.all_features.과거_전세가율 === 'None' ? '-' : analysisResult.all_features.과거_전세가율}</span>
           </div>
         </div>
       </div>
 
-      {/* 전세 정보 */}
+      {/* 전세 정보
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>전세 정보</h3>
         <div className='text-mainfont space-y-2 ml-1 font-medium'>
-          <div>
-            <span className='text-gray-700'>전세가:</span> <span className='ml-1'>{analysisResult.all_features.전세가 === 'None' ? '-' : analysisResult.all_features.전세가}</span>
-          </div>
-          <div>
-            <span className='text-gray-700'>전세가율:</span> <span className='ml-1'>{analysisResult.all_features.전세가율 === 'None' ? '-' : analysisResult.all_features.전세가율}</span>
-          </div>
-          <div>
-            <span className='text-gray-700'>전입 가능 여부:</span> <span className='ml-1'>{analysisResult.all_features.전입_가능여부 === 'True' ? '가능' : '불가능'}</span>
-          </div>
+          
         </div>
-      </div>
+      </div> */}
 
       {/* 채권 및 담보 정보 */}
       <div>
@@ -142,7 +203,7 @@ export default function ResultContent() {
             <span className='ml-1'>{Number(analysisResult.all_features.채권최고액).toLocaleString('ko-KR') + ' 원'}</span>
           </div>
           <div>
-            <span className=' text-gray-700'>최근 근저당권 설정일:</span> <span className='ml-1'>{analysisResult.all_features.근저당권_설정일_최근 === 'None' ? '-' : analysisResult.all_features.근저당권_설정일_최근}</span>
+            <span className=' text-gray-700'>최근 근저당권 설정일:</span> <span className='ml-1'>{analysisResult.all_features.근저당권_설정일_최근 === 'None' ? '없음' : analysisResult.all_features.근저당권_설정일_최근}</span>
           </div>
         </div>
       </div>

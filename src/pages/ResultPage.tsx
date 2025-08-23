@@ -9,7 +9,7 @@ import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
-import QuestionButton from '../components/QuestionButton'
+import QuestionButton from '../components/ResultQuestionButton'
 
 export default function ResultPage() {
   const navigate = useNavigate()
