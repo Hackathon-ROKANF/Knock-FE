@@ -8,7 +8,7 @@ export default function FirstPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // 3초 후에 UploadPage로 이동
+    // 2.5초 후에 UploadPage로 이동
     const timer = setTimeout(() => {
       setShowSplash(false)
       // 애니메이션 완료 후 페이지 이동

@@ -48,8 +48,8 @@ export default function UploadPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p className='text-xs text-red-500 leading-tight text-center'>* 말소사항 포함으로 발급받으면 더욱 정확한 분석이 가능해요</p>
-          <p className='text-xs text-red-500 leading-tight text-center'>* 업로드된 파일은 24시간 내 자동 삭제돼요</p>
+          <p className='text-xs leading-tight text-red-500 text-center '>* 말소사항 포함으로 발급받으면 더욱 정확한 분석이 가능해요</p>
+          <p className='text-xs leading-tight text-red-500 text-center'>* 업로드된 파일은 24시간 내 자동 삭제돼요</p>
         </motion.div>
       </div>
 

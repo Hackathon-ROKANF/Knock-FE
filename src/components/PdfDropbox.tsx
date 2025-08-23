@@ -90,15 +90,12 @@ export default function PdfDropbox({ maxSizeMb = 20 }: PdfDropboxProps) {
   }
 
   const getDropzoneClasses = () => {
-    let classes =
-      'flex flex-col justify-center items-center border-2 border-dashed rounded-xl transition-all duration-200 min-h-60 min-w-8/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+    let classes = 'flex flex-col justify-center items-center border-2 rounded-xl transition-all duration-200 min-h-60 min-w-8/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 
     if (isAnalyzing) {
-      classes += ' cursor-not-allowed opacity-75'
+      classes += ' cursor-not-allowed opacity-75 '
     } else if (isDragOver) {
-      classes += ' ring-2 border-2'
-      // #165ee0 primary color
-      classes += ' bg-blue-50 border-blue-600 ring-blue-600/20'
+      classes += ' ring-2 border-2 bg-blue-50 bg-blue-50 border-blue-500 ring-blue-600/20'
     } else if (error) {
       classes += ' border-red-300 hover:bg-red-50'
     } else {
@@ -121,8 +118,7 @@ export default function PdfDropbox({ maxSizeMb = 20 }: PdfDropboxProps) {
         role='button'
         tabIndex={isAnalyzing ? -1 : 0}
         aria-label='등기부등본 PDF 업로드'
-        aria-describedby='upload-help'
-      >
+        aria-describedby='upload-help'>
         <input
           ref={fileInputRef}
           type='file'
@@ -146,8 +142,7 @@ export default function PdfDropbox({ maxSizeMb = 20 }: PdfDropboxProps) {
             <button
               onClick={handleReplaceFile}
               className='text-sm text-blue-600 hover:text-blue-700 underline'
-              disabled={isAnalyzing}
-            >
+              disabled={isAnalyzing}>
               변경
             </button>
           </div>
@@ -171,8 +166,7 @@ export default function PdfDropbox({ maxSizeMb = 20 }: PdfDropboxProps) {
             id='upload-error'
             role='alert'
             aria-live='polite'
-            className='text-sm text-red-600 text-center bg-red-50 px-3 py-1 rounded-md'
-          >
+            className='text-sm text-red-600 text-center bg-red-50 px-3 py-1 rounded-md'>
             {error}
           </p>
         </div>

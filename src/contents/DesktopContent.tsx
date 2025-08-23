@@ -12,7 +12,7 @@ import mock_3 from '../assets/mock_3.png'
 
 export default function DesktopContent() {
   return (
-    <div className='p-8 max-h-screen overflow-auto no-scrollbar'>
+    <div className='p-8 max-h-screen overflow-hidden no-scrollbar'>
       <img
         src={LogoMain}
         alt='Knock Logo'
