@@ -97,6 +97,7 @@ const TERM_DEFINITIONS: TermDefinition[] = [
 
 export default function QuestionButton({ className = '' }: QuestionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   // 외부 클릭 시 드롭다운 닫기
@@ -123,6 +124,8 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
       {/* Question Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         title='등기부등본 용어 설명'
         className={`
           cursor-pointer rounded-full bg-white
@@ -135,6 +138,22 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
         />
       </button>
 
+      {/* Hover Tooltip */}
+      <AnimatePresence>
+        {isHovered && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 5, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.9 }}
+            transition={{ duration: 0.15 }}
+            className='absolute top-full right-0 mt-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-40'>
+            등기부등본 용어가 어려우신가요?
+            {/* 화살표 */}
+            <div className='absolute -top-1 right-3 w-2 h-2 bg-gray-800 rotate-45'></div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Dropdown Content */}
       <AnimatePresence>
         {isOpen && (
@@ -143,31 +162,28 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className='absolute top-full right-0 w-85 max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+            className='absolute top-full right-0 w-85 md:w-[480px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
             {/* Header */}
-
+            <div className='bg-gray-50 p-3 text-center border-b border-gray-200'>
+              <h3 className='text-sm font-semibold text-gray-800'>등기부등본 용어가 어려우신가요?</h3>
+            </div>
             {/* Scrollable Content */}
-            <div className='max-h-80 overflow-y-auto no-scrollbar '>
+            <div className='max-h-80 md:max-h-96 overflow-y-auto no-scrollbar p-4 md:p-6'>
               {TERM_DEFINITIONS.map((term, index) => (
                 <div
                   key={term.term}
-                  className={`p-4 ${index !== TERM_DEFINITIONS.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                  <div className='mb-2'>
-                    <h4 className='font-semibold text-gray-800 text-sm'>{term.term}</h4>
+                  className={`p-4 md:p-5 ${index !== TERM_DEFINITIONS.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                  <div className='mb-2 md:mb-3'>
+                    <h4 className='font-semibold text-gray-800 text-sm md:text-base'>{term.term}</h4>
                   </div>
-                  <p className='text-gray-600 text-xs leading-relaxed mb-2'>{term.definition}</p>
+                  <p className='text-gray-600 text-xs md:text-sm leading-relaxed mb-2 md:mb-3'>{term.definition}</p>
                   {term.example && (
-                    <div className='bg-blue-50 p-2 rounded-md'>
-                      <p className='text-blue-700 text-xs'>{term.example}</p>
+                    <div className='bg-blue-50 p-2 md:p-3 rounded-md'>
+                      <p className='text-blue-700 text-xs md:text-sm'>{term.example}</p>
                     </div>
                   )}
                 </div>
               ))}
-            </div>
-
-            {/* Footer */}
-            <div className='bg-gray-50 p-3 text-center'>
-              <p className='text-xs text-gray-500'>어려운 부동산 용어를 쉽게 이해해요</p>
             </div>
           </motion.div>
         )}

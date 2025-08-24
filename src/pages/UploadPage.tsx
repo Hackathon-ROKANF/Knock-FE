@@ -5,6 +5,7 @@ import { useUploadDeed } from '../hooks/useUploadDeed'
 import PdfDropbox from '../components/PdfDropbox'
 import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
+import UploadQuestionButton from '../components/UploadQuestionButton'
 
 export default function UploadPage() {
   const navigate = useNavigate()
@@ -28,7 +29,11 @@ export default function UploadPage() {
   }
 
   return (
-    <div className='container h-screen flex flex-col p-6'>
+    <div className='container h-screen flex flex-col p-6 relative'>
+      <div className='absolute top-4 right-4 z-10'>
+        <UploadQuestionButton />
+      </div>
+
       <div className='flex-[9]'>
         <PageHeader title='등기부등본을 첨부해주세요' />
 
@@ -36,8 +41,7 @@ export default function UploadPage() {
           className='mb-5'
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
+          transition={{ duration: 0.7, delay: 0.3 }}>
           <PdfDropbox maxSizeMb={10} />
         </motion.div>
 
@@ -46,8 +50,7 @@ export default function UploadPage() {
           className='space-y-2'
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
+          transition={{ duration: 0.5, delay: 0.6 }}>
           <p className='text-xs leading-tight text-red-500 text-center '>* 말소사항 포함으로 발급받으면 더욱 정확한 분석이 가능해요</p>
           <p className='text-xs leading-tight text-red-500 text-center'>* 업로드된 파일은 24시간 내 자동 삭제돼요</p>
         </motion.div>
@@ -57,14 +60,12 @@ export default function UploadPage() {
         className='flex-[1] flex flex-col'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-      >
+        transition={{ duration: 0.6, delay: 0.8 }}>
         <Button
           onClick={handleProceed}
           disabled={!isValid || isAnalyzing}
           loading={isAnalyzing}
-          variant='primary'
-        >
+          variant='primary'>
           다음
         </Button>
       </motion.div>

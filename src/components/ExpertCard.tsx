@@ -94,7 +94,7 @@ export default function ExpertCard({ name, specialty, experience, description, r
         onClose={handleNotImplementedClose}
         onConfirm={handleNotImplementedClose}
         title='알림'
-        message='아직 결제 기능이 구현되지 않았습니다'
+        message='아직 결제 기능은 구현되지 않았어요'
       />
     </div>
   )
