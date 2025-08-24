@@ -203,7 +203,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                 {/* 좌/우 네비게이션 버튼 */}
                 <button
                   onClick={prevSlide}
-                  className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110'
+                  className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
                   aria-label='이전 이미지'>
                   <svg
                     className='w-4 h-4 md:w-5 md:h-5'
@@ -221,7 +221,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
 
                 <button
                   onClick={nextSlide}
-                  className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110'
+                  className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
                   aria-label='다음 이미지'>
                   <svg
                     className='w-4 h-4 md:w-5 md:h-5'
