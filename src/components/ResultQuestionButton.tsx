@@ -163,10 +163,6 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className='absolute top-full right-0 w-85 md:w-[480px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
-            {/* Header */}
-            <div className='bg-gray-50 p-3 text-center border-b border-gray-200'>
-              <h3 className='text-sm font-semibold text-gray-800'>등기부등본 용어가 어려우신가요?</h3>
-            </div>
             {/* Scrollable Content */}
             <div className='max-h-80 md:max-h-96 overflow-y-auto no-scrollbar p-4 md:p-6'>
               {TERM_DEFINITIONS.map((term, index) => (

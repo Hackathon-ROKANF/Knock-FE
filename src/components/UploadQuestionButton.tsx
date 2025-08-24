@@ -171,11 +171,8 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className='absolute top-full right-0 w-96 md:w-[480px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+            className='absolute top-full right-0 w-90 md:w-[450px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
             {/* Header */}
-            <div className='bg-gray-50 p-3 text-center border-b border-gray-200'>
-              <h3 className='text-sm font-semibold text-gray-800'>등기부등본은 어떻게 발급받나요?</h3>
-            </div>
 
             {/* Image Slide Container */}
             <div className='p-4 md:p-6'>
