@@ -30,28 +30,28 @@ const FLOW_STEPS: FlowStep[] = [
     src: flow1,
     alt: '등기부등본 발급 1단계',
     title: '1단계: 인터넷등기소 접속',
-    description: '대법원 인터넷등기소(www.iros.go.kr)에 접속하여 주소를 검색해요.',
+    description: '인터넷등기소(www.iros.go.kr)에 접속해 주소를 검색해요.',
   },
   {
     id: 2,
     src: flow2,
     alt: '등기부등본 발급 2단계',
     title: '2단계: 소재지번 선택',
-    description: '소재지번을 확인한 후 다음으로 넘어가요.',
+    description: '검색한 주소의 소재지번을 확인해요.',
   },
   {
     id: 3,
     src: flow3,
     alt: '등기부등본 발급 3단계',
     title: '3단계: 등기기록유형 선택',
-    description: '전부+말소사항 포함으로 발급하면 더욱 정확한 분석이 가능해요.',
+    description: '전부+말소사항 포함으로 발급하면 정확한 분석이 가능해요.',
   },
   {
     id: 4,
     src: flow4,
     alt: '등기부등본 발급 4단계',
     title: '4단계: 결제대상 확인',
-    description: '발급받고자하는 등기부등본이 맞는지 확인한 후 결제 버튼을 눌러요.',
+    description: '발급하고자 하는 소재지가 맞는지 확인해요.',
   },
   {
     id: 5,
@@ -72,7 +72,7 @@ const FLOW_STEPS: FlowStep[] = [
     src: flow7,
     alt: '등기부등본 발급 7단계',
     title: '7단계: 등기부등본 열람',
-    description: '열람 버튼을 눌러서 등기부등본을 확인해요.',
+    description: '열람 버튼을 눌러 등기부등본을 확인해요.',
   },
   {
     id: 8,
@@ -244,7 +244,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                 <div className='text-xs md:text-sm text-gray-600 leading-relaxed'>
                   {currentIndex === 0 ? (
                     <>
-                      대법원 인터넷등기소(
+                      인터넷등기소(
                       <a
                         href='https://www.iros.go.kr'
                         target='_blank'
@@ -252,7 +252,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                         className='text-blue-600 hover:text-blue-800 underline font-medium'>
                         www.iros.go.kr
                       </a>
-                      )에 접속하여 주소를 검색해요.
+                      )에 접속해 주소를 검색해요.
                     </>
                   ) : (
                     FLOW_STEPS[currentIndex].description
