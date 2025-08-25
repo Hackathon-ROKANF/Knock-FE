@@ -23,7 +23,6 @@ export default function LoadingPage() {
   const [hasStartedAnalysis, setHasStartedAnalysis] = useState(false)
   const [showCompletionMessage, setShowCompletionMessage] = useState(false)
 
-  // 분석 시작 감지
   useEffect(() => {
     if (isAnalyzing) {
       setHasStartedAnalysis(true)
@@ -34,20 +33,18 @@ export default function LoadingPage() {
     const startDelay = setTimeout(() => {
       const messageInterval = setInterval(() => {
         setCurrentMessageIndex((prev) => (prev + 1) % LOADING_MESSAGES.length)
-      }, 1500) // 1.5초마다 메시지 변경
+      }, 1500)
 
       return () => clearInterval(messageInterval)
-    }, 500) // 500ms 후 시작
+    }, 500)
 
     return () => clearTimeout(startDelay)
   }, [])
 
-  // 분석 완료 감지 및 완료 메시지 표시
   useEffect(() => {
     if (hasStartedAnalysis && !isAnalyzing && analysisResult) {
       setShowCompletionMessage(true)
 
-      // 5초 후 페이지 이동
       const completionTimer = setTimeout(() => {
         setCanNavigate(true)
       }, 5000)
@@ -57,12 +54,10 @@ export default function LoadingPage() {
   }, [hasStartedAnalysis, isAnalyzing, analysisResult])
 
   useEffect(() => {
-    // 분석이 완료되고 3초가 지난 후 이동
     if (canNavigate) {
       navigate('/result')
     }
 
-    // 에러가 발생했으면 업로드 페이지로 돌아가기
     if (error) {
       navigate('/upload')
     }
@@ -70,14 +65,12 @@ export default function LoadingPage() {
 
   return (
     <div className='container h-screen flex flex-col p-6'>
-      {/* 로딩 메시지 */}
       <PageHeader
         title={'분석중이에요\n잠시만 기다려주세요'}
         textAlign='left'
         titleClassName='whitespace-pre-line'
       />
 
-      {/* Lottie 애니메이션 - 반응형 및 가운데 정렬 */}
       <motion.div
         className='w-[full] flex flex-col items-center justify-center'
         initial={{ opacity: 0, scale: 0.8 }}
@@ -97,7 +90,6 @@ export default function LoadingPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}>
           <div className='max-w-sm w-full'>
-            {/* 동적 분석 단계 메시지 */}
             <AnimatePresence mode='wait'>
               <motion.p
                 key={currentMessageIndex}
@@ -110,7 +102,6 @@ export default function LoadingPage() {
               </motion.p>
             </AnimatePresence>
 
-            {/* 분석 완료 후 대기 중일 때 */}
             {showCompletionMessage && (
               <motion.p
                 className='text-sm text-blue-600 mt-4 font-semibold'

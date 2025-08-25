@@ -48,14 +48,14 @@ export default function ImageSlide({ title = '분석 과정', className = '' }: 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className={`w-full rounded-2xl p-6 shadow-lg border border-gray-200 flex flex-col ${className}`}>
-      {/* 제목 */}
+
       <div className='flex-shrink-0 mb-4 text-left'>
         <h3 className='text-lg font-bold text-gray-800 leading-relaxed'>"{title}"</h3>
       </div>
 
-      {/* 슬라이드 컨테이너 */}
+
       <div className='relative flex-1 flex flex-col'>
-        {/* 이미지 영역 */}
+
         <div className='relative overflow-hidden rounded-lg bg-gray-50 flex-1 min-h-64'>
           <AnimatePresence mode='wait'>
             <motion.img
@@ -70,7 +70,6 @@ export default function ImageSlide({ title = '분석 과정', className = '' }: 
             />
           </AnimatePresence>
 
-          {/* 좌/우 네비게이션 버튼 */}
           <button
             onClick={prevSlide}
             className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-2 shadow-md transition-all duration-200 hover:scale-110'
@@ -108,7 +107,6 @@ export default function ImageSlide({ title = '분석 과정', className = '' }: 
           </button>
         </div>
 
-        {/* 도트 인디케이터 */}
         <div className='flex justify-center mt-4 space-x-2'>
           {FLOW_IMAGES.map((_, index) => (
             <button
@@ -120,7 +118,6 @@ export default function ImageSlide({ title = '분석 과정', className = '' }: 
           ))}
         </div>
 
-        {/* 현재 페이지 표시 */}
         <div className='text-center mt-2'>
           <span className='text-sm text-gray-500'>
             {currentIndex + 1} / {FLOW_IMAGES.length}

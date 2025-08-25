@@ -28,12 +28,6 @@ interface AnalysisResponse {
 }
 
 const analyzeDeed = async (file: File, onProgress?: (progress: number) => void): Promise<AnalysisResponse> => {
-  console.log('🚀 API 요청 시작:', {
-    fileName: file.name,
-    fileSize: file.size,
-    fileType: file.type,
-  })
-
   const formData = new FormData()
   formData.append('file', file)
 
@@ -45,28 +39,15 @@ const analyzeDeed = async (file: File, onProgress?: (progress: number) => void):
       onUploadProgress: (progressEvent) => {
         if (progressEvent.total && onProgress) {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          console.log('📤 업로드 진행률:', percentCompleted + '%')
           onProgress(percentCompleted)
         }
       },
     })
 
-    console.log('✅ API 응답 성공:', {
-      status: response.status,
-      statusText: response.statusText,
-      data: response.data,
-    })
-
     return response.data
   } catch (error) {
-    console.error('❌ API 요청 실패:', error)
     if (axios.isAxiosError(error)) {
-      console.error('📋 에러 세부사항:', {
-        message: error.message,
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-      })
+      // Error handling can be added here if needed
     }
     throw error
   }
@@ -78,27 +59,17 @@ export const useUploadDeed = () => {
   return useMutation({
     mutationFn: (file: File) => analyzeDeed(file, setProgress),
     onMutate: () => {
-      console.log('🔄 Mutation 시작')
       setError(null)
       setProgress(0)
       setIsAnalyzing(true)
       setAnalysisResult(null)
     },
     onSuccess: (data: AnalysisResponse) => {
-      console.log('🎉 Mutation 성공 - 분석 결과:', {
-        prediction: data.prediction,
-        risk_probability: data.risk_probability,
-        features_count: Object.keys(data.all_features).length,
-        summary_length: data.analysis_summary.length,
-        full_data: data,
-      })
       setProgress(100)
       setAnalysisResult(data)
       setIsAnalyzing(false)
     },
     onError: (error) => {
-      console.error('💥 Mutation 에러:', error)
-
       let errorMessage = '분석 중 오류가 발생했습니다.'
 
       if (axios.isAxiosError(error) && error.response) {
@@ -116,14 +87,11 @@ export const useUploadDeed = () => {
         errorMessage = error.message
       }
 
-      console.error('📝 에러 메시지:', errorMessage)
       setError(errorMessage)
       setProgress(0)
       setIsAnalyzing(false)
     },
     onSettled: () => {
-      console.log('🏁 Mutation 완료')
-      // Reset progress after completion
       setTimeout(() => setProgress(0), 1000)
     },
   })

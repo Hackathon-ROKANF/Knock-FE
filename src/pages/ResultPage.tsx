@@ -22,7 +22,6 @@ export default function ResultPage() {
 
   const [text, setText] = useState('')
 
-  // localStorage 확인 후 분석 결과가 없으면 업로드 페이지로 리다이렉트
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!analysisResult?.risk_probability) {
@@ -33,7 +32,6 @@ export default function ResultPage() {
     return () => clearTimeout(timer)
   }, [analysisResult, navigate])
 
-  // 버튼 클릭 시 컨텐츠 표시 & 스크롤
   const handleShowContent = () => {
     setShowContent(true)
 
@@ -106,7 +104,6 @@ export default function ResultPage() {
             <div className='mt-8 pt-6 border-t border-gray-200'>
               <p className='text-center text-gray-600 mb-6'>전문가와 상담하면 더 정확한 분석이 가능해요</p>
             </div>
-
           </motion.div>
         )}
 
@@ -134,7 +131,6 @@ export default function ResultPage() {
         )}
       </motion.div>
 
-      {/* 확인 모달 */}
       <ConfirmModal
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}

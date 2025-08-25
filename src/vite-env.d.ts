@@ -6,13 +6,11 @@ declare module '*.css' {
   export default content
 }
 
-// SCSS 모듈 타입 선언
 declare module '*.scss' {
   const content: string
   export default content
 }
 
-// Swiper CSS 모듈 타입 선언
 declare module 'swiper/css' {
   const content: void
   export default content
@@ -58,7 +56,6 @@ declare module 'swiper/css/effect-cube' {
   export default content
 }
 
-// 이미지 파일 타입 선언
 declare module '*.png' {
   const content: string
   export default content

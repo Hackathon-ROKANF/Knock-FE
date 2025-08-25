@@ -5,7 +5,6 @@ import TextSlide from './TextSlide'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-// 텍스트 슬라이드 데이터
 const textSlideData = [
   {
     title: '등기부등본만 제대로 봤어도 전세사기 90%는 막을 수 있었습니다.',

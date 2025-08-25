@@ -21,8 +21,7 @@ export default function Button({ variant = 'primary', children, loading = false,
     <button
       className={finalClassName}
       disabled={disabled || loading}
-      {...props}
-    >
+      {...props}>
       {loading ? '분석 중...' : children}
     </button>
   )

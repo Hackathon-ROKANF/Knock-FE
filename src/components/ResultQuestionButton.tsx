@@ -100,7 +100,6 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
   const [isHovered, setIsHovered] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -121,7 +120,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
     <div
       ref={containerRef}
       className={`relative ${className}`}>
-      {/* Question Button */}
+
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsHovered(true)}
@@ -138,7 +137,6 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
         />
       </button>
 
-      {/* Hover Tooltip */}
       <AnimatePresence>
         {isHovered && !isOpen && (
           <motion.div
@@ -148,13 +146,11 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             transition={{ duration: 0.15 }}
             className='absolute top-full right-0 mt-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-40'>
             등기부등본 용어가 어려우신가요?
-            {/* 화살표 */}
             <div className='absolute -top-1 right-3 w-2 h-2 bg-gray-800 rotate-45'></div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Dropdown Content */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -163,7 +159,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[340px] 2xl:w-[410px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
-            {/* Scrollable Content */}
+ 
             <div className='max-h-90 overflow-y-auto no-scrollbar p-4 md:p-6'>
               {TERM_DEFINITIONS.map((term, index) => (
                 <div

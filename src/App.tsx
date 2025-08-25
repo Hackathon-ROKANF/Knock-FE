@@ -5,12 +5,12 @@ import MobileLayout from './layouts/MobileLayout'
 export default function App() {
   return (
     <BrowserRouter>
-      {/* 데스크톱에서만 표시 */}
+      {/* 데스크톱 */}
       <div className='hidden md:block'>
         <DesktopLayout />
       </div>
 
-      {/* 모바일에서만 표시 */}
+      {/* 모바일 */}
       <div className='md:hidden'>
         <MobileLayout />
       </div>

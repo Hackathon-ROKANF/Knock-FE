@@ -15,13 +15,12 @@ export default function TextSlide({ title, content, source, delay = 0, className
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
       className={`w-full rounded-2xl p-6  shadow-lg border border-gray-200 flex flex-col ${className}`}>
-      {/* 제목과 출처 */}
+
       <div className='flex-shrink-0 mb-3 text-left'>
         <h3 className='text-lg font-bold text-gray-800 leading-relaxed'>"{title}"</h3>
         {source && <p className='text-xs text-gray-500 italic'>{source}</p>}
       </div>
 
-      {/* 내용 - 스크롤 가능 */}
       <div className='flex-1 overflow-y-auto space-y-4 text-left'>
         {content.map((paragraph, index) => (
           <p

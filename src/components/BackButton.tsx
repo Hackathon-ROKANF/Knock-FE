@@ -6,11 +6,10 @@ interface BackButtonProps {
   disabled?: boolean
 }
 
-export default function BackButton({ to, disabled=false }: BackButtonProps) {
+export default function BackButton({ to, disabled = false }: BackButtonProps) {
   const navigate = useNavigate()
 
   const handleBack = () => {
-
     if (disabled) return
 
     if (to) {

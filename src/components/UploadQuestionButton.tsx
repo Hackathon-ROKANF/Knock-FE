@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { QuestionIcon } from '../assets/icons'
 
-// 이미지 import
 import flow1 from '../assets/flow/1.png'
 import flow2 from '../assets/flow/2.png'
 import flow3 from '../assets/flow/3.png'
@@ -90,7 +89,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev' | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -130,7 +128,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
     <div
       ref={containerRef}
       className={`relative ${className}`}>
-      {/* Question Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsHovered(true)}
@@ -147,7 +144,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
         />
       </button>
 
-      {/* Hover Tooltip */}
       <AnimatePresence>
         {isHovered && !isOpen && (
           <motion.div
@@ -157,13 +153,11 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
             transition={{ duration: 0.1 }}
             className='absolute top-full right-0 mt-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-40'>
             등기부등본은 어떻게 발급받나요?
-            {/* 화살표 */}
             <div className='absolute -top-1 right-3 w-2 h-2 bg-gray-800 rotate-45'></div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Dropdown Content */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -172,11 +166,8 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[340px] 2xl:w-[410px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
-            {/* Header */}
 
-            {/* Image Slide Container */}
             <div className='p-4'>
-              {/* 이미지 영역 */}
               <div className='relative overflow-hidden rounded-lg bg-gray-50 h-60 lg:h-[180px] 2xl:h-[300px] mb-2 '>
                 <AnimatePresence mode='wait'>
                   <motion.img
@@ -200,7 +191,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                   />
                 </AnimatePresence>
 
-                {/* 좌/우 네비게이션 버튼 */}
                 <button
                   onClick={prevSlide}
                   className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
@@ -238,7 +228,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                 </button>
               </div>
 
-              {/* 제목과 설명 */}
               <div className='mb-4 md:mb-6'>
                 <h4 className='text-sm md:text-base font-semibold text-gray-800 mb-2 md:mb-3'>{FLOW_STEPS[currentIndex].title}</h4>
                 <div className='text-xs md:text-sm text-gray-600 leading-relaxed'>
@@ -260,7 +249,6 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                 </div>
               </div>
 
-              {/* 도트 인디케이터 */}
               <div className='flex justify-center space-x-1.5 md:space-x-2 mb-2'>
                 {FLOW_STEPS.map((_, index) => (
                   <button
@@ -271,19 +259,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                   />
                 ))}
               </div>
-
-              {/* 현재 페이지 표시 */}
-              {/* <div className='text-center'>
-                <span className='text-xs text-gray-500'>
-                  {currentIndex + 1} / {FLOW_STEPS.length}
-                </span>
-              </div> */}
             </div>
-
-            {/* Footer */}
-            {/* <div className='bg-gray-50 p-3 text-center border-t border-gray-200'>
-              <p className='text-xs text-gray-500'>등기부등본 발급 방법을 단계별로 확인해보세요</p>
-            </div> */}
           </motion.div>
         )}
       </AnimatePresence>

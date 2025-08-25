@@ -17,8 +17,7 @@ export default function PageHeader({ title, subtitle, className, titleClassName 
       className={`${className} ${baseClassName} `}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: animationDelay }}
-    >
+      transition={{ duration: 0.6, delay: animationDelay }}>
       <h1 className={titleClassName}>{title}</h1>
       {subtitle && <p className='text-lg text-gray-600 mt-1'>{subtitle}</p>}
     </motion.div>

@@ -12,7 +12,7 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm, expertNa
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* 오버레이 */}
+          
           <motion.div
             className='fixed z-50 inset-0 bg-[rgba(0,0,0,0.4)]'
             initial={{ opacity: 0 }}
@@ -21,7 +21,7 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm, expertNa
             onClick={onClose}
           />
 
-          {/* 모달 - 위치를 모바일 영역에 맞춤 */}
+
           <motion.div
             className='fixed z-50 flex items-center justify-center px-4 inset-0'
             initial={{ opacity: 0 }}
@@ -33,12 +33,11 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm, expertNa
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}>
-              {/* 제목 */}
+
               <div className='text-center mb-4'>
                 <h3 className='text-lg font-semibold text-gray-900'>상담 시작하기</h3>
               </div>
 
-              {/* 메시지 */}
               <div className='text-center mb-8'>
                 <p className='text-gray-700 leading-relaxed'>
                   <span className='font-semibold text-blue-600'>{expertName}</span>님과
@@ -46,7 +45,6 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm, expertNa
                 </p>
               </div>
 
-              {/* 버튼들 */}
               <div className='flex space-x-3'>
                
                 <button

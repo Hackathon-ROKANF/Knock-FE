@@ -22,7 +22,6 @@ export default function ExpertCard({ name, specialty, experience, description, r
 
   const handleConfirm = () => {
     setIsModalOpen(false)
-    // 미구현 모달 표시
     setIsNotImplementedModalOpen(true)
   }
 
@@ -49,15 +48,13 @@ export default function ExpertCard({ name, specialty, experience, description, r
           )}
         </div>
 
-        {/* 정보 영역 */}
         <div className='flex-1 min-w-0'>
-          {/* 이름과 전문분야 */}
+
           <div className='flex items-center gap-2 mb-1'>
             <h3 className='text-base font-bold text-gray-900 truncate'>{name}</h3>
             <span className='text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full whitespace-nowrap'>{specialty}</span>
           </div>
 
-          {/* 경력과 평점 */}
           <div className='flex items-center justify-between mb-2'>
             <span className='text-sm text-blue-600 font-medium truncate'>{experience}</span>
             <div className='flex items-center gap-1 flex-shrink-0'>
@@ -68,10 +65,8 @@ export default function ExpertCard({ name, specialty, experience, description, r
             </div>
           </div>
 
-          {/* 설명 */}
           <p className='text-sm text-gray-600 mb-3 leading-relaxed line-clamp-2'>{description}</p>
 
-          {/* 상담 버튼 */}
           <button
             onClick={handleConsultationStart}
             className='w-full cursor-pointer bg-white border border-blue-500 text-blue-500 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors duration-200 flex items-center justify-center gap-1'>
@@ -80,7 +75,6 @@ export default function ExpertCard({ name, specialty, experience, description, r
         </div>
       </div>
 
-      {/* 상담 확인 모달 */}
       <ConsultationModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
@@ -88,7 +82,6 @@ export default function ExpertCard({ name, specialty, experience, description, r
         expertName={name}
       />
 
-      {/* 미구현 알림 모달 */}
       <ConfirmModal
         isOpen={isNotImplementedModalOpen}
         onClose={handleNotImplementedClose}

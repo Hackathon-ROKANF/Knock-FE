@@ -6,7 +6,7 @@ export default function PaymentPage() {
   return (
     <div className='container h-screen overflow-auto no-scrollbar flex flex-col p-6 relative'>
       <div className='absolute top-4 left-4 z-10'>
-        <BackButton/>
+        <BackButton />
       </div>
 
       <div>

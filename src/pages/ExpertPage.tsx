@@ -4,10 +4,8 @@ import PageHeader from '../components/PageHeader'
 import BackButton from '../components/BackButton'
 
 export default function ExpertPage() {
-
   return (
     <div className='container h-screen overflow-auto no-scrollbar flex flex-col p-6 relative'>
-      {/* 백 버튼 - 왼쪽 위 absolute 위치 */}
       <div className='absolute top-4 left-4 z-10'>
         <BackButton to='/result' />
       </div>
@@ -20,7 +18,6 @@ export default function ExpertPage() {
 
         <ExpertContent />
       </div>
-
     </div>
   )
 }

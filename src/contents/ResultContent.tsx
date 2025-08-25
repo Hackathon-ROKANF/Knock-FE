@@ -3,7 +3,6 @@ import { useDeedUploadStore } from '../store/useDeedUploadStore'
 export default function ResultContent() {
   const { analysisResult } = useDeedUploadStore()
 
-  // analysis_summary가 객체인지 확인하는 헬퍼 함수
   const isAnalysisSummaryObject = (
     summary: unknown
   ): summary is {
@@ -17,14 +16,12 @@ export default function ResultContent() {
     return typeof summary === 'object' && summary !== null
   }
 
-  // 실제 분석 결과가 있을 때만 내용을 표시
   if (!analysisResult) {
     return <div className='text-center text-gray-500'>분석 결과를 불러오는 중...</div>
   }
 
   return (
     <div className='space-y-6 w-full p-3 '>
-      {/* 최종 분석 결과 - 맨 위로 이동 */}
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>분석 결과</h3>
         <div className='text-mainfont'>
@@ -32,9 +29,7 @@ export default function ResultContent() {
             <span
               className={`inline-flex items-center justify-center w-3 h-3 rounded-full text-xs font-bold text-white mr-2 ${
                 analysisResult.prediction === '안전' ? 'bg-green-600' : analysisResult.prediction === '관심' ? 'bg-blue-500' : analysisResult.prediction === '주의' ? 'bg-yellow-500' : 'bg-red-500'
-              }`}>
-              {/* {analysisResult.prediction.charAt(0)} */}
-            </span>
+              }`}></span>
             <span className={`text-lg font-bold ${analysisResult.prediction === '안전' ? 'text-green-600' : analysisResult.prediction === '관심' ? 'text-blue-600' : analysisResult.prediction === '주의' ? 'text-yellow-600' : 'text-red-600'}`}>
               {analysisResult.prediction}
             </span>
@@ -43,14 +38,11 @@ export default function ResultContent() {
         </div>
       </div>
 
-      {/* 분석 요약 */}
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>분석 요약</h3>
         <div className='text-mainfont space-y-4'>
-          {/* 새로운 객체 형태의 analysis_summary 처리 */}
           {isAnalysisSummaryObject(analysisResult.analysis_summary) ? (
             <>
-              {/* 안전 등급 */}
               {analysisResult.analysis_summary.안전 && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-2'>
@@ -60,7 +52,6 @@ export default function ResultContent() {
                 </div>
               )}
 
-              {/* 관심 등급 */}
               {analysisResult.analysis_summary.관심 && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-2'>
@@ -70,7 +61,6 @@ export default function ResultContent() {
                 </div>
               )}
 
-              {/* 주의 등급 */}
               {analysisResult.analysis_summary.주의 && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-2'>
@@ -80,7 +70,6 @@ export default function ResultContent() {
                 </div>
               )}
 
-              {/* 위험 등급 */}
               {analysisResult.analysis_summary.위험 && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-2'>
@@ -91,7 +80,6 @@ export default function ResultContent() {
                 </div>
               )}
 
-              {/* 위험 요인 */}
               {analysisResult.analysis_summary['위험 요인'] && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-3'>
@@ -110,7 +98,6 @@ export default function ResultContent() {
                 </div>
               )}
 
-              {/* 안전 요인 */}
               {analysisResult.analysis_summary['안전 요인'] && (
                 <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
                   <div className='flex items-center mb-3'>
@@ -130,7 +117,6 @@ export default function ResultContent() {
               )}
             </>
           ) : (
-            /* 기존 문자열 형태의 analysis_summary를 위한 fallback */
             <div className='bg-white border border-gray-200 p-4 rounded-lg shadow-md'>
               <p className='text-gray-700 leading-relaxed'>{analysisResult.analysis_summary}</p>
             </div>
@@ -138,7 +124,6 @@ export default function ResultContent() {
         </div>
       </div>
 
-      {/* 위험 요소 확인 */}
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>위험 요소</h3>
         <div className='text-mainfont space-y-2 ml-1 font-medium'>
@@ -157,7 +142,6 @@ export default function ResultContent() {
         </div>
       </div>
 
-      {/* 부동산 정보 */}
       <div>
         <h3 className='font-bold text-primary mb-3 text-xl'>부동산 정보</h3>
         <div className='text-mainfont space-y-2 ml-1 font-medium'>
@@ -180,15 +164,6 @@ export default function ResultContent() {
         </div>
       </div>
 
-      {/* 전세 정보
-      <div>
-        <h3 className='font-bold text-primary mb-3 text-xl'>전세 정보</h3>
-        <div className='text-mainfont space-y-2 ml-1 font-medium'>
-          
-        </div>
-      </div> */}
-
-      {/* 채권 및 담보 정보 */}
       <div>
         <h3 className='font-bold text-blue-600 mb-3 text-xl'>채권 및 담보 정보</h3>
         <div className='text-mainfont space-y-2 ml-1 font-medium'>

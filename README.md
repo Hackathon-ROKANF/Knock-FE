@@ -198,4 +198,3 @@ yarn lint
 - Frontend Developer
 - Backend Developer
 - AI/ML Engineer
-

@@ -48,14 +48,12 @@ type DeedUploadStore = DeedUploadState & DeedUploadActions
 export const useDeedUploadStore = create<DeedUploadStore>()(
   persist(
     (set) => ({
-      // State
       file: null,
       error: null,
       progress: 0,
       analysisResult: null,
       isAnalyzing: false,
 
-      // Actions
       setFile: (file) => set({ file, error: null }),
       clear: () => {
         set({
@@ -65,7 +63,6 @@ export const useDeedUploadStore = create<DeedUploadStore>()(
           analysisResult: null,
           isAnalyzing: false,
         })
-        // localStorage에서도 완전히 제거
         localStorage.removeItem('deed-upload-storage')
       },
       setError: (error) => set({ error }),
@@ -74,10 +71,10 @@ export const useDeedUploadStore = create<DeedUploadStore>()(
       setIsAnalyzing: (isAnalyzing) => set({ isAnalyzing }),
     }),
     {
-      name: 'deed-upload-storage', // localStorage key
+      name: 'deed-upload-storage',
       partialize: (state) => ({
         analysisResult: state.analysisResult,
-      }), // 분석 결과만 저장
+      }),
     }
   )
 )

@@ -32,7 +32,6 @@ export default function DesktopContent() {
             to={30400}
             duration={10000}
           />
-          
           <div className='text-sm text-gray-500 font-semibold ml-1'>25.05.31 기준, 전세사기 피해 실태조사(국토교통부)</div>
         </h2>
       </motion.div>

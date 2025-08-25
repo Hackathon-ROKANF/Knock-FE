@@ -2,20 +2,19 @@ import { useEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
 
 interface ScoreProgressProps {
-  prediction: '안전' | '관심' | '주의' | '위험' // 예측 결과
-  riskProbability: string // 위험도 확률 (예: "63.65%")
-  size: number // 원의 크기 (px)
-  strokeWidth: number // 선의 두께
-  animationDuration: number // 애니메이션 지속시간 (초)
+  prediction: '안전' | '관심' | '주의' | '위험'
+  riskProbability: string
+  size: number 
+  strokeWidth: number 
+  animationDuration: number 
   className: string
 }
 
 export default function ScoreProgress({ riskProbability, size = 200, strokeWidth = 12, animationDuration = 2, className = '' }: Omit<ScoreProgressProps, 'prediction'>) {
-  // 위험도 확률을 점수로 변환 (위험도가 낮을수록 높은 점수)
+
   const riskPercentage = parseFloat(riskProbability.replace('%', ''))
   const score = Math.round(100 - riskPercentage)
 
-  // 점수에 따른 예측 결과 계산
   const getScorePrediction = (scoreValue: number) => {
     if (scoreValue === 100) return '안전'
     if (scoreValue >= 66) return '관심'
@@ -25,35 +24,28 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
 
   const calculatedPrediction = getScorePrediction(score)
 
-  // 원의 중심과 반지름 계산
   const center = size / 2
   const radius = center - strokeWidth / 2
 
-  // 원의 둘레 계산
   const circumference = 2 * Math.PI * radius
 
-  // 점수 비율 계산 100 점 기준
   const scorePercentage = Math.min(Math.max(score, 0), 100) / 100
 
-  // Motion values for animations
   const pathLength = useMotionValue(0)
 
-  // Transform motion values
   const pathLengthSpring = useTransform(pathLength, [0, 1], [circumference, circumference - scorePercentage * circumference])
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Animate progress bar
       animate(pathLength, 1, {
         duration: animationDuration,
         ease: 'easeOut',
       })
-    }, 500) // 0.5초 후 시작
+    }, 500) 
 
     return () => clearTimeout(timer)
   }, [pathLength, score, animationDuration])
 
-  // 점수에 따른 색상 결정 (예측 결과 기반)
   const getPredictionColor = (pred: string) => {
     switch (pred) {
       case '안전':
@@ -74,7 +66,6 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
   return (
     <div className={`flex flex-col items-center justify-center ${className}`}>
       <div className={`relative w-[${size}px] h-[${size}px]`}>
-        {/* 배경 원 */}
         <svg
           width={size}
           height={size}
@@ -89,7 +80,6 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
             className='opacity-30'
           />
 
-          {/* 진행 원 */}
           <motion.circle
             cx={center}
             cy={center}
@@ -106,7 +96,6 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
           />
         </svg>
 
-        {/* 중앙 점수 텍스트 */}
         <div className='absolute inset-0 flex flex-col items-center justify-center'>
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -118,12 +107,10 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
               style={{ color: currentColor }}>
               <motion.span style={{ display: 'inline-block' }}>{score}점</motion.span>
             </motion.div>
-            {/* <div className='text-sm text-gray-500'>{calculatedPrediction}</div> */}
           </motion.div>
         </div>
       </div>
 
-      {/* 점수 설명 */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -139,7 +126,6 @@ export default function ScoreProgress({ riskProbability, size = 200, strokeWidth
           {calculatedPrediction === '주의' && '이 집은 주의가 필요해요'}
           {calculatedPrediction === '위험' && '각별한 주의가 필요해요'}
         </motion.div>
-        {/* <div className='text-sm text-gray-600'>등기부등본 분석 결과</div> */}
       </motion.div>
     </div>
   )
