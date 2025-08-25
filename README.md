@@ -58,31 +58,6 @@ Knock은 부동산 거래 시 필수적으로 확인해야 하는 **등기부등
 - **발급 가이드**: 등기부등본 발급 과정 단계별 안내
 - **반응형 툴팁**: 호버 시 도움말 제공
 
-## 🛠 기술 스택
-
-### Frontend Framework
-
-- **React 19**: 최신 React 기능 활용
-- **TypeScript**: 타입 안정성 확보
-- **Vite**: 빠른 개발 환경
-
-### 스타일링 & UI
-
-- **TailwindCSS 4.x**: 유틸리티 퍼스트 CSS
-- **Framer Motion**: 부드러운 애니메이션
-- **Responsive Design**: 모바일/데스크탑 대응
-
-### 상태 관리 & 데이터
-
-- **Zustand**: 경량 상태 관리
-- **TanStack Query**: 서버 상태 관리
-- **Axios**: HTTP 클라이언트
-
-### 개발 도구
-
-- **ESLint**: 코드 품질 관리
-- **React Router**: 클라이언트 사이드 라우팅
-
 ## 🔄 애플리케이션 플로우
 
 ```mermaid
@@ -219,38 +194,6 @@ npm run lint
 yarn lint
 ```
 
-## 🧩 주요 컴포넌트
-
-### ScoreProgress
-
-위험도를 시각적으로 표현하는 원형 진행바 컴포넌트
-
-```tsx
-<ScoreProgress
-  riskProbability='25%'
-  size={240}
-  strokeWidth={14}
-  animationDuration={2.5}
-/>
-```
-
-### PdfDropbox
-
-등기부등본 파일 업로드를 위한 드래그 앤 드롭 컴포넌트
-
-```tsx
-<PdfDropbox maxSizeMb={10} />
-```
-
-### QuestionButton (2가지 버전)
-
-- **UploadQuestionButton**: 등기부등본 발급 가이드
-- **ResultQuestionButton**: 용어 설명
-
-### ExpertCard
-
-전문가 정보를 표시하는 카드 컴포넌트
-
 ## 📱 페이지 구성
 
 ### 반응형 디자인
@@ -258,18 +201,6 @@ yarn lint
 - **모바일 우선**: 320px ~ 768px
 - **데스크탑 대응**: 768px 이상
 - **Tailwind CSS**: `md:` 브레이크포인트 활용
-
-### 애니메이션
-
-- **Framer Motion**: 페이지 전환 및 요소 애니메이션
-- **부드러운 전환**: 사용자 경험 향상
-- **성능 최적화**: GPU 가속 활용
-
-### 접근성
-
-- **ARIA 라벨**: 스크린 리더 지원
-- **키보드 네비게이션**: 접근성 향상
-- **의미론적 HTML**: SEO 및 접근성
 
 ## 🌐 배포
 
@@ -279,13 +210,9 @@ yarn lint
 
 ## 👥 팀 정보
 
-### 해커톤 ROKANF 팀
+### 해커톤 - 물땅참 팀
 
 - Frontend Developer
 - Backend Developer
 - AI/ML Engineer
-- Designer
 
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
