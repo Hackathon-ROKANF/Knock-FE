@@ -145,7 +145,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             exit={{ opacity: 0, y: 5, scale: 0.9 }}
             transition={{ duration: 0.15 }}
             className='absolute top-full right-0 mt-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-40'>
-            등기부등본 용어23223가 어려우신가요?
+            등기부등본 용어가 어려우신가요?
             <div className='absolute -top-1 right-3 w-2 h-2 bg-gray-800 rotate-45'></div>
           </motion.div>
         )}
