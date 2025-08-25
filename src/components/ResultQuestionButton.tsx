@@ -145,7 +145,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             exit={{ opacity: 0, y: 5, scale: 0.9 }}
             transition={{ duration: 0.15 }}
             className='absolute top-full right-0 mt-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-40'>
-            등기부등본 용어가 어려우신가요?
+            등기부등본 용어23223가 어려우신가요?
             <div className='absolute -top-1 right-3 w-2 h-2 bg-gray-800 rotate-45'></div>
           </motion.div>
         )}
@@ -160,13 +160,13 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[340px] 2xl:w-[410px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
  
-            <div className='max-h-90 overflow-y-auto no-scrollbar p-4 md:p-6'>
+            <div className='max-h-90 overflow-y-auto no-scrollbar p-4'>
               {TERM_DEFINITIONS.map((term, index) => (
                 <div
                   key={term.term}
                   className={`p-4 ${index !== TERM_DEFINITIONS.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                  <div className='mb-2 md:mb-3'>
-                    <h4 className='font-semibold text-gray-800 text-sm md:text-base'>{term.term}</h4>
+                  <div className='mb-2'>
+                    <h4 className='font-semibold text-gray-800 text-sm'>{term.term}</h4>
                   </div>
                   <p className='text-gray-600 text-xs md:text-sm leading-relaxed mb-2'>{term.definition}</p>
                   {term.example && (
