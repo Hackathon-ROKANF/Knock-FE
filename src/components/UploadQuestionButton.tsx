@@ -44,7 +44,7 @@ const FLOW_STEPS: FlowStep[] = [
     src: flow3,
     alt: '등기부등본 발급 3단계',
     title: '3단계: 등기기록유형 선택',
-    description: '전부+말소사항 포함으로 발급하면 정확한 분석이 가능해요.',
+    description: '말소사항 포함으로 발급해야 정확한 분석이 가능해요.',
   },
   {
     id: 4,
@@ -171,13 +171,13 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[320px] 2xl:w-[410px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+            className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[340px] 2xl:w-[410px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
             {/* Header */}
 
             {/* Image Slide Container */}
-            <div className='p-3 sm:p-4 md:p-5 lg:p-6'>
+            <div className='p-4'>
               {/* 이미지 영역 */}
-              <div className='relative overflow-hidden rounded-lg bg-gray-50 h-60 lg:h-[180px] 2xl:h-[300px]  mb-3 sm:mb-4'>
+              <div className='relative overflow-hidden rounded-lg bg-gray-50 h-60 lg:h-[180px] 2xl:h-[300px] mb-2 '>
                 <AnimatePresence mode='wait'>
                   <motion.img
                     key={currentIndex}
@@ -203,7 +203,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                 {/* 좌/우 네비게이션 버튼 */}
                 <button
                   onClick={prevSlide}
-                  className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
+                  className='absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
                   aria-label='이전 이미지'>
                   <svg
                     className='w-4 h-4 md:w-5 md:h-5'
@@ -221,7 +221,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
 
                 <button
                   onClick={nextSlide}
-                  className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1.5 md:p-2 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
+                  className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 rounded-full p-1 shadow-md transition-all duration-200 hover:scale-110 cursor-pointer'
                   aria-label='다음 이미지'>
                   <svg
                     className='w-4 h-4 md:w-5 md:h-5'
@@ -266,7 +266,7 @@ export default function UploadQuestionButton({ className = '' }: QuestionButtonP
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all duration-200 ${index === currentIndex ? 'bg-blue-500 w-4 md:w-5' : 'bg-gray-300 hover:bg-gray-400'}`}
+                    className={`w-1 h-1 rounded-full transition-all duration-200 ${index === currentIndex ? 'bg-blue-500 w-3' : 'bg-gray-300 hover:bg-gray-400'}`}
                     aria-label={`${index + 1}번째 이미지로 이동`}
                   />
                 ))}
