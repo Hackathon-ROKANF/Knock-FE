@@ -162,7 +162,7 @@ export default function QuestionButton({ className = '' }: QuestionButtonProps) 
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className='absolute top-full right-0 w-[90vw] lg:w-[380px] 2xl:w-[400px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
+            className='absolute top-full right-0 w-[90vw] sm:w-[250px] lg:w-[280px] xl:w-[320px] 2xl:w-[410px] max-h-100 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50'>
             {/* Scrollable Content */}
             <div className='max-h-80 overflow-y-auto no-scrollbar p-4 md:p-6'>
               {TERM_DEFINITIONS.map((term, index) => (
