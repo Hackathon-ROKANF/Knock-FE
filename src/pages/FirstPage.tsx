@@ -1,22 +1,36 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuthStore } from '../store/useAuthStore'
 import LogoDouble from '../assets/LogoDouble.png'
 
 export default function FirstPage() {
   const [showSplash, setShowSplash] = useState(true)
   const navigate = useNavigate()
+  const { setToken } = useAuthStore()
 
   useEffect(() => {
+    // URL 파라미터에서 토큰 확인 (카카오 로그인 완료 후)
+    const urlParams = new URLSearchParams(window.location.search)
+    const token = urlParams.get('token')
+
+    if (token) {
+      // 토큰이 있으면 저장하고 업로드 페이지로 이동
+      setToken(token)
+      navigate('/upload')
+      return
+    }
+
+    // 일반적인 스플래시 화면 로직
     const timer = setTimeout(() => {
       setShowSplash(false)
       setTimeout(() => {
-        navigate('/upload')
+        navigate('/login')
       }, 800)
     }, 2500)
 
     return () => clearTimeout(timer)
-  }, [navigate])
+  }, [navigate, setToken])
 
   return (
     <div className='min-h-screen w-full overflow-hidden '>

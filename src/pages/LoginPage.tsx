@@ -1,0 +1,87 @@
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import LogoDouble from '../assets/LogoDouble.png'
+import kakao_login_medium_wide from '../assets/kakao_login_medium_wide.png'
+
+export default function LoginPage() {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  // URL 파라미터에서 에러 확인
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const error = urlParams.get('error')
+
+    if (error === 'login_failed') {
+      setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.')
+    }
+  }, [])
+
+  const kakaoLogin = () => {
+    // 백엔드로 직접 리다이렉트
+    // 백엔드에서 카카오 OAuth 처리 후 knock-knock.site/로 리다이렉트 해줄 예정
+    window.location.href = 'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/auth/kakao/login'
+  }
+
+  return (
+    <div className='container h-screen flex flex-col p-6 relative'>
+      {/* 에러 메시지 */}
+      {errorMessage && (
+        <motion.div
+          className='mb-4 p-3 bg-red-50 border border-red-200 rounded-lg'
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}>
+          <p className='text-red-600 text-sm text-center'>{errorMessage}</p>
+        </motion.div>
+      )}
+
+      {/* 로고 - 화면 중앙 */}
+      <motion.div
+        className='flex-1 flex items-center justify-center'
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          ease: 'easeOut',
+        }}>
+        <motion.img
+          src={LogoDouble}
+          alt='Knock Logo'
+          className='max-w-xs md:max-w-md lg:max-w-lg h-auto'
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            duration: 1,
+            delay: 0.5,
+            ease: 'easeOut',
+          }}
+          whileHover={{ scale: 1.05 }}
+        />
+      </motion.div>
+
+      {/* 카카오 로그인 버튼 */}
+      <motion.div
+        className='flex-shrink-0 mb-8'
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.7,
+          ease: 'easeOut',
+        }}>
+        <motion.img
+          src={kakao_login_medium_wide}
+          alt='Kakao Login Button'
+          className={`mx-auto block ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+          whileHover={!isLoading ? { scale: 1.02 } : {}}
+          whileTap={!isLoading ? { scale: 0.98 } : {}}
+          onClick={() => {
+            setIsLoading(true)
+            kakaoLogin()
+          }}
+        />
+      </motion.div>
+    </div>
+  )
+}

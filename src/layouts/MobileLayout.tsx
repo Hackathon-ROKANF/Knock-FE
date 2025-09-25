@@ -1,9 +1,9 @@
-import MobileContent from '../contents/MobileContent'
+import AppRouter from '../router/AppRouter'
 
 export default function MobileLayout() {
   return (
     <div className='h-full bg-white'>
-      <MobileContent />
+      <AppRouter />
     </div>
   )
 }
