@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import LogoDouble from '../assets/LogoDouble.png'
 import kakao_login_medium_wide from '../assets/kakao_login_medium_wide.png'
+import axios from 'axios'
 
 export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('')
@@ -18,9 +19,15 @@ export default function LoginPage() {
   }, [])
 
   const kakaoLogin = () => {
-    // 백엔드로 직접 리다이렉트
-    // 백엔드에서 카카오 OAuth 처리 후 knock-knock.site/로 리다이렉트 해줄 예정
-    window.location.href = 'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/auth/kakao/login'
+    axios.get('https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/auth/kakao/login')
+      .then((response) => {
+        // 백엔드에서 받은 URL로 리다이렉트
+        window.location.href = response.data.loginUrl
+      })
+      .catch(() => {
+        setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.')
+        setIsLoading(false)
+      })  
   }
 
   return (
