@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
+import { useAuthStore } from '../store/useAuthStore'
 
 interface AnalysisResponse {
   all_features: {
@@ -31,11 +32,13 @@ const analyzeDeed = async (file: File, onProgress?: (progress: number) => void):
   const formData = new FormData()
   formData.append('file', file)
 
+  const token = useAuthStore.getState().token
+
   try {
     const response = await axios.post('https://port-0-knockai-mcmt59q6ef387a77.sel5.cloudtype.app/api/analyze', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        
+        Authorization: `Bearer ${token}`,
       },
       onUploadProgress: (progressEvent) => {
         if (progressEvent.total && onProgress) {

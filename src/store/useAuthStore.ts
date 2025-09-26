@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthStore>()(
       isAuthenticated: false,
 
       setToken: (token) => {
-        console.log('Auth Store - 토큰 설정:', token)
+        // console.log('Auth Store - 토큰 설정:', token)
         set({
           token,
           isAuthenticated: true,
