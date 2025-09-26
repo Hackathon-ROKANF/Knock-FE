@@ -8,6 +8,7 @@ import Button from '../components/Button'
 import BackButton from '../components/BackButton'
 import ConfirmModal from '../components/ConfirmModal'
 import QuestionButton from '../components/ResultQuestionButton'
+import InfoBox from '../components/InfoBox'
 
 // 상세 분석 결과 타입 정의
 interface DetailAnalysisResult {
@@ -112,6 +113,12 @@ export default function MyResultPage() {
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`
   }
 
+  // 위험확률을 점수로 변환
+  const calculateScore = (riskProbability: string) => {
+    const riskPercentage = parseFloat(riskProbability.replace('%', ''))
+    return Math.round(100 - riskPercentage)
+  }
+
   if (isLoading) {
     return (
       <div className='container h-screen flex items-center justify-center'>
@@ -152,7 +159,7 @@ export default function MyResultPage() {
 
         {/* 주소 정보 */}
         <motion.div
-          className='mb-6 p-4 bg-gray-50 rounded-lg border border-gray-300'
+          className='mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200'
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}>
@@ -193,8 +200,7 @@ export default function MyResultPage() {
                 <span className='ml-2 text-sm text-gray-600'>분석 ID: #{analysisDetail.id}</span>
               </div>
               <div className='flex items-center gap-4 text-sm text-gray-600'>
-                <span>위험확률: {analysisDetail.risk_probability}</span>
-                <span>위험점수: {analysisDetail.risk_score.toFixed(6)}</span>
+                <span>점수: {calculateScore(analysisDetail.risk_probability)}점</span>
               </div>
             </div>
             {parsedSummary?.안전 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.안전}</p>}
@@ -209,107 +215,100 @@ export default function MyResultPage() {
           transition={{ duration: 0.6, delay: 0.4 }}>
           {parsedFeatures && (
             <>
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>건물 유형</p>
-                <p className='text-sm font-medium'>{parsedFeatures.건축물_유형}</p>
-              </div>
+              <InfoBox
+                label='건물 유형'
+                value={parsedFeatures.건축물_유형}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>근저당권 개수</p>
-                <p className='text-sm font-medium'>{parsedFeatures.근저당권_개수}개</p>
-              </div>
+              <InfoBox
+                label='근저당권 개수'
+                value={`${parsedFeatures.근저당권_개수}개`}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>채권최고액</p>
-                <p className='text-sm font-medium'>
-                  {parsedFeatures.채권최고액 && parsedFeatures.채권최고액 !== '0' 
-                    ? `${parseInt(parsedFeatures.채권최고액).toLocaleString()}원` 
-                    : '0원'
-                  }
-                </p>
-              </div>
+              <InfoBox
+                label='채권최고액'
+                value={parsedFeatures.채권최고액 && parsedFeatures.채권최고액 !== '0' ? `${parseInt(parsedFeatures.채권최고액).toLocaleString()}원` : '0원'}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>근저당권 설정일</p>
-                <p className='text-sm font-medium'>
-                  {parsedFeatures.근저당권_설정일_최근 && parsedFeatures.근저당권_설정일_최근 !== 'None' 
-                    ? parsedFeatures.근저당권_설정일_최근 
-                    : '설정 없음'
-                  }
-                </p>
-              </div>
+              <InfoBox
+                label='근저당권 설정일'
+                value={parsedFeatures.근저당권_설정일_최근 && parsedFeatures.근저당권_설정일_최근 !== 'None' ? parsedFeatures.근저당권_설정일_최근 : '설정 없음'}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>신탁 등기 여부</p>
-                <p className='text-sm font-medium'>{parsedFeatures.신탁_등기여부 === 'True' ? '있음' : '없음'}</p>
-              </div>
+              <InfoBox
+                label='신탁 등기 여부'
+                value={parsedFeatures.신탁_등기여부 === 'True' ? '있음' : '없음'}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>압류/가압류 개수</p>
-                <p className='text-sm font-medium'>{parsedFeatures.압류_가압류_개수}개</p>
-              </div>
+              <InfoBox
+                label='압류/가압류 개수'
+                value={`${parsedFeatures.압류_가압류_개수}개`}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>선순위 채권 존재</p>
-                <p className='text-sm font-medium'>{parsedFeatures.선순위_채권_존재여부 === 'True' ? '있음' : '없음'}</p>
-              </div>
+              <InfoBox
+                label='선순위 채권 존재'
+                value={parsedFeatures.선순위_채권_존재여부 === 'True' ? '있음' : '없음'}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>전입 가능 여부</p>
-                <p className='text-sm font-medium'>{parsedFeatures.전입_가능여부 === 'True' ? '가능' : '불가능'}</p>
-              </div>
+              <InfoBox
+                label='전입 가능 여부'
+                value={parsedFeatures.전입_가능여부 === 'True' ? '가능' : '불가능'}
+              />
 
-              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
-                <p className='text-xs text-gray-600 mb-1'>우선변제권</p>
-                <p className='text-sm font-medium'>{parsedFeatures.우선변제권_여부 === 'True' ? '있음' : '없음'}</p>
-              </div>
+              <InfoBox
+                label='우선변제권'
+                value={parsedFeatures.우선변제권_여부 === 'True' ? '있음' : '없음'}
+              />
 
-              {/* 전세가 정보 */}
+              {/* 현재 가격 정보 - 조건부 렌더링 */}
               {parsedFeatures.전세가 && parsedFeatures.전세가 !== 'None' && (
-                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
-                  <p className='text-xs text-blue-600 mb-1'>현재 전세가</p>
-                  <p className='text-sm font-medium text-blue-800'>{parseInt(parsedFeatures.전세가).toLocaleString()}원</p>
-                </div>
+                <InfoBox
+                  label='현재 전세가'
+                  value={`${parseInt(parsedFeatures.전세가).toLocaleString()}원`}
+                  variant='current'
+                />
               )}
 
-              {/* 매매가 정보 */}
               {parsedFeatures.매매가 && parsedFeatures.매매가 !== 'None' && (
-                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
-                  <p className='text-xs text-blue-600 mb-1'>현재 매매가</p>
-                  <p className='text-sm font-medium text-blue-800'>{parseInt(parsedFeatures.매매가).toLocaleString()}원</p>
-                </div>
+                <InfoBox
+                  label='현재 매매가'
+                  value={`${parseInt(parsedFeatures.매매가).toLocaleString()}원`}
+                  variant='current'
+                />
               )}
 
-              {/* 전세가율 정보 */}
               {parsedFeatures.전세가율 && parsedFeatures.전세가율 !== 'None' && (
-                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
-                  <p className='text-xs text-blue-600 mb-1'>현재 전세가율</p>
-                  <p className='text-sm font-medium text-blue-800'>{parsedFeatures.전세가율}%</p>
-                </div>
+                <InfoBox
+                  label='현재 전세가율'
+                  value={`${parsedFeatures.전세가율}%`}
+                  variant='current'
+                />
               )}
 
-              {/* 과거 매매가 - 항상 표시 */}
+              {/* 과거 가격 정보 - 조건부 렌더링 */}
               {parsedFeatures.과거_매매가 && parsedFeatures.과거_매매가 !== 'None' && (
-                <div className='p-3 bg-green-50 rounded-lg border border-green-300 col-span-2'>
-                  <p className='text-xs text-green-600 mb-1'>과거 매매가</p>
-                  <p className='text-sm font-medium text-green-800'>{parseInt(parsedFeatures.과거_매매가).toLocaleString()}원</p>
-                </div>
+                <InfoBox
+                  label='과거 매매가'
+                  value={`${parseInt(parsedFeatures.과거_매매가).toLocaleString()}원`}
+                  variant='past'
+                  colSpan={true}
+                />
               )}
 
-              {/* 과거 전세가 */}
               {parsedFeatures.과거_전세가 && parsedFeatures.과거_전세가 !== 'None' && (
-                <div className='p-3 bg-green-50 rounded-lg border border-green-300'>
-                  <p className='text-xs text-green-600 mb-1'>과거 전세가</p>
-                  <p className='text-sm font-medium text-green-800'>{parseInt(parsedFeatures.과거_전세가).toLocaleString()}원</p>
-                </div>
+                <InfoBox
+                  label='과거 전세가'
+                  value={`${parseInt(parsedFeatures.과거_전세가).toLocaleString()}원`}
+                  variant='past'
+                />
               )}
 
-              {/* 과거 전세가율 */}
               {parsedFeatures.과거_전세가율 && parsedFeatures.과거_전세가율 !== 'None' && (
-                <div className='p-3 bg-green-50 rounded-lg border border-green-300'>
-                  <p className='text-xs text-green-600 mb-1'>과거 전세가율</p>
-                  <p className='text-sm font-medium text-green-800'>{parsedFeatures.과거_전세가율}%</p>
-                </div>
+                <InfoBox
+                  label='과거 전세가율'
+                  value={`${parsedFeatures.과거_전세가율}%`}
+                  variant='past'
+                />
               )}
             </>
           )}
