@@ -108,10 +108,14 @@ export default function MyPage() {
         }
       )
 
-      setAnalysisResults(response.data)
+      // API 응답이 배열인지 확인하고 설정
+      const results = Array.isArray(response.data) ? response.data : []
+      setAnalysisResults(results)
       console.log('분석 결과 데이터:', response.data)
     } catch (error) {
       console.error('분석 결과 조회 오류:', error)
+      // 오류 발생 시 빈 배열로 설정
+      setAnalysisResults([])
     } finally {
       setIsLoadingResults(false)
     }
@@ -192,7 +196,7 @@ export default function MyPage() {
             )}
 
             {/* 분석 결과가 없는 경우 */}
-            {!isLoadingResults && analysisResults.length === 0 && (
+            {!isLoadingResults && (!analysisResults || analysisResults.length === 0) && (
               <div className='text-center py-8'>
                 <p className='text-gray-500'>아직 분석한 부동산 등기부등본이 없어요.</p>
                 <p className='text-sm text-gray-400 mt-2'>등기부등본을 분석해보세요!</p>
@@ -201,6 +205,8 @@ export default function MyPage() {
 
             {/* 실제 API 데이터로 카드 렌더링 */}
             {!isLoadingResults &&
+              analysisResults &&
+              analysisResults.length > 0 &&
               analysisResults.map((result) => (
                 <AnalysisResultCard
                   key={result.id}
@@ -215,7 +221,6 @@ export default function MyPage() {
         </div>
       </div>
 
-      {/* 기존 1 비율 유지 - 하단 버튼 */}
       <motion.div
         className='flex-[1] flex flex-col'
         initial={{ opacity: 0, y: 20 }}
