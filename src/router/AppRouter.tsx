@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom'
 import ErrorPage from '../pages/ErrorPage'
 import FirstPage from '../pages/FirstPage'
 import LoginPage from '../pages/LoginPage'
-import AuthSuccessPage from '../pages/AuthSuccessPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
 import ResultPage from '../pages/ResultPage'
@@ -21,10 +20,6 @@ export default function AppRouter() {
         element={<LoginPage />}
       />
 
-      <Route
-        path='/auth/success'
-        element={<AuthSuccessPage />}
-      />
       <Route
         path='/upload'
         element={<UploadPage />}

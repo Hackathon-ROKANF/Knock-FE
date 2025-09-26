@@ -14,8 +14,11 @@ export default function FirstPage() {
     const urlParams = new URLSearchParams(window.location.search)
     const token = urlParams.get('token')
 
+    console.log('받은 JWT 토큰:', token)
+
     if (token) {
       // 토큰이 있으면 저장하고 업로드 페이지로 이동
+      console.log('토큰을 스토어에 저장합니다:', token)
       setToken(token)
       navigate('/upload')
       return

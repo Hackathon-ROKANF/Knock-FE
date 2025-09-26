@@ -35,6 +35,7 @@ const analyzeDeed = async (file: File, onProgress?: (progress: number) => void):
     const response = await axios.post('https://port-0-knockai-mcmt59q6ef387a77.sel5.cloudtype.app/api/analyze', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        
       },
       onUploadProgress: (progressEvent) => {
         if (progressEvent.total && onProgress) {
