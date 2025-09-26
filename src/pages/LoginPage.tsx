@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/useAuthStore'
 import LogoDouble from '../assets/LogoDouble.png'
 import kakao_login_medium_wide from '../assets/kakao_login_medium_wide.png'
 import axios from 'axios'
@@ -7,19 +9,29 @@ import axios from 'axios'
 export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const { token, isAuthenticated } = useAuthStore()
 
-  // URL 파라미터에서 에러 확인
+  // 이미 로그인된 경우 바로 upload 페이지로 이동
   useEffect(() => {
+    if (token && isAuthenticated) {
+      console.log('이미 로그인된 상태입니다. upload 페이지로 이동합니다.')
+      navigate('/upload')
+      return
+    }
+
+    // URL 파라미터에서 에러 확인
     const urlParams = new URLSearchParams(window.location.search)
     const error = urlParams.get('error')
 
     if (error === 'login_failed') {
       setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.')
     }
-  }, [])
+  }, [token, isAuthenticated, navigate])
 
   const kakaoLogin = () => {
-    axios.get('https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/auth/kakao/login')
+    axios
+      .get('https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/auth/kakao/login')
       .then((response) => {
         // 백엔드에서 받은 URL로 리다이렉트
         window.location.href = response.data.loginUrl
@@ -27,7 +39,7 @@ export default function LoginPage() {
       .catch(() => {
         setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.')
         setIsLoading(false)
-      })  
+      })
   }
 
   return (

@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware'
 
 interface User {
   id: string
+  nickname?: string
+  profileImage?: string
   // 추가로 필요한 사용자 정보가 있다면 여기에 추가
 }
 

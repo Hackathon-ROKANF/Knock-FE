@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
 import { useDeedUploadStore } from '../store/useDeedUploadStore'
 import { useUploadDeed } from '../hooks/useUploadDeed'
+import { useAuthStore } from '../store/useAuthStore'
 import PdfDropbox from '../components/PdfDropbox'
 import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
@@ -10,7 +12,17 @@ import UploadQuestionButton from '../components/UploadQuestionButton'
 export default function UploadPage() {
   const navigate = useNavigate()
   const { file, error, isAnalyzing } = useDeedUploadStore()
+  const { token, isAuthenticated } = useAuthStore()
   const uploadMutation = useUploadDeed()
+
+  // 토큰이 없으면 로그인 페이지로 리다이렉트
+  useEffect(() => {
+    if (!token || !isAuthenticated) {
+      console.log('토큰이 없습니다. 로그인 페이지로 이동합니다.')
+      navigate('/login')
+      return
+    }
+  }, [token, isAuthenticated, navigate])
 
   const isValid = file && !error
 

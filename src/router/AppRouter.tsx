@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import ErrorPage from '../pages/ErrorPage'
 import FirstPage from '../pages/FirstPage'
 import LoginPage from '../pages/LoginPage'
+import MyPage from '../pages/MyPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
 import ResultPage from '../pages/ResultPage'
@@ -18,6 +19,10 @@ export default function AppRouter() {
       <Route
         path='/login'
         element={<LoginPage />}
+      />
+      <Route
+        path='/mypage'
+        element={<MyPage />}
       />
 
       <Route
