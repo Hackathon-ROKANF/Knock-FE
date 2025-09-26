@@ -196,6 +196,14 @@ export default function MyPage() {
                 />
               ))}
           </motion.div>
+          {/* testcard */}
+          <AnalysisResultCard
+            key={19}
+            address={'경기도 용인시 기흥구 구갈동 380 한성아파트...'}
+            riskLevel={'안전'}
+            analysisDate={'2025.09.26 분석완료'}
+            onViewDetails={() => navigate(`/myresult/19`)}
+          />
         </div>
       </div>
 

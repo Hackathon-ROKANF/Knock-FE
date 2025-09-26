@@ -99,7 +99,7 @@ export default function LoginPage() {
             setIsLoading(true)
             kakaoLogin()
           }}
-        />
+        />     
       </motion.div>
     </div>
   )

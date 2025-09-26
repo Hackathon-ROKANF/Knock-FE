@@ -146,13 +146,13 @@ export default function MyResultPage() {
         transition={{ duration: 0.8 }}>
         {/* 헤더 */}
         <PageHeader
-          title={`분석 결과 - ${analysisDetail.prediction}`}
+          title={`상세 분석 결과`}
           subtitle={formatDate(analysisDetail.created_at)}
         />
 
         {/* 주소 정보 */}
         <motion.div
-          className='mb-6 p-4 bg-gray-50 rounded-lg'
+          className='mb-6 p-4 bg-gray-50 rounded-lg border border-gray-300'
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}>
@@ -176,20 +176,26 @@ export default function MyResultPage() {
                 ? 'bg-yellow-50 border border-yellow-200'
                 : 'bg-red-50 border border-red-200'
             }`}>
-            <div className='flex items-center mb-2'>
-              <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  analysisDetail.prediction === '안전'
-                    ? 'bg-green-100 text-green-700'
-                    : analysisDetail.prediction === '관심'
-                    ? 'bg-blue-100 text-blue-700'
-                    : analysisDetail.prediction === '주의'
-                    ? 'bg-yellow-100 text-yellow-700'
-                    : 'bg-red-100 text-red-700'
-                }`}>
-                {analysisDetail.prediction}
-              </span>
-              <span className='ml-2 text-sm text-gray-600'>위험확률: {analysisDetail.risk_probability}</span>
+            <div className='flex flex-col mb-3'>
+              <div className='flex items-center mb-2'>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    analysisDetail.prediction === '안전'
+                      ? 'bg-green-100 text-green-700'
+                      : analysisDetail.prediction === '관심'
+                      ? 'bg-blue-100 text-blue-700'
+                      : analysisDetail.prediction === '주의'
+                      ? 'bg-yellow-100 text-yellow-700'
+                      : 'bg-red-100 text-red-700'
+                  }`}>
+                  {analysisDetail.prediction}
+                </span>
+                <span className='ml-2 text-sm text-gray-600'>분석 ID: #{analysisDetail.id}</span>
+              </div>
+              <div className='flex items-center gap-4 text-sm text-gray-600'>
+                <span>위험확률: {analysisDetail.risk_probability}</span>
+                <span>위험점수: {analysisDetail.risk_score.toFixed(6)}</span>
+              </div>
             </div>
             {parsedSummary?.안전 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.안전}</p>}
           </div>
@@ -203,30 +209,106 @@ export default function MyResultPage() {
           transition={{ duration: 0.6, delay: 0.4 }}>
           {parsedFeatures && (
             <>
-              <div className='p-3 bg-gray-50 rounded-lg'>
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
                 <p className='text-xs text-gray-600 mb-1'>건물 유형</p>
                 <p className='text-sm font-medium'>{parsedFeatures.건축물_유형}</p>
               </div>
 
-              <div className='p-3 bg-gray-50 rounded-lg'>
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
                 <p className='text-xs text-gray-600 mb-1'>근저당권 개수</p>
                 <p className='text-sm font-medium'>{parsedFeatures.근저당권_개수}개</p>
               </div>
 
-              <div className='p-3 bg-gray-50 rounded-lg'>
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
+                <p className='text-xs text-gray-600 mb-1'>채권최고액</p>
+                <p className='text-sm font-medium'>
+                  {parsedFeatures.채권최고액 && parsedFeatures.채권최고액 !== '0' 
+                    ? `${parseInt(parsedFeatures.채권최고액).toLocaleString()}원` 
+                    : '0원'
+                  }
+                </p>
+              </div>
+
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
+                <p className='text-xs text-gray-600 mb-1'>근저당권 설정일</p>
+                <p className='text-sm font-medium'>
+                  {parsedFeatures.근저당권_설정일_최근 && parsedFeatures.근저당권_설정일_최근 !== 'None' 
+                    ? parsedFeatures.근저당권_설정일_최근 
+                    : '설정 없음'
+                  }
+                </p>
+              </div>
+
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
+                <p className='text-xs text-gray-600 mb-1'>신탁 등기 여부</p>
+                <p className='text-sm font-medium'>{parsedFeatures.신탁_등기여부 === 'True' ? '있음' : '없음'}</p>
+              </div>
+
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
+                <p className='text-xs text-gray-600 mb-1'>압류/가압류 개수</p>
+                <p className='text-sm font-medium'>{parsedFeatures.압류_가압류_개수}개</p>
+              </div>
+
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
+                <p className='text-xs text-gray-600 mb-1'>선순위 채권 존재</p>
+                <p className='text-sm font-medium'>{parsedFeatures.선순위_채권_존재여부 === 'True' ? '있음' : '없음'}</p>
+              </div>
+
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
                 <p className='text-xs text-gray-600 mb-1'>전입 가능 여부</p>
                 <p className='text-sm font-medium'>{parsedFeatures.전입_가능여부 === 'True' ? '가능' : '불가능'}</p>
               </div>
 
-              <div className='p-3 bg-gray-50 rounded-lg'>
+              <div className='p-3 bg-gray-50 rounded-lg border border-gray-300'>
                 <p className='text-xs text-gray-600 mb-1'>우선변제권</p>
                 <p className='text-sm font-medium'>{parsedFeatures.우선변제권_여부 === 'True' ? '있음' : '없음'}</p>
               </div>
 
-              {parsedFeatures.과거_매매가 && (
-                <div className='p-3 bg-gray-50 rounded-lg col-span-2'>
-                  <p className='text-xs text-gray-600 mb-1'>과거 매매가</p>
-                  <p className='text-sm font-medium'>{parseInt(parsedFeatures.과거_매매가).toLocaleString()}원</p>
+              {/* 전세가 정보 */}
+              {parsedFeatures.전세가 && parsedFeatures.전세가 !== 'None' && (
+                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
+                  <p className='text-xs text-blue-600 mb-1'>현재 전세가</p>
+                  <p className='text-sm font-medium text-blue-800'>{parseInt(parsedFeatures.전세가).toLocaleString()}원</p>
+                </div>
+              )}
+
+              {/* 매매가 정보 */}
+              {parsedFeatures.매매가 && parsedFeatures.매매가 !== 'None' && (
+                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
+                  <p className='text-xs text-blue-600 mb-1'>현재 매매가</p>
+                  <p className='text-sm font-medium text-blue-800'>{parseInt(parsedFeatures.매매가).toLocaleString()}원</p>
+                </div>
+              )}
+
+              {/* 전세가율 정보 */}
+              {parsedFeatures.전세가율 && parsedFeatures.전세가율 !== 'None' && (
+                <div className='p-3 bg-blue-50 rounded-lg border border-blue-300'>
+                  <p className='text-xs text-blue-600 mb-1'>현재 전세가율</p>
+                  <p className='text-sm font-medium text-blue-800'>{parsedFeatures.전세가율}%</p>
+                </div>
+              )}
+
+              {/* 과거 매매가 - 항상 표시 */}
+              {parsedFeatures.과거_매매가 && parsedFeatures.과거_매매가 !== 'None' && (
+                <div className='p-3 bg-green-50 rounded-lg border border-green-300 col-span-2'>
+                  <p className='text-xs text-green-600 mb-1'>과거 매매가</p>
+                  <p className='text-sm font-medium text-green-800'>{parseInt(parsedFeatures.과거_매매가).toLocaleString()}원</p>
+                </div>
+              )}
+
+              {/* 과거 전세가 */}
+              {parsedFeatures.과거_전세가 && parsedFeatures.과거_전세가 !== 'None' && (
+                <div className='p-3 bg-green-50 rounded-lg border border-green-300'>
+                  <p className='text-xs text-green-600 mb-1'>과거 전세가</p>
+                  <p className='text-sm font-medium text-green-800'>{parseInt(parsedFeatures.과거_전세가).toLocaleString()}원</p>
+                </div>
+              )}
+
+              {/* 과거 전세가율 */}
+              {parsedFeatures.과거_전세가율 && parsedFeatures.과거_전세가율 !== 'None' && (
+                <div className='p-3 bg-green-50 rounded-lg border border-green-300'>
+                  <p className='text-xs text-green-600 mb-1'>과거 전세가율</p>
+                  <p className='text-sm font-medium text-green-800'>{parsedFeatures.과거_전세가율}%</p>
                 </div>
               )}
             </>
@@ -317,7 +399,7 @@ export default function MyResultPage() {
           navigate('/upload')
         }}
         title={confirmText}
-        message='새로운 분석을 시작합니다'
+        message='새로운 분석을 시작해요'
       />
     </div>
   )

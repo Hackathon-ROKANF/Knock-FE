@@ -139,7 +139,7 @@ export default function ResultPage() {
           navigate('/upload')
         }}
         title={text}
-        message='현재 분석한 결과가 사라져요'
+        message='방금 분석한 결과는 마이페이지에서 확인할 수 있어요'
       />
     </div>
   )

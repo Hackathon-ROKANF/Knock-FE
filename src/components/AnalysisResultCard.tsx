@@ -64,7 +64,6 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate, o
 
   const styles = getRiskStyles(riskLevel)
 
-
   return (
     <div className='bg-white rounded-2xl p-4 shadow-md border border-gray-100 mb-3'>
       <div className='flex items-start gap-3'>
@@ -81,15 +80,13 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate, o
           <div className='flex items-center justify-between'>
             <span className='text-sm text-gray-500 truncate'>{analysisDate}</span>
             <div className='flex items-center gap-1 flex-shrink-0'>
-              <span 
+              <span
                 onClick={onViewDetails}
-                className='text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition-colors'
-              >
+                className='text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition-colors'>
                 {`상세결과보기 →`}
               </span>
             </div>
           </div>
-
         </div>
       </div>
     </div>
