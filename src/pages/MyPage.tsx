@@ -6,7 +6,6 @@ import { useAuthStore } from '../store/useAuthStore'
 import Button from '../components/Button'
 import AnalysisResultCard from '../components/AnalysisResultCard'
 
-
 // 분석 결과 타입 정의
 interface AnalysisResult {
   id: number
@@ -30,13 +29,35 @@ export default function MyPage() {
       navigate('/error')
     }
   }
-  // GET /api/user/profile
 
-  // response
-  //   {
-  //   "nickname": "최진형",
-  //   "profileImage": "http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"
-  // }
+  // POST /api/analysis/recent
+  const fetchAnalysisResults = useCallback(async () => {
+    setIsLoadingResults(true)
+    try {
+      const response = await axios.post(
+        'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/analysis/recent',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      // API 응답이 배열인지 확인하고 설정
+      const results = Array.isArray(response.data) ? response.data : []
+      setAnalysisResults(results)
+      console.log('분석 결과 데이터:', response.data)
+    } catch (error) {
+      console.error('분석 결과 조회 오류:', error)
+      // 오류 발생 시 빈 배열로 설정
+      setAnalysisResults([])
+    } finally {
+      setIsLoadingResults(false)
+    }
+  }, [token])
+
+  // GET /api/user/profile
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -67,8 +88,9 @@ export default function MyPage() {
       fetchUserProfile()
       fetchAnalysisResults()
     }
-  }, [logout, navigate, token, setUser, user?.id])
+  }, [logout, navigate, token, setUser, user?.id, fetchAnalysisResults])
 
+  // POST /api/auth/logout
   const handleLogout = async () => {
     if (isLoggingOut) return
     setIsLoggingOut(true)
@@ -94,53 +116,10 @@ export default function MyPage() {
     }
   }
 
-  // 분석 결과 가져오기
-  const fetchAnalysisResults = useCallback(async () => {
-    setIsLoadingResults(true)
-    try {
-      const response = await axios.post(
-        'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/analysis/recent',
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      // API 응답이 배열인지 확인하고 설정
-      const results = Array.isArray(response.data) ? response.data : []
-      setAnalysisResults(results)
-      console.log('분석 결과 데이터:', response.data)
-    } catch (error) {
-      console.error('분석 결과 조회 오류:', error)
-      // 오류 발생 시 빈 배열로 설정
-      setAnalysisResults([])
-    } finally {
-      setIsLoadingResults(false)
-    }
-  }, [token])
-
   // 날짜 포맷팅 함수
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} 분석완료`
-  }
-
-  // 위험도별 요약 텍스트 생성
-  const generateSummary = (prediction: string) => {
-    switch (prediction) {
-      case '안전':
-        return '안전한 거래가 가능한 매물로 분석되었습니다.'
-      case '관심':
-        return '일반적인 수준의 위험도를 가진 매물입니다.'
-      case '주의':
-        return '신중한 검토가 필요한 매물입니다.'
-      case '위험':
-        return '매우 신중한 접근이 필요한 매물입니다.'
-      default:
-        return '분석이 완료된 매물입니다.'
-    }
   }
 
   return (
@@ -213,8 +192,7 @@ export default function MyPage() {
                   address={result.address}
                   riskLevel={result.prediction}
                   analysisDate={formatDate(result.createdAt)}
-                  summary={generateSummary(result.prediction)}
-                  onViewDetails={() => console.log(`${result.address} 상세 결과 보기 (ID: ${result.id})`)}
+                  onViewDetails={() => navigate(`/myresult/${result.id}`)}
                 />
               ))}
           </motion.div>

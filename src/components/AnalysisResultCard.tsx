@@ -2,11 +2,10 @@ interface AnalysisResultCardProps {
   address: string
   riskLevel: '안전' | '관심' | '주의' | '위험'
   analysisDate: string
-  summary: string
   onViewDetails?: () => void
 }
 
-export default function AnalysisResultCard({ address, riskLevel, analysisDate }: AnalysisResultCardProps) {
+export default function AnalysisResultCard({ address, riskLevel, analysisDate, onViewDetails }: AnalysisResultCardProps) {
   // 위험도별 색상 설정
   const getRiskStyles = (level: string) => {
     switch (level) {
@@ -82,15 +81,15 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate }:
           <div className='flex items-center justify-between'>
             <span className='text-sm text-gray-500 truncate'>{analysisDate}</span>
             <div className='flex items-center gap-1 flex-shrink-0'>
-              <span className={`text-sm font-medium text-blue-600`}>{`상세결과보기 →`}</span>
+              <span 
+                onClick={onViewDetails}
+                className='text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition-colors'
+              >
+                {`상세결과보기 →`}
+              </span>
             </div>
           </div>
 
-          {/* <button
-            onClick={onViewDetails}
-            className={`w-full cursor-pointer bg-white border  ${styles.buttonText} py-2 rounded-lg font-medium ${styles.buttonHover} transition-colors duration-200 flex items-center justify-center gap-1`}>
-            상세 결과 보기
-          </button> */}
         </div>
       </div>
     </div>

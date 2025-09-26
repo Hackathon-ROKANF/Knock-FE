@@ -3,6 +3,7 @@ import ErrorPage from '../pages/ErrorPage'
 import FirstPage from '../pages/FirstPage'
 import LoginPage from '../pages/LoginPage'
 import MyPage from '../pages/MyPage'
+import MyResultPage from '../pages/MyResultPage'
 import UploadPage from '../pages/UploadPage'
 import LoadingPage from '../pages/LoadingPage'
 import ResultPage from '../pages/ResultPage'
@@ -23,6 +24,10 @@ export default function AppRouter() {
       <Route
         path='/mypage'
         element={<MyPage />}
+      />
+      <Route
+        path='/myresult/:id'
+        element={<MyResultPage />}
       />
 
       <Route
