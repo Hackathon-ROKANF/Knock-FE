@@ -10,7 +10,33 @@ import ConfirmModal from '../components/ConfirmModal'
 import QuestionButton from '../components/ResultQuestionButton'
 import InfoBox from '../components/InfoBox'
 
-// 상세 분석 결과 타입 정의
+const API_BASE_URL = 'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app'
+
+const getRiskLevelStyles = (prediction: string) => {
+  const styles = {
+    안전: 'bg-green-50 border border-green-200',
+    관심: 'bg-blue-50 border border-blue-200',
+    주의: 'bg-yellow-50 border border-yellow-200',
+    위험: 'bg-red-50 border border-red-200',
+  }
+  return styles[prediction as keyof typeof styles] || 'bg-gray-50 border border-gray-200'
+}
+
+const getRiskLevelBadgeStyles = (prediction: string) => {
+  const styles = {
+    안전: 'bg-green-100 text-green-700',
+    관심: 'bg-blue-100 text-blue-700',
+    주의: 'bg-yellow-100 text-yellow-700',
+    위험: 'bg-red-100 text-red-700',
+  }
+  return styles[prediction as keyof typeof styles] || 'bg-gray-100 text-gray-700'
+}
+
+const ANIMATION_CONFIGS = {
+  fadeInUp: { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } },
+  fadeInUpSmall: { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 } },
+}
+
 interface DetailAnalysisResult {
   id: number
   prediction: '안전' | '관심' | '주의' | '위험'
@@ -23,7 +49,6 @@ interface DetailAnalysisResult {
   user_id: string
 }
 
-// 파싱된 summary와 features 타입
 interface ParsedSummary {
   안전?: string
   관심?: string
@@ -64,7 +89,6 @@ export default function MyResultPage() {
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmText, setConfirmText] = useState('')
 
-  // 상세 분석 결과 가져오기
   useEffect(() => {
     const fetchAnalysisDetail = async () => {
       if (!id || !token) {
@@ -75,7 +99,7 @@ export default function MyResultPage() {
       setIsLoading(true)
       try {
         const response = await axios.post(
-          'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/analysis/detail',
+          `${API_BASE_URL}/api/analysis/detail`,
           { id: parseInt(id) },
           {
             headers: {
@@ -88,7 +112,6 @@ export default function MyResultPage() {
         const data = response.data
         setAnalysisDetail(data)
 
-        // JSON 문자열 파싱
         try {
           const summary = JSON.parse(data.summary_json)
           const features = JSON.parse(data.features_json)
@@ -110,13 +133,11 @@ export default function MyResultPage() {
     fetchAnalysisDetail()
   }, [id, token, navigate])
 
-  // 날짜 포맷팅
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`
   }
 
-  // 위험확률을 점수로 변환
   const calculateScore = (riskProbability: string) => {
     const riskPercentage = parseFloat(riskProbability.replace('%', ''))
     return Math.round(100 - riskPercentage)
@@ -140,81 +161,49 @@ export default function MyResultPage() {
 
   return (
     <div className='container h-screen no-scrollbar bg-white overflow-x-hidden p-6 overflow-auto relative'>
-      {/* 뒤로가기 버튼 */}
       <div className='absolute top-4 left-4 z-10'>
         <BackButton to='/mypage' />
       </div>
 
-      {/* 질문 버튼 */}
       <div className='absolute top-4 right-4 z-10'>
         <QuestionButton />
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        {...ANIMATION_CONFIGS.fadeInUp}
         transition={{ duration: 0.8 }}>
-        {/* 헤더 */}
         <PageHeader
           title={`상세 분석 결과`}
           subtitle={formatDate(analysisDetail.created_at)}
         />
 
-        {/* 주소 정보 */}
         <motion.div
           className='mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200'
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          {...ANIMATION_CONFIGS.fadeInUpSmall}
           transition={{ duration: 0.6, delay: 0.2 }}>
           <h3 className='text-sm text-gray-600 mb-1'>분석 대상</h3>
           <p className='text-base font-medium text-gray-900'>{parsedFeatures?.주소 || '주소 정보 없음'}</p>
         </motion.div>
 
-        {/* 위험도 요약 */}
         <motion.div
           className='mb-6'
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}>
-          <div
-            className={`p-4 rounded-lg ${
-              analysisDetail.prediction === '안전'
-                ? 'bg-green-50 border border-green-200'
-                : analysisDetail.prediction === '관심'
-                ? 'bg-blue-50 border border-blue-200'
-                : analysisDetail.prediction === '주의'
-                ? 'bg-yellow-50 border border-yellow-200'
-                : 'bg-red-50 border border-red-200'
-            }`}>
+          <div className={`p-4 rounded-lg ${getRiskLevelStyles(analysisDetail.prediction)}`}>
             <div className='flex flex-col mb-3'>
               <div className='flex items-center mb-2'>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    analysisDetail.prediction === '안전'
-                      ? 'bg-green-100 text-green-700'
-                      : analysisDetail.prediction === '관심'
-                      ? 'bg-blue-100 text-blue-700'
-                      : analysisDetail.prediction === '주의'
-                      ? 'bg-yellow-100 text-yellow-700'
-                      : 'bg-red-100 text-red-700'
-                  }`}>
-                  {analysisDetail.prediction}
-                </span>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getRiskLevelBadgeStyles(analysisDetail.prediction)}`}>{analysisDetail.prediction}</span>
                 <span className='ml-2 text-sm text-gray-600'>분석 ID: #{analysisDetail.id}</span>
               </div>
               <div className='flex items-center gap-4 text-sm text-gray-600'>
                 <span>점수: {calculateScore(analysisDetail.risk_probability)}점</span>
               </div>
             </div>
-            {/* 분석 요약 - 모든 등급에 대응 */}
-            {parsedSummary?.안전 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.안전}</p>}
-            {parsedSummary?.관심 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.관심}</p>}
-            {parsedSummary?.주의 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.주의}</p>}
-            {parsedSummary?.위험 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.위험}</p>}
+            {parsedSummary && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary[analysisDetail.prediction]}</p>}
           </div>
         </motion.div>
 
-        {/* 기본 정보 표시 */}
         <motion.div
           className='mb-8 grid grid-cols-2 gap-4'
           initial={{ opacity: 0, y: 20 }}
@@ -267,7 +256,6 @@ export default function MyResultPage() {
                 value={parsedFeatures.우선변제권_여부 === 'True' ? '있음' : '없음'}
               />
 
-              {/* 현재 가격 정보 - 조건부 렌더링 */}
               {parsedFeatures.전세가 && parsedFeatures.전세가 !== 'None' && (
                 <InfoBox
                   label='현재 전세가'
@@ -292,7 +280,6 @@ export default function MyResultPage() {
                 />
               )}
 
-              {/* 과거 가격 정보 - 조건부 렌더링 */}
               {parsedFeatures.과거_매매가 && parsedFeatures.과거_매매가 !== 'None' && (
                 <InfoBox
                   label='과거 매매가'
@@ -321,7 +308,6 @@ export default function MyResultPage() {
           )}
         </motion.div>
 
-        {/* 안전 요인 */}
         {parsedSummary?.안전_요인 && parsedSummary.안전_요인.length > 0 && (
           <motion.div
             className='mb-6'
@@ -342,7 +328,6 @@ export default function MyResultPage() {
           </motion.div>
         )}
 
-        {/* 위험 요인 */}
         {parsedSummary?.위험_요인 && parsedSummary.위험_요인.length > 0 && (
           <motion.div
             className='mb-8'
@@ -363,12 +348,10 @@ export default function MyResultPage() {
           </motion.div>
         )}
 
-        {/* 전문가 상담 안내 */}
         <div className='mt-8 pt-6 border-t border-gray-200'>
           <p className='text-center text-gray-600 mb-6'>전문가와 상담하면 더 정확한 분석이 가능해요</p>
         </div>
 
-        {/* 액션 버튼들 */}
         <motion.div
           className='space-y-3 pb-6'
           initial={{ opacity: 0, y: 20 }}
@@ -397,7 +380,6 @@ export default function MyResultPage() {
         </motion.div>
       </motion.div>
 
-      {/* 확인 모달 */}
       <ConfirmModal
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
