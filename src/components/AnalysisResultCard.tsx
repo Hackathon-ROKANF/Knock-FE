@@ -73,8 +73,8 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate, o
         </div>
 
         <div className='flex-1 min-w-0'>
-          <div className='flex items-center gap-2 mb-1'>
-            <h4 className='text-base font-bold text-gray-900 text-left'>{address}</h4>
+          <div className='flex items-start gap-2 mb-1 min-h-[3rem]'>
+            <h4 className='text-base font-bold text-gray-900 text-left leading-6'>{address}</h4>
           </div>
 
           <div className='flex items-center justify-between'>
