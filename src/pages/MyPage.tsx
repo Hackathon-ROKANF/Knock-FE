@@ -6,7 +6,6 @@ import { useAuthStore } from '../store/useAuthStore'
 import Button from '../components/Button'
 import AnalysisResultCard from '../components/AnalysisResultCard'
 
-import LogoDouble from '../assets/LogoDouble.png'
 
 // 분석 결과 타입 정의
 interface AnalysisResult {
