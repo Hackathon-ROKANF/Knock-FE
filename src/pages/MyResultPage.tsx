@@ -26,6 +26,9 @@ interface DetailAnalysisResult {
 // 파싱된 summary와 features 타입
 interface ParsedSummary {
   안전?: string
+  관심?: string
+  주의?: string
+  위험?: string
   위험_요인: string[]
   안전_요인: string[]
 }
@@ -203,7 +206,11 @@ export default function MyResultPage() {
                 <span>점수: {calculateScore(analysisDetail.risk_probability)}점</span>
               </div>
             </div>
+            {/* 분석 요약 - 모든 등급에 대응 */}
             {parsedSummary?.안전 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.안전}</p>}
+            {parsedSummary?.관심 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.관심}</p>}
+            {parsedSummary?.주의 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.주의}</p>}
+            {parsedSummary?.위험 && <p className='text-sm text-gray-700 leading-relaxed'>{parsedSummary.위험}</p>}
           </div>
         </motion.div>
 
@@ -306,7 +313,7 @@ export default function MyResultPage() {
               {parsedFeatures.과거_전세가율 && parsedFeatures.과거_전세가율 !== 'None' && (
                 <InfoBox
                   label='과거 전세가율'
-                  value={`${parsedFeatures.과거_전세가율}%`}
+                  value={`${parsedFeatures.과거_전세가율}`}
                   variant='past'
                 />
               )}
