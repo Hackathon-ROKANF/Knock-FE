@@ -79,7 +79,7 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate }:
             <h4 className='text-base font-bold text-gray-900 text-left'>{address}</h4>
           </div>
 
-          <div className='flex items-center justify-between mb-2'>
+          <div className='flex items-center justify-between'>
             <span className='text-sm text-gray-500 truncate'>{analysisDate}</span>
             <div className='flex items-center gap-1 flex-shrink-0'>
               <span className={`text-sm font-medium text-blue-600`}>{`상세결과보기 →`}</span>

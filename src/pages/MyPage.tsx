@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import axios from 'axios'
 import { useAuthStore } from '../store/useAuthStore'
 import Button from '../components/Button'
@@ -8,10 +8,21 @@ import AnalysisResultCard from '../components/AnalysisResultCard'
 
 import LogoDouble from '../assets/LogoDouble.png'
 
+// 분석 결과 타입 정의
+interface AnalysisResult {
+  id: number
+  createdAt: string
+  userId: number
+  address: string
+  prediction: '안전' | '관심' | '주의' | '위험'
+}
+
 export default function MyPage() {
   const navigate = useNavigate()
   const { logout, user, token, setUser } = useAuthStore()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [analysisResults, setAnalysisResults] = useState<AnalysisResult[]>([])
+  const [isLoadingResults, setIsLoadingResults] = useState(false)
 
   const handleProceed = async () => {
     try {
@@ -55,6 +66,7 @@ export default function MyPage() {
 
     if (token) {
       fetchUserProfile()
+      fetchAnalysisResults()
     }
   }, [logout, navigate, token, setUser, user?.id])
 
@@ -83,12 +95,55 @@ export default function MyPage() {
     }
   }
 
+  // 분석 결과 가져오기
+  const fetchAnalysisResults = useCallback(async () => {
+    setIsLoadingResults(true)
+    try {
+      const response = await axios.post(
+        'https://port-0-knock-be-mfwjoh9272fc7aba.sel3.cloudtype.app/api/analysis/recent',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      setAnalysisResults(response.data)
+      console.log('분석 결과 데이터:', response.data)
+    } catch (error) {
+      console.error('분석 결과 조회 오류:', error)
+    } finally {
+      setIsLoadingResults(false)
+    }
+  }, [token])
+
+  // 날짜 포맷팅 함수
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} 분석완료`
+  }
+
+  // 위험도별 요약 텍스트 생성
+  const generateSummary = (prediction: string) => {
+    switch (prediction) {
+      case '안전':
+        return '안전한 거래가 가능한 매물로 분석되었습니다.'
+      case '관심':
+        return '일반적인 수준의 위험도를 가진 매물입니다.'
+      case '주의':
+        return '신중한 검토가 필요한 매물입니다.'
+      case '위험':
+        return '매우 신중한 접근이 필요한 매물입니다.'
+      default:
+        return '분석이 완료된 매물입니다.'
+    }
+  }
+
   return (
     <div className='container h-screen flex flex-col p-6 relative'>
-      {/* 기존 9:1 비율 유지하되 내부에서 프로필 고정 + 목록 스크롤 */}
-      <div className='flex-[9] flex flex-col'>
-        {/* 상단 고정 프로필 영역 */}
-        <div className='flex-shrink-0 flex flex-col items-center pt-4 pb-6'>
+      <div className='flex-[9] flex flex-col min-h-0'>
+        <div className='flex-shrink-0 flex flex-col items-center mt-10 md:mt-20'>
           {/* 유저 이미지 */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -96,8 +151,7 @@ export default function MyPage() {
             transition={{ duration: 0.6, delay: 0.2 }}>
             <div className='w-35 h-35 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center overflow-hidden'>
               <img
-                src={user?.profileImage || LogoDouble}
-                alt='User'
+                src={user?.profileImage}
                 className='w-full h-full object-cover rounded-full'
               />
             </div>
@@ -124,22 +178,40 @@ export default function MyPage() {
         </div>
 
         {/* 스크롤 가능한 목록 영역 */}
-        <div className='flex-1 overflow-y-auto'>
+        <div className='flex-1 overflow-y-auto min-h-0 no-scrollbar'>
           <motion.div
-            className='w-full'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}>
-            <h3 className='text-lg font-semibold text-center text-gray-800 mb-4'>분석 리포트</h3>
+            <h3 className='text-xl font-semibold text-left text-gray-800 ml-2 mb-2'>분석 리포트</h3>
 
-            {/* 컴포넌트화된 등기부등본 조회 결과 카드들 */}
-            <AnalysisResultCard
-              address='경기도 용인시 기흥구 구갈동 384-1 동부아파트 제103동 제7층 제707호'
-              riskLevel='안전'
-              analysisDate='2024.12.20 분석완료'
-              summary='전세가율 70%, 근저당권 1개, 선순위 채권 없음. 안전한 거래 가능한 매물입니다.'
-              onViewDetails={() => console.log('강남구 역삼동 상세 결과 보기')}
-            />
+            {/* 로딩 상태 */}
+            {isLoadingResults && (
+              <div className='text-center py-8'>
+                <p className='text-gray-500'>분석 결과를 불러오는 중...</p>
+              </div>
+            )}
+
+            {/* 분석 결과가 없는 경우 */}
+            {!isLoadingResults && analysisResults.length === 0 && (
+              <div className='text-center py-8'>
+                <p className='text-gray-500'>아직 분석한 부동산 등기부등본이 없어요.</p>
+                <p className='text-sm text-gray-400 mt-2'>등기부등본을 분석해보세요!</p>
+              </div>
+            )}
+
+            {/* 실제 API 데이터로 카드 렌더링 */}
+            {!isLoadingResults &&
+              analysisResults.map((result) => (
+                <AnalysisResultCard
+                  key={result.id}
+                  address={result.address}
+                  riskLevel={result.prediction}
+                  analysisDate={formatDate(result.createdAt)}
+                  summary={generateSummary(result.prediction)}
+                  onViewDetails={() => console.log(`${result.address} 상세 결과 보기 (ID: ${result.id})`)}
+                />
+              ))}
           </motion.div>
         </div>
       </div>
