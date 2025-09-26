@@ -6,7 +6,7 @@ interface AnalysisResultCardProps {
   onViewDetails?: () => void
 }
 
-export default function AnalysisResultCard({ address, riskLevel, analysisDate, summary, onViewDetails }: AnalysisResultCardProps) {
+export default function AnalysisResultCard({ address, riskLevel, analysisDate }: AnalysisResultCardProps) {
   // 위험도별 색상 설정
   const getRiskStyles = (level: string) => {
     switch (level) {
@@ -65,21 +65,6 @@ export default function AnalysisResultCard({ address, riskLevel, analysisDate, s
 
   const styles = getRiskStyles(riskLevel)
 
-  // 위험도별 설명 텍스트
-  const getRiskDescription = (level: string) => {
-    switch (level) {
-      case '안전':
-        return '위험도: 낮음'
-      case '관심':
-        return '위험도: 낮음-보통'
-      case '주의':
-        return '위험도: 보통'
-      case '위험':
-        return '위험도: 높음'
-      default:
-        return '위험도: 알 수 없음'
-    }
-  }
 
   return (
     <div className='bg-white rounded-2xl p-4 shadow-md border border-gray-100 mb-3'>
