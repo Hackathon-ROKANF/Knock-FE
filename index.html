@@ -9,14 +9,58 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="preconnect"
-      href="https://cdn.jsdelivr.net" />
-    <link
-      rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 폰트 preload를 통한 성능 최적화 -->
+    <link rel="preload" href="/fonts/Pretendard-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Pretendard-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Pretendard-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Critical CSS 인라인 처리로 렌더링 차단 방지 -->
+    <style>
+      /* 폰트 페이스 정의 - Critical */
+      @font-face {
+        font-family: 'Pretendard';
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        src: url('/fonts/Pretendard-Regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Pretendard';
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+        src: url('/fonts/Pretendard-Medium.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Pretendard';
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+        src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
+      }
+      
+      /* 기본 스타일 - Critical */
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        line-height: 1.5;
+        color: #212329;
+        background-color: #ffffff;
+      }
+      
+      /* 루트 엘리먼트 기본 스타일 */
+      #root {
+        min-height: 100vh;
+        width: 100%;
+      }
+      
+      /* 로딩 시 깜빡임 방지 */
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+    
     <title>Knock</title>
   </head>
   <body>
