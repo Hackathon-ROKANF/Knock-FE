@@ -41,29 +41,36 @@
 ### 1. 카카오 소셜 로그인
 
 <!-- TODO: 로그인 기능 스크린샷 추가 -->
-<img width="70%" alt="카카오 소셜 로그인" src="<!-- 로그인 이미지 URL 필요 -->">
+<img width="1470" height="956" alt="스크린샷 2025-10-01 10 30 35" src="https://github.com/user-attachments/assets/f03462d1-9167-4c83-8886-6c4cbe1363b8" />
 <br>
 
-<mark>간편한 카카오 로그인으로 서비스를 시작하세요!</mark>
+<mark>카카오 로그인으로 서비스를 시작하세요.</mark>
 
 ### 2. 등기부등본 업로드 및 AI 분석
 
-<!-- TODO: 업로드 기능 스크린샷 추가 -->
-<img width="70%" alt="등기부등본 업로드" src="<!-- 업로드 이미지 URL 필요 -->">
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <img src="https://github.com/user-attachments/assets/83f15cb8-4762-4adf-bf45-d5b7267dc8b5" width="48%" />
+  <img src="https://github.com/user-attachments/assets/901d0f6b-026c-41a0-87f1-fdb40ea19aa1" width="48%" />
+</div>
+
+
 <br>
 <mark>등기부등본 PDF 파일을 드래그 앤 드롭으로 간편하게 업로드하면, AI가 자동으로 분석해요.</mark>
 
+
 ### 3. 위험도 시각화 및 상세 분석
 
-<!-- TODO: 분석 결과 스크린샷 추가 -->
-<img width="70%" alt="위험도 분석 결과" src="<!-- 분석 결과 이미지 URL 필요 -->">
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <img src="https://github.com/user-attachments/assets/3b381fe6-28b7-4c77-8255-8175b6971af8" width="48%" />
+  <img src="https://github.com/user-attachments/assets/d913683a-4ba4-4daa-81d0-3a4e22a9d621" width="48%" />
+</div>
 <br>
-<mark>파인튜닝된 AI모델을 통해 분석하고 사용자에게 결과를 제공해요, 복잡한 등기부등본의 위험도 점수와 분석 내용를 볼 수 있어요. </mark>
+
+<mark>분석결과를 점수로 객관화하여 사용자에게 분석 결과를 제공해요, 복잡한 등기부등본의 위험도 점수와 분석 내용를 볼 수 있어요. </mark>
 
 ### 4. 전문가 상담 연계 (실 배포 테스트 중)
 
-<!-- TODO: 전문가 상담 스크린샷 추가 -->
-<img width="70%" alt="전문가 상담" src="<!-- 전문가 상담 이미지 URL 필요 -->">
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/89c10f95-f5d2-4d53-8175-55504d734681" />
 <br>
 
 <mark>여기서 끝일까요? 저희 [Knock] 서비스는 한 발 더 나아가, 분석 결과를 바탕으로 전문가 상담까지 연결해드려요.
@@ -114,15 +121,18 @@ yarn lint
 
 ---
 
-## ✍️ [Knock] 우리팀의 이야기
+## ✍️ [Knock] 우리팀: 물땅참의 이야기
+
+팀을 구성하고보니 팀원들이 모두 해군, 육군, 공군 병장 출신 전역자들이였어요, 각각 해군의 물개, 육군의 땅강아지, 공군의 참새 앞글자를 따와 team.물땅참이 되었어요.
 
 ### 1. 멋쟁이사자처럼 13기 해커톤에 참여 했어요.
 ![IMG_0227](https://github.com/user-attachments/assets/89bdabd4-82ce-4ad1-a3fe-b6e7780e0801)
 
 
-### 2. 어서모여 흥이나게! 어흥콘에 참여 했어요.
+### 2. 어서모여 흥이나게! 어흥콘에 참여해 혁신부문 우수상을 수상했어요.
 <div align="center">
-<img width="1080" height="1350" alt="게시물 프레임(1080_1350)" src="https://github.com/user-attachments/assets/d624abb2-374e-4794-8336-01276dc5b3dc" />
+<img width="2379" height="1343" alt="1 10" src="https://github.com/user-attachments/assets/16acd367-4572-49e3-bda8-f759750d7b9f" />
+<img width="2048" height="1152" alt="image 139" src="https://github.com/user-attachments/assets/5491fe8e-d6b3-4cca-8f63-9800ef02fdfd" />
 </div>   
 
 - [어흥콘이 뭔가요?](https://fuchsia-prince-aea.notion.site/2025-2-23194f749d6180c58b78da7d23af448c)
