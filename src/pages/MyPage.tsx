@@ -47,9 +47,9 @@ export default function MyPage() {
       // API 응답이 배열인지 확인하고 설정
       const results = Array.isArray(response.data) ? response.data : []
       setAnalysisResults(results)
-      console.log('분석 결과 데이터:', response.data)
+      // console.log('분석 결과 데이터:', response.data)
     } catch (error) {
-      console.error('분석 결과 조회 오류:', error)
+      // console.error('분석 결과 조회 오류:', error)
       // 오류 발생 시 빈 배열로 설정
       setAnalysisResults([])
     } finally {
@@ -75,9 +75,9 @@ export default function MyPage() {
         }
 
         setUser(profileData)
-        console.log('사용자 프로필 데이터:', response.data)
+        // console.log('사용자 프로필 데이터:', response.data)
       } catch (error) {
-        console.error('사용자 프로필 조회 오류:', error)
+        // console.error('사용자 프로필 조회 오류:', error)
         // 오류 시 로그아웃 처리
         logout()
         navigate('/login')

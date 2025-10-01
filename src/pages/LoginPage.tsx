@@ -15,7 +15,7 @@ export default function LoginPage() {
   // 이미 로그인된 경우 바로 upload 페이지로 이동
   useEffect(() => {
     if (token && isAuthenticated) {
-      console.log('이미 로그인된 상태입니다. upload 페이지로 이동합니다.')
+      // console.log('이미 로그인된 상태입니다. upload 페이지로 이동합니다.')
       navigate('/upload')
       return
     }
