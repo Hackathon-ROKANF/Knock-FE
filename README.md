@@ -123,19 +123,19 @@ yarn lint
 
 ## ✍️ [Knock] 우리팀: 물땅참의 이야기
 
-팀을 구성하고보니 팀원들이 모두 해군, 육군, 공군 병장 출신 전역자들이였어요, 각각 해군의 물개, 육군의 땅강아지, 공군의 참새 앞글자를 따와 team.물땅참이 되었어요.
+팀원들이 모두 해군, 육군, 공군 병장 출신 전역자들이였어요, 각각 해군의 물개, 육군의 땅강아지, 공군의 참새 앞글자를 따와 물땅참이 되었어요.
 
 ### 1. 멋쟁이사자처럼 13기 해커톤에 참여 했어요.
 ![IMG_0227](https://github.com/user-attachments/assets/89bdabd4-82ce-4ad1-a3fe-b6e7780e0801)
 
 
 ### 2. 어서모여 흥이나게! 어흥콘에 참여해 혁신부문 우수상을 수상했어요.
+- [어흥콘이 뭔가요?](https://fuchsia-prince-aea.notion.site/2025-2-23194f749d6180c58b78da7d23af448c)
+- [어흥콘 Knock 카드뉴스](https://www.instagram.com/p/DO-hQbPk_g8/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==)
+
 <div align="center">
 <img width="2379" height="1343" alt="1 10" src="https://github.com/user-attachments/assets/16acd367-4572-49e3-bda8-f759750d7b9f" />
 <img width="2048" height="1152" alt="image 139" src="https://github.com/user-attachments/assets/5491fe8e-d6b3-4cca-8f63-9800ef02fdfd" />
 </div>   
-
-- [어흥콘이 뭔가요?](https://fuchsia-prince-aea.notion.site/2025-2-23194f749d6180c58b78da7d23af448c)
-- [어흥콘 Knock 카드뉴스](https://www.instagram.com/p/DO-hQbPk_g8/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==)
 
 
