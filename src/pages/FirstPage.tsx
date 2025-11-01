@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '../store/useAuthStore'
-import LogoDouble from '../assets/LogoDouble.png'
+import LogoDouble from '../assets/logos/LogoDouble.png'
 
 export default function FirstPage() {
   const [showSplash, setShowSplash] = useState(true)

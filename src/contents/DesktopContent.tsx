@@ -1,4 +1,4 @@
-import LogoMain from '../assets/LogoMain.png'
+import LogoMain from '../assets/logos/LogoMain.png'
 
 import CountText from '../components/CountText'
 
@@ -6,9 +6,9 @@ import TextSwiper from '../components/TextSwiper'
 
 import { motion } from 'framer-motion'
 
-import mock_1 from '../assets/mock_1.png'
-import mock_2 from '../assets/mock_2.png'
-import mock_3 from '../assets/mock_3.png'
+import mock_1 from '../assets/images/mock_1.png'
+import mock_2 from '../assets/images/mock_2.png'
+import mock_3 from '../assets/images/mock_3.png'
 
 export default function DesktopContent() {
   return (

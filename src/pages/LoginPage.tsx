@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
-import LogoDouble from '../assets/LogoDouble.png'
+import LogoDouble from '../assets/logos/LogoDouble.png'
 import kakao_login_medium_wide from '../assets/kakao_login_medium_wide.png'
 import axios from 'axios'
 
