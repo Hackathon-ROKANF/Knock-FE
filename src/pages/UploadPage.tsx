@@ -7,6 +7,7 @@ import PageHeader from '../components/PageHeader'
 import Button from '../components/Button'
 import UploadQuestionButton from '../components/UploadQuestionButton'
 import MyPageButton from '../components/MyPageButton'
+import samplePdf from '../assets/sample.pdf'
 
 export default function UploadPage() {
   const navigate = useNavigate()
@@ -36,6 +37,16 @@ export default function UploadPage() {
     } catch {
       // Navigate to a generic error page
     }
+  }
+
+  const downloadSampleDeed = () => {
+    // 샘플 PDF 파일 다운로드
+    const link = document.createElement('a')
+    link.href = samplePdf
+    link.download = '샘플_등기부등본.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -72,6 +83,12 @@ export default function UploadPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}>
+        <Button
+          onClick={downloadSampleDeed}
+          variant='secondary'
+          className='mb-2'>
+          샘플 등기부등본 다운받기
+        </Button>
         <Button
           onClick={handleProceed}
           disabled={!isValid || isAnalyzing}
