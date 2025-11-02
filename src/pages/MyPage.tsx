@@ -145,7 +145,7 @@ export default function MyPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}>
-            <h2 className='text-3xl font-semibold mb-3'>{user?.nickname || '고구마'}</h2>
+            <h2 className='text-3xl font-semibold mb-3'>{user?.nickname || ''}</h2>
 
             {/* 로그아웃 버튼 */}
             <motion.button
