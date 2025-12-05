@@ -138,4 +138,7 @@ yarn lint
 <img width="2048" height="1152" alt="image 139" src="https://github.com/user-attachments/assets/5491fe8e-d6b3-4cca-8f63-9800ef02fdfd" />
 </div>   
 
+### 3. 강남대학교 컴퓨터공학부 학술제 16팀중 2등, 우수상을 수상했어요.
+![IMG_0599](https://github.com/user-attachments/assets/40e4e143-1e4c-4efc-b204-b13e20d32285)
+
 
